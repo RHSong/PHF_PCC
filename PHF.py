@@ -13,14 +13,14 @@ Sy = BuildSy(NAO)
 Sz = BuildSz(NAO)
 Zeros = np.zeros([NSO,NSO,NSO,NSO])
 fixgauge = False
-NFO = 8
+NFO = 0
 def optPHF(H1, H2, MOs, comm):
 	if (os.path.exists("hubsghf.p")):
 		z0 = pickle.load(open( "hubsghf.p", "rb" ))
 	else:
 		z0 = np.zeros(2 * (NSO-NOccSO)*NOccSO)
 	minimizer_kwargs = {"method":"BFGS", "jac":True, "args":(H1,H2,MOs,comm),"options":{'gtol': 1e-4}}
-	res = basinhopping(EandG, z0, minimizer_kwargs=minimizer_kwargs, niter=0, T=0.2, stepsize=0.2)
+	res = basinhopping(EandG, z0, minimizer_kwargs=minimizer_kwargs, niter=1, T=0.2, stepsize=0.2)
 #	res = minimize(EandG, z0, method='BFGS', args=(H1,H2,MOs,comm), jac=True, options={'gtol': 5e-5})
 #	cons = ({'type':'eq','fun': lambda x: SxCons(x,MOs), 'jac': lambda x: SxConsGrad(x,MOs)})
 ##	{'type':'eq','fun': lambda x: SyCons(x,MOs), 'jac': lambda x: SyConsGrad(x,MOs)})

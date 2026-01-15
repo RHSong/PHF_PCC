@@ -550,64 +550,64 @@
 		G = G * det
 		End Subroutine ExtraGradient
 
-		Subroutine EffFock(HOne,HTwo,Ref,Ngrid,Npg,nci,CmplxConj,ncisp,ncipg,NOcc,NSO, &
-						   R1,R2,Rpg,weightsp,weightpg,roota,rootb,rooty,QJ,SP, &
-						   Hmat,Smat,Gradmat,Rdmmat,comm)
-		Implicit None
-		Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg,QJ,SP
-		Integer,            Intent(in)  :: nci,CmplxConj,ncisp,ncipg
-		Complex(kind=pr),   Intent(in)  :: HOne(NSO,NSO), HTwo(NSO,NSO,NSO,NSO)
-		Complex(kind=pr),   Intent(in)  :: Ref(NSO,NSO)
-		Complex(kind=pr),   Intent(in)  :: R1(:,:,:), R2(:,:,:)
-		Complex(kind=pr),   Intent(in)  :: Rpg(npg,NSO,NSO)
-		Real    (Kind=pr),  Intent(In)  :: Weightsp(:,:),Weightpg(Npg,ncipg,ncipg)
-		Real    (Kind=pr),  Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
-		Integer :: I, J, ni, nj, p ,q, m, n, d, il, iy, ipg
-		integer, intent(in) :: comm
-		integer :: rank, ntask, ierr, stat, n1, n2, mpi_dp
-		Fock = Zero
-		Do il = 1, Ngrid(1)
-		Do iy = 1, Ngrid(2)
-		Do ipg = 1, Npg
-			Rtmp = MatMul(R1(il,:,:), R2(iy,:,:))
-			Rtmp = MatMul(Rtmp, Rpg(ipg,:,:))
-			Call ao2mo2(R,Rtmp,Ref,NSO)
-			Call RDM(R,newMO,NOcc,NSO,rho0,s0)
-			Call MakeGamma(HTwo,rho0,NSO,gama0)
-			Call Kernels(HOne,HTwo,gama0,rho0,s0,NSO,h0)
-			Call Gradient(HOne,HTwo,gama0,rho0,s0,NSO,g0)
-			Call ExtraGradient(HOne,HTwo,gama0,rho0,s0,NSO,g1)
+		!Subroutine EffFock(HOne,HTwo,Ref,Ngrid,Npg,nci,CmplxConj,ncisp,ncipg,NOcc,NSO, &
+		!				   R1,R2,Rpg,weightsp,weightpg,roota,rootb,rooty,QJ,SP, &
+		!				   Hmat,Smat,Gradmat,Rdmmat,comm)
+		!Implicit None
+		!Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg,QJ,SP
+		!Integer,            Intent(in)  :: nci,CmplxConj,ncisp,ncipg
+		!Complex(kind=pr),   Intent(in)  :: HOne(NSO,NSO), HTwo(NSO,NSO,NSO,NSO)
+		!Complex(kind=pr),   Intent(in)  :: Ref(NSO,NSO)
+		!Complex(kind=pr),   Intent(in)  :: R1(:,:,:), R2(:,:,:)
+		!Complex(kind=pr),   Intent(in)  :: Rpg(npg,NSO,NSO)
+		!Real    (Kind=pr),  Intent(In)  :: Weightsp(:,:),Weightpg(Npg,ncipg,ncipg)
+		!Real    (Kind=pr),  Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
+		!Integer :: I, J, ni, nj, p ,q, m, n, d, il, iy, ipg
+		!integer, intent(in) :: comm
+		!integer :: rank, ntask, ierr, stat, n1, n2, mpi_dp
+		!Fock = Zero
+		!Do il = 1, Ngrid(1)
+		!Do iy = 1, Ngrid(2)
+		!Do ipg = 1, Npg
+		!	Rtmp = MatMul(R1(il,:,:), R2(iy,:,:))
+		!	Rtmp = MatMul(Rtmp, Rpg(ipg,:,:))
+		!	Call ao2mo2(R,Rtmp,Ref,NSO)
+		!	Call RDM(R,newMO,NOcc,NSO,rho0,s0)
+		!	Call MakeGamma(HTwo,rho0,NSO,gama0)
+		!	Call Kernels(HOne,HTwo,gama0,rho0,s0,NSO,h0)
+		!	Call Gradient(HOne,HTwo,gama0,rho0,s0,NSO,g0)
+		!	Call ExtraGradient(HOne,HTwo,gama0,rho0,s0,NSO,g1)
 
-			rho0 = rho0 * weightsp(il,iy) * s0
-			h0 = weightsp(il,iy) * h0
-			s0 = weightsp(il,iy) * s0
-			g0 = g0 * weightsp(il,iy)
-			g1 = g1 * weightsp(il,iy)
-			Do ni = -QJ, QJ
-			Do nj = -QJ, QJ
-				if (SP == 2) then
-					Call Wignerfac(QJ,ni,nj,roota(il),rootb(iy),rooty(il),wig)
-				else
-					Call Wignerfac(QJ,ni,nj,roota(il),rootb(il),rooty(iy),wig)
-				end if
-				Do p = 1, ncipg
-				Do q = 1, ncipg
-					w = weightpg(ipg,p,q) * wig
-					m = ni + 1 + QJ + (p-1) * ncisp
-					n = nj + 1 + QJ + (q-1) * ncisp
-				End Do
-				End Do
-			End Do
-			End Do
-		End Do
-		End Do
-		End Do
+		!	rho0 = rho0 * weightsp(il,iy) * s0
+		!	h0 = weightsp(il,iy) * h0
+		!	s0 = weightsp(il,iy) * s0
+		!	g0 = g0 * weightsp(il,iy)
+		!	g1 = g1 * weightsp(il,iy)
+		!	Do ni = -QJ, QJ
+		!	Do nj = -QJ, QJ
+		!		if (SP == 2) then
+		!			Call Wignerfac(QJ,ni,nj,roota(il),rootb(iy),rooty(il),wig)
+		!		else
+		!			Call Wignerfac(QJ,ni,nj,roota(il),rootb(il),rooty(iy),wig)
+		!		end if
+		!		Do p = 1, ncipg
+		!		Do q = 1, ncipg
+		!			w = weightpg(ipg,p,q) * wig
+		!			m = ni + 1 + QJ + (p-1) * ncisp
+		!			n = nj + 1 + QJ + (q-1) * ncisp
+		!		End Do
+		!		End Do
+		!	End Do
+		!	End Do
+		!End Do
+		!End Do
+		!End Do
 
-		End Subroutine EffFock
+		!End Subroutine EffFock
 
-		Subroutine FockSolver()
-		Implicit None
-		End Subroutine FockSolver
+		!Subroutine FockSolver()
+		!Implicit None
+		!End Subroutine FockSolver
 
 
     End Module PHFTools

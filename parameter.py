@@ -8,11 +8,11 @@ from Cmplx_Proj import *
 mol = gto.Mole()
 HamType = 'Mol'
 if (HamType == 'Mol'):
-	dista = 1.8 # unit Bohr or Ang
+	dista = 1.3 # unit Bohr or Ang
 	a0 = 0.529177210903 # Bohr to Ang
-	mol.atom = [['Cr',(0, 0, 0)], ['Cr',(0, 0, dista)]]
+	mol.atom = [['N',(0, 0, 0)], ['N',(0, 0, dista)]]
 	mol.spin = 0
-	mol.basis = 'cc-pvdz-dk'
+	mol.basis = 'cc-pvdz'
 	mol.symmetry = 'D2h'
 	mol.build()
 	ovlp = mol.intor('int1e_ovlp')
@@ -36,7 +36,7 @@ if (HamType == 'Hub'):
 	NAO = nsite
 	NOccSO = nele
 # FC parameters
-NFC = 10
+NFC = 0
 NFV = 0
 # Do RHF
 OrthAO = getTrans(ovlp)

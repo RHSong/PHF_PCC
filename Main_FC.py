@@ -8,7 +8,8 @@ from FrozenCore import *
 from MatchOrb import *
 	
 ## RHF
-RHF = scf.RHF(mol).sfx2c1e()
+RHF = scf.RHF(mol)
+#RHF = scf.RHF(mol).sfx2c1e()
 #RHF.get_hcore = lambda *args: h1
 #RHF.get_ovlp = lambda *args: ovlp
 #RHF._eri = pyscf.ao2mo.restore(8, eri, NAO)
