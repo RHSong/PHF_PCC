@@ -8,6 +8,7 @@
 Output
 PHFout
 RKstat
+Chk*
 
 # Ignore Python cache
 __pycache__/
