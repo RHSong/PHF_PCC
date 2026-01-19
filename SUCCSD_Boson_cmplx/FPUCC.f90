@@ -635,6 +635,9 @@
         Ovlp1(I,I) = ESCF
       End Do
       !$omp end parallel do
+	  if (SP == 2) then
+	  	Call ProjSz1(Ovlp1,NOcc,NAO,NSO)
+	  end if
       Ovlp2(NOcc+1:NSO,NOcc+1:NSO,:NOcc,:NOcc) = C2V1(NOcc+1:NSO,NOcc+1:NSO,:NOcc,:NOcc)
       !$omp parallel do
       Do I = 1, NOcc
@@ -652,6 +655,9 @@
       End Do
       End Do
       !$omp end parallel do
+	  if (SP == 2) then
+	  	Call ProjSz2(Ovlp2,NOcc,NAO,NSO)
+	  end if
       Call IDMat(VR, NSO)
       VR(:NOcc,NOcc+1:NSO) = -V1
       VR = MatMul(RotMat,VR)

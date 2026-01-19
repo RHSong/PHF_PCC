@@ -1,0 +1,14 @@
+# Ignore all log files
+*.log
+
+# Ignore all pickle files
+*.p
+
+# Ignore some output
+Output
+PHFout
+RKstat
+
+# Ignore Python cache
+__pycache__/
+

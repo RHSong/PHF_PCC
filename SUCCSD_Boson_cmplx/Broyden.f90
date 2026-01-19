@@ -123,7 +123,7 @@
     Call EvalF(xold,fold,HTwo,NSO)
     dT = sqrt(Dot_Product(fold,fold))
     Call BuildSRes(fold) 
-    damp = 2.0_pr * sqrt(Dot_Product(fold,fold)) / dT
+    damp = sqrt(Dot_Product(fold,fold)) / dT
     fold = fold / damp
     Print *, "damping=", damp
     NIter = 0

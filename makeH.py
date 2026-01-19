@@ -83,13 +83,31 @@ def MakeEne(H1,H2,MO_Occ):
 	Ene -= 0.25 * np.einsum('ijkl,kj,li', H2, rho, rho)
 	return Ene
 
-def SemiCanon(H1,H2,MO,NOcc):
+def SemiCanon(H1,H2,MO,NOcc,SP):
+	NOccA = NOcc // 2
+	NVrtA = (len(H1) - NOcc) // 2
 	F = MakeFock(H1,H2,MO[:,:NOcc])
 	F = MO.T.conj() @ F @ MO
 	Foo = F[:NOcc,:NOcc]
 	Fvv = F[NOcc:,NOcc:]
-	e, U = np.linalg.eigh(Foo)
-	mo_o = MO[:,:NOcc] @ U
-	e, U = np.linalg.eigh(Fvv)
-	mo_v = MO[:,NOcc:] @ U
+	if (SP == 2):
+		Fooa = Foo[:NOccA, :NOccA]
+		Foob = Foo[NOccA:, NOccA:]
+		ea, Ua = np.linalg.eigh(Fooa)
+		eb, Ub = np.linalg.eigh(Foob)
+		mo_oa = MO[:,:NOccA] @ Ua
+		mo_ob = MO[:,NOccA:NOcc] @ Ub
+		mo_o = np.hstack((mo_oa, mo_ob))
+		Fvva = Fvv[:NVrtA, :NVrtA]
+		Fvvb = Fvv[NVrtA:, NVrtA:]
+		ea, Ua = np.linalg.eigh(Fvva)
+		eb, Ub = np.linalg.eigh(Fvvb)
+		mo_va = MO[:,NOcc:NOcc+NVrtA] @ Ua
+		mo_vb = MO[:,NOcc+NVrtA:] @ Ub
+		mo_v = np.hstack((mo_va, mo_vb))
+	else:
+		e, U = np.linalg.eigh(Foo)
+		mo_o = MO[:,:NOcc] @ U
+		e, U = np.linalg.eigh(Fvv)
+		mo_v = MO[:,NOcc:] @ U
 	return np.hstack((mo_o, mo_v))

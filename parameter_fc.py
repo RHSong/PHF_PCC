@@ -63,8 +63,8 @@ Spin Projection, SP = 0, No projection
 				 SP = 3, SzPHF
 for SUHF & SzPHF, set grid pts as [1,n]
 '''
-SP = 1
-ngrid = [14,8]
+SP = 2
+ngrid = [1,8]
 J, M = [0, 0]
 ncisp, roota, rootb, rooty, weightsp, R1, R2 = Spin_Proj(SP, ngrid, NAO, NSO, J)
 npg = len(weightpg)

@@ -12,7 +12,7 @@ Sx = BuildSx(NAO)
 Sy = BuildSy(NAO)
 Sz = BuildSz(NAO)
 Zeros = np.zeros([NSO,NSO,NSO,NSO])
-fixgauge = False
+fixgauge = True
 NFO = 0
 def optPHF(H1, H2, MOs, comm):
 	if (os.path.exists("hubsghf.p")):

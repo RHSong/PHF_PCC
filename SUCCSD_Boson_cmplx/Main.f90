@@ -220,19 +220,19 @@
       write(*,*) 'VAP SUCCSD real time = ', real(cnt2-cnt1)/real(clock_rate)
 ! calculate S^2
       S2 = zero
-!      Call CalcS2(Evecs,S2,Sz,T1,T2,NOcc,NAO,NSO,QJ,SP, &
-!                  NPoints,Npg, ncisp, ncipg, ncik, R1, R2, Rpg, Rk, &
-!                  Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,TrunODE,comm)
-!      Print *, "VAP Ene=", Ene
-!      Print *, "S^2(PCC)= ", real(S2,kind=pr)
-!      Print *, "Sz(PCC)= ", real(Sz,kind=pr)
-	  TrunODE = 3
-      Call PbarHbarEneLR(H1,H2,Evecs,Ene,T1,T2,Z1,Z2,NOcc,NAO,NSO,ENuc,QJ,&
-                         SP,NPoints, Npg, ncisp, ncipg, ncik, R1, R2, Rpg, Rk, &
-                         Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,TrunODE,comm)
-	  Call CCSD_T_Ene(Fock, H2, T1, T2, NOcc, NSO-NOcc, NSO, ET)
-	  Print *, "(T) Ene=", ET
-      Print *, "CCSD(T) Ene=", Ene
+!!      Call CalcS2(Evecs,S2,Sz,T1,T2,NOcc,NAO,NSO,QJ,SP, &
+!!                  NPoints,Npg, ncisp, ncipg, ncik, R1, R2, Rpg, Rk, &
+!!                  Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,TrunODE,comm)
+!!      Print *, "VAP Ene=", Ene
+!!      Print *, "S^2(PCC)= ", real(S2,kind=pr)
+!!      Print *, "Sz(PCC)= ", real(Sz,kind=pr)
+!	  TrunODE = 3
+!      Call PbarHbarEneLR(H1,H2,Evecs,Ene,T1,T2,Z1,Z2,NOcc,NAO,NSO,ENuc,QJ,&
+!                         SP,NPoints, Npg, ncisp, ncipg, ncik, R1, R2, Rpg, Rk, &
+!                         Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,TrunODE,comm)
+!	  Call CCSD_T_Ene(Fock, H2, T1, T2, NOcc, NSO-NOcc, NSO, ET)
+!	  Print *, "(T) Ene=", ET
+!      Print *, "CCSD(T) Ene=", Ene
 
 
 !==============================================!
