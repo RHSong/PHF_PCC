@@ -64,5 +64,5 @@ grid converged in 34 iterations in 26.5 h with 2 MPI ranks x 8 threads (MKL, Has
 ### Lean integrals (`lean_ints.py`)
 Spin-orbital MO integrals <pq||rs> built as one complex Fortran-ordered NSO^4 array (pair-density
 GEMMs, slab-wise antisymmetrisation), semicanonicalisation from the spatial integrals; used by
-`Main_PCC.py` (also sets the Broyden history to 20). Cr2 NFC = 10 (NSO = 152): ~13 GB instead of
-~30 GB for the integral step.
+`Main_PCC.py` (also sets the Broyden history to 20). Cr2 NFC = 10 (NSO = 152): about 13 GB instead of
+about 30 GB for the integral step.

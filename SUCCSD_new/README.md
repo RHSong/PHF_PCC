@@ -51,8 +51,8 @@ At run time `LD_LIBRARY_PATH` must contain this directory (pucc_X2.so, libAllLin
 | CCSD(T) | 298.7 s             | 105.8 s            | 9.0 s     | 2.63 / 0.42 / 0.07 s            | 13.3 / 6.1 / 0.46 s        |
 Peak RSS (Python + Fortran): base 1.18 GB, new 0.71 GB (H2 itself is 157 MB for N2).
 The bundled libAllLinAlg.so BLAS is a single-threaded reference implementation
-(~2 GFlop/s); with the kernel now expressed entirely in ZGEMM/ZGERU, linking MKL
-(`sh build.sh mkl`) gives the remaining factor of ~10.
+(about 2 GFlop/s); with the kernel now expressed entirely in ZGEMM/ZGERU, linking MKL
+(`sh build.sh mkl`) gives the remaining factor of about 10.
 
 
 ### SGCCSD(T) on N2 (SP=1, grid 14x8 = 224 kernel evaluations, one Broyden iteration, 4 threads)
@@ -64,11 +64,11 @@ The bundled libAllLinAlg.so BLAS is a single-threaded reference implementation
 E_PCC = -109.1337024057189 for all three; T1/T2 agree with the old code to 2e-14.
 
 ## Memory estimate for Cr2 (NSO=136, NOcc=12, v=124; H2 = 5.5 GB complex)
-Fortran side of the new code: ERIBlocks ~0.8 GB (1.1 GB with (T)), TransT2
-scratch ~1.5 GB (a few o v^3 blocks), CC residual < 0.2 GB; no NSO^4 or v^4
+Fortran side of the new code: ERIBlocks about 0.8 GB (1.1 GB with (T)), TransT2
+scratch about 1.5 GB (a few o v^3 blocks), CC residual < 0.2 GB; no NSO^4 or v^4
 temporaries, so roughly H2 + 3 GB.  The old code holds several NSO^4
 complex temporaries (conjg(HTwo), IntTran4Sim scratch, U/C2, C2V1 ...),
-i.e. 5.5 GB each, which is where the ~60 GB came from.
+i.e. 5.5 GB each, which is where the estimate of about 60 GB came from.
 NOTE the Python driver still dominates for Cr2: `Main_PCC.py` builds the
 real NSO^4 HTwo (2.7 GB), `ao2mo(...,4)` via einsum makes complex NSO^4
 intermediates, and f2py copies H2 to Fortran order unless it is passed as
