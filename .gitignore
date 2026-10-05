@@ -13,3 +13,6 @@ Chk*
 # Ignore Python cache
 __pycache__/
 
+
+# Test results
+tests_N2/

@@ -14,7 +14,7 @@ fcomm = MPI.COMM_WORLD.py2f()
 # PHF
 t1 = time.time()
 if (os.path.exists("SGHF.p")):
-	A2G, fsp, fpg, fk = pickle.load(open( "SGHF.p", "rb" ))
+	A2G, fsp, fpg, fk = pickle.load(open( "SGHF.p", "rb" ))[:4]
 else:
 	A2G = pickle.load(open( "GHFMO.p", "rb" ))
 #A2G = np.eye(NSO)

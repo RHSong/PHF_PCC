@@ -45,7 +45,7 @@ def BuildS2(NAO):
 def calcS(Ref,NOcc,NAO):
 	NSO = 2 * NAO
 	Sx = BuildSx(NAO)
-	Sy = BuildSz(NAO)
+	Sy = BuildSy(NAO)
 	Sz = BuildSz(NAO)
 	rdm = np.matmul(Ref[:,:NOcc],Ref[:,:NOcc].T.conj())
 	ExpSx = np.einsum('ij,ji',Sx,rdm)

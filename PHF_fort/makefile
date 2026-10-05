@@ -8,3 +8,6 @@ f2py --f90exec=mpif90 --opt='-O3' --f90flags="-fopenmp" -lgomp -m PHFTools_F -c 
 
 #rm *mod
 #rm *.o
+# Fock-version PHF tools (no MPI, no BuildSC_dr); copy the resulting .so to the repo root
+# (with setuptools >= 65 run with: export SETUPTOOLS_USE_DISTUTILS=stdlib)
+f2py --f90exec=mpif90 --opt='-O3' --f90flags="-fopenmp" -lgomp -m FockTools_F -c Precision.f90 Constants.f90 Wrappers.f90 FockTools.f90 -L. -lAllLinAlg

@@ -84,3 +84,30 @@ def FixCmplxGauge(fk,MO):
 	newMO = np.exp(1j * phi) * np.eye(NSO)
 	return newMO @ MO
 
+
+def FixSz(MOs, tol=1e-10):
+	"""Gauge fix using the Sz generator only: apply the non-unitary boost exp(a*Sz)
+	(real a; BuildRealRotMat(a,0,0)), which leaves the J=0 projected state and the PHF
+	energy invariant, and choose a such that <Sz> of the re-orthonormalised determinant
+	vanishes. <Sz>(a) is monotonic in a (its derivative is the Sz variance), so a is
+	found by bracketing + brentq. Only one-body quantities are needed."""
+	from scipy.optimize import brentq
+	sz = ao2mo(BuildSz(NAO), MOs, 2)
+	def SzOf(a):
+		R = ao2mo(BuildRealRotMat(complex(a, 0), 0, 0), MOs, 2)
+		ovlp, Z = GetThouless(R)
+		newMOs = np.eye(NSO, NOccSO, dtype=complex)
+		newMOs[NOccSO:, :NOccSO] = Z
+		rdm, o = Rdm(np.eye(NSO), newMOs)
+		return np.einsum('ij,ji', sz, rdm).real
+	s0 = SzOf(0.0)
+	if (abs(s0) < tol):
+		return MOs
+	lo, hi = -0.5, 0.5
+	while SzOf(lo) > 0: lo *= 2
+	while SzOf(hi) < 0: hi *= 2
+	a = brentq(SzOf, lo, hi, xtol=1e-12)
+	print("FixSz: <Sz> %.6f -> %.2e  (a = %.6f)" % (s0, SzOf(a), a))
+	R = ao2mo(BuildRealRotMat(complex(a, 0), 0, 0), MOs, 2)
+	ovlp, Z = GetThouless(R)
+	return MOs @ Thouless2MOs(Z)
