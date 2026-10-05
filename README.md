@@ -28,9 +28,9 @@ Run the scripts from the calculation folder so that its `parameter.py` / `parame
 * Build: `PHF_fort/makefile` (FockTools line), then copy `FockTools_F*.so` to the repo root.
 
 ### PHF utilities
-* `FixGauge.py`: `FixSz(MOs)` applies the Sz boost exp(a Sz) with a chosen so that <Sz> = 0 of the
+* `FixGauge.py`: `FixSz(MOs)` applies the Sz boost exp(a Sz) with a chosen so that `<Sz>` = 0 of the
   determinant (the J = 0 projected energy is unchanged up to grid error). `FixGauge` minimises the
-  determinant <S^2> over complexified spin rotations, which also sets <S> = 0.
+  determinant `<S^2>` over complexified spin rotations, which also sets `<S>` = 0.
 * `Spin.py`: `calcS` used `BuildSz` for the y component; now `BuildSy`.
 * `PHF.py`: `nhop` = number of basin-hopping iterations (0 = plain BFGS).
 
@@ -62,7 +62,7 @@ grid converged in 34 iterations in 26.5 h with 2 MPI ranks x 8 threads (MKL, Has
 19 GB per rank; the original code would need about 60 GB.
 
 ### Lean integrals (`lean_ints.py`)
-Spin-orbital MO integrals <pq||rs> built as one complex Fortran-ordered NSO^4 array (pair-density
+Spin-orbital MO integrals `<pq||rs>` built as one complex Fortran-ordered NSO^4 array (pair-density
 GEMMs, slab-wise antisymmetrisation), semicanonicalisation from the spatial integrals; used by
 `Main_PCC.py` (also sets the Broyden history to 20). Cr2 NFC = 10 (NSO = 152): about 13 GB instead of
 about 30 GB for the integral step.

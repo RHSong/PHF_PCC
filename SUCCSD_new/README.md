@@ -16,14 +16,14 @@ At run time `LD_LIBRARY_PATH` must contain this directory (pucc_X2.so, libAllLin
     PCC_TRUNODE=3    switch on the (T) kernel (Main.f90 default is 1)
 
 ## What changed (file by file)
-* `ERIBlocks.f90` (new): the o/v blocks of <pq||rs> that the CC kernel needs
+* `ERIBlocks.f90` (new): the o/v blocks of `<pq||rs>` that the CC kernel needs
   (oooo, ooov, oovv, ovvo, ovoo, vovv, vvvo, vvoo and three permuted copies;
   plus two (T) blocks when TrunODE=3) are extracted ONCE per PbarHbarOlap call
   instead of being sliced from the NSO^4 array at every grid point.  The vvvv
   block is never stored (largest block is o v^3).  `Conj=.True.` builds the
   blocks of conjg(H2) element-wise - no conjg(HTwo) NSO^4 temporary.
 * `CCRes.f90`: `CCRes12` is a Stanton-Gauss CCSD residual on blocks.  The
-  particle-particle ladder reads <ab||ef> straight from H2 with a strided
+  particle-particle ladder reads `<ab||ef>` straight from H2 with a strided
   leading dimension (one ZGEMM per b, threaded over b), so no v^4 Wvvvv/itm3
   copies.  Ring terms via ZGEMM on permuted (v o) x (v o) copies instead of
   scalar loops.  `CCEnergyBlocks` uses the oovv block.
