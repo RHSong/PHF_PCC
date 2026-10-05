@@ -13,7 +13,7 @@ Projected HF & CC
 Spin projection `SP`: 0 none, 1 SGHF (full SU(2) grid, `ngrid = [Lebedev, gamma]`), 2 SUHF (`[1, n]`), 3 Sz.
 Run the scripts from the calculation folder so that its `parameter.py` / `parameter_fc.py` are imported.
 
-## Update: Fock-based PHF, optimized PCC, coherent (T)
+## Update: Fock-based PHF, optimized PCC
 
 ### Fock-based PHF (`PHFFock.py`, `PHF_fort/FockTools.f90`)
 * PHF from the PHF effective Fock matrix F = F0 + F+ + F- (PHFB formulation); residual [F, rho];
@@ -40,21 +40,26 @@ Restructured version of `SUCCSD_Boson_cmplx` with the same equations and results
 * no NSO^4 or v^4 intermediates in the kernels: o/v integral blocks extracted once (`ERIBlocks.f90`),
   vvvv ladder read directly from H2, build-W (`TransT2`) and the overlap residual (`EvalOvlp`)
   formed block by block, `IntTran4` and the CC residual as ZGEMM;
-* N2 SGCCSD(T), one Broyden iteration: 75 min -> 28 min (same reference BLAS), 2 min with MKL;
-  peak memory 1.17 GB -> 0.72 GB;
-* MPI over the beta grid (kernels, overlap residual and coherent (T)); OpenMP inside each rank;
+* MPI over the beta grid (kernels and overlap residual); OpenMP inside each rank;
 * test knobs: `PCC_CYCMAX=n` (max Broyden cycles), `PCC_TRUNODE=3` (in-loop per-grid (T)).
 * Build: `SUCCSD_new/build.sh [mkl]` locally, `build_hpc.sh` on UCI HPC (Intel 2021.4, Intel MPI,
   MKL, f2py meson backend, `-heap-arrays`). Details in `SUCCSD_new/README.md`.
 
-### Coherent PCC(T) (`FPUCC::CoherentT`, f2py entry `pgcc_t`)
-Non-iterative triples from converged PCC amplitudes. The per-grid Thouless-transformed amplitudes
-Z(g) are averaged with the kernel weights, Zbar = sum_g w_g e^{z0(g)} Z(g) / S00, and the ordinary
-(T) formula is evaluated once with Zbar (right vector sum_g <Q|(V Z2(g))_c|0> = S00 W[Zbar], Hermitian
-closure of the left vector, M_QQ ~ -D S00). Reduces to CCSD(T) without projection.
-The orbital energies in the denominators are an input: bare semicanonical Fock diagonal, or the
-PHF effective-Fock energies (oo and vv blocks diagonalised separately). PCCSD+T = the same driver
-with the projector switched off.
+**Timing: use the new code linked against MKL.** N2 / cc-pVDZ (NSO = 56, NOcc = 14), one Broyden
+iteration, 4 OpenMP threads, same run in all three columns (energies and amplitudes identical):
+
+| run | original code (bundled BLAS) | new code (bundled BLAS) | new code + MKL |
+|---|---|---|---|
+| SUCCSD, SP=2, 1x8 grid (16 kernel evaluations) | 117.5 s | 28.1 s | 3.0 s |
+| SUCCSD with in-loop (T), SP=2, 1x8 grid | 298.7 s | 105.8 s | 9.0 s |
+| SGCCSD with in-loop (T), SP=1, 14x8 grid (224 kernel evaluations) | 75.7 min | 27.8 min | 2.1 min |
+| peak memory (Python + Fortran) | 1.17 GB | 0.72 GB | 0.74 GB |
+
+The bundled `libAllLinAlg.so` is a single-threaded reference BLAS; the new kernels are written in
+ZGEMM/ZGERU, so linking MKL (`sh build.sh mkl`, or `build_hpc.sh` on the cluster) gives a further
+factor of about 10 (about 35 times faster than the original code). Larger case: Cr2 / cc-pVDZ-DK, NFC = 10 (NSO = 152, NOcc = 28), SGCCSD on the 14x6
+grid converged in 34 iterations in 26.5 h with 2 MPI ranks x 8 threads (MKL, Haswell node),
+19 GB per rank; the original code would need about 60 GB.
 
 ### Lean integrals (`lean_ints.py`)
 Spin-orbital MO integrals <pq||rs> built as one complex Fortran-ordered NSO^4 array (pair-density

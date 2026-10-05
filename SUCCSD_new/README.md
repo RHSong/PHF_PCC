@@ -63,34 +63,6 @@ The bundled libAllLinAlg.so BLAS is a single-threaded reference implementation
 | new, MKL           | 2.1 min   | 0.74 GB  | 0.07 s            | 0.47 s  |
 E_PCC = -109.1337024057189 for all three; T1/T2 agree with the old code to 2e-14.
 
-## Coherent (T) for PCC (new, 2026-10-01)
-Theory: first-order Löwdin/Lagrangian triples correction with the projector metric,
-closed with the Hermitian (Λ ≈ T†) approximation and lowest order in H_N.  Because
-W and V are linear in the amplitudes the grid sum acts on the amplitudes:
-    Zbar_n = Σ_g W_g e^{z0(g)} Z_n(g) / S00,   S00 = Σ_g W_g e^{z0(g)}
-    E(T)   = standard (T) formula on (Zbar1, Zbar2), denominators from MOE
-(`FPUCC::CoherentT`, f2py entry `pgcc_t` in MainT.f90, driver tests/pcc_t.py).
-MOE can be the bare semicanonical Fock diagonal (`--moe fock`) or the PHF
-effective-Fock eigenvalues (`--moe eff`, 5th entry of the PHFFock.py pickle, with
-`--newmo` the orbitals that diagonalize its oo/vv blocks; T is rotated into them).
-`--inc` also returns the old per-grid sum Σ_g W_g e^{z0} E_T(Z(g))/S00.
-Cost: one (T) per PCC solution instead of one per grid point.  SP=0 reduces to CCSD(T)
-(checked: coherent = per-grid = pyscf UCCSD(T) to 1e-5, limited by PCC convergence).
-PCCSD+T: the same driver with the projector off (`--sp 0 --grid 1 1`): standard (T) on the
-PHF determinant with the converged PCC amplitudes.  Note S00 includes |fsp|^2 (the CI
-coefficient carried in the orbital pickle); it cancels in every reported quantity.
-
-N2 / cc-pVDZ / 3.0 bohr, all-electron, SUHF reference (tests_N2/R3.0_bohr_ae), FCI -109.088876:
-| method                              | E(T)       | total          | vs FCI   |
-|-------------------------------------|------------|----------------|----------|
-| UCCSD / UCCSD(T) (pyscf, UHF ref)   | -0.015984  | -109.068864    | +20.0 mHa|
-| SUCCSD (grid 1x8 = 1x16)            |            | -109.077871    | +11.0 mHa|
-| SUCCSD(T) coherent, bare Fock denom | -0.015527  | -109.093397    | -4.5 mHa |
-| SUCCSD(T) coherent, PHF-Fock denom  | -0.015536  | -109.093407    | -4.5 mHa |
-| SUCCSD(T) old per-grid sum          | -0.026075  | -109.103946    | -15.1 mHa|
-| PCCSD+T, bare Fock denom            | -0.008134  | -109.086004    | +2.9 mHa |
-| PCCSD+T, PHF-Fock denom             | -0.008112  | -109.085983    | +2.9 mHa |
-
 ## Memory estimate for Cr2 (NSO=136, NOcc=12, v=124; H2 = 5.5 GB complex)
 Fortran side of the new code: ERIBlocks ~0.8 GB (1.1 GB with (T)), TransT2
 scratch ~1.5 GB (a few o v^3 blocks), CC residual < 0.2 GB; no NSO^4 or v^4
