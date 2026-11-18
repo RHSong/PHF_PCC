@@ -36,8 +36,11 @@ if (HamType == 'Hub'):
 	NAO = nsite
 	NOccSO = nele
 # redefine parameters
-Enuc,h1,eri,ncipg, weightpg,Rpg, NAO,NOccSO = pickle.load(open( "FC.p", "rb" ))
+_fc = pickle.load(open( "FC.p", "rb" ))
+Enuc,h1,eri,ncipg, weightpg,Rpg, NAO,NOccSO = _fc[:8]
+Spin2 = int(_fc[8]) if len(_fc) > 8 else 0   # 2S = n_alpha - n_beta (stored by Main_FC); 0 for old FC.p
 mol.nelectron = NOccSO
+mol.spin = Spin2
 ovlp = np.eye(NAO)
 #ncipg = 1
 #weightpg = np.ones([1,1,1])
@@ -52,10 +55,12 @@ h1 = ao2mo(h1,OrthAO,2)
 eri = ao2mo(eri,OrthAO,4)
 NSO = 2*NAO
 NVrtSO = NSO - NOccSO
-NOccAO = NOccSO // 2
 OV = NOccSO * NVrtSO
-NOccA = NOccAO
-NVrtA = NAO-NOccA
+NOccA = (NOccSO + Spin2) // 2
+NOccB = (NOccSO - Spin2) // 2
+NVrtA = NAO - NOccA
+NVrtB = NAO - NOccB
+NOccAO = NOccA   # occupied spatial orbitals of the (RO)HF reference (doubly + singly occupied)
 ''' 
 Spin Projection, SP = 0, No projection
 				 SP = 1, SGHF
@@ -65,7 +70,7 @@ for SUHF & SzPHF, set grid pts as [1,n]
 '''
 SP = 2
 ngrid = [1,8]
-J, M = [0, 0]
+J, M = [Spin2 / 2, Spin2 / 2]   # total spin J (integer or half-integer); default S = Spin2/2
 ncisp, roota, rootb, rooty, weightsp, R1, R2 = Spin_Proj(SP, ngrid, NAO, NSO, J)
 npg = len(weightpg)
 

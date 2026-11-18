@@ -5,8 +5,10 @@
 !  DoInc /= 0 also evaluates the old per-grid (T) sum for comparison.
       Use Precision
       Use FPUCC
+      Use FPUCC_Tools, Only: SetSzAlpha
       Implicit None
-      Integer, Intent(In) :: NAO, NSO, NOcc, QJ, SP, NPoints(2), Npg, ncisp, ncipg, DoInc, comm
+      Integer, Intent(In) :: NAO, NSO, NOcc, SP, NPoints(2), Npg, ncisp, ncipg, DoInc, comm
+      Real(kind=pr), Intent(In) :: QJ   ! total spin J, integer or half-integer
       Complex (Kind=pr), Intent(In) :: H1(NSO,NSO), H2(NSO,NSO,NSO,NSO)
       Complex (Kind=pr), Intent(In) :: R1(:,:,:), R2(:,:,:), Rpg(Npg,NSO,NSO)
       Real (Kind=pr), Intent(In) :: Roota(:), Rootb(:), Rooty(:)
@@ -16,6 +18,12 @@
       Real (Kind=pr), Intent(In) :: MOE(NSO)
       Complex (Kind=pr), Intent(Out) :: ETcoh, ETinc, S00
       Real (Kind=pr), Intent(Out) :: DevZ
+! n_alpha for the SUHF Sz-block projections: SUHF needs J = Sz = (n_alpha - n_beta)/2
+       If (SP == 2) Then
+         Call SetSzAlpha((NOcc + nint(2*QJ)) / 2)
+       Else
+         Call SetSzAlpha(NOcc / 2)
+       End If
       Call CoherentT(H1,H2,T1,T2,MOE,NOcc,NAO,NSO,QJ,SP,NPoints,Npg,ncisp,ncipg,R1,R2,Rpg, &
                      Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,(DoInc /= 0),ETcoh,ETinc,S00,DevZ,comm)
       End Subroutine PGCC_T

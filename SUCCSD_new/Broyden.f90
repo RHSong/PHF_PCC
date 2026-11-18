@@ -17,7 +17,8 @@
     Integer                        :: nsBrd, ndBrd
     Integer                        :: NOccBrd
     Integer                        :: NAOBrd, NSOBrd
-    Integer                        :: QJBrd, SPBrd
+    Integer                        :: SPBrd
+    Real(kind=pr) :: QJBrd   ! total spin J, integer or half-integer
 	Integer                        :: ncispBrd, ncipgBrd, ncikBrd
     Integer                        :: TrunODEBrd, NPointsBrd(2), NpgBrd
     Real   (Kind=pr), Allocatable  :: RootaBrd(:), RootbBrd(:), RootyBrd(:)
@@ -44,7 +45,8 @@
     Integer,           Intent(In)    :: NOcc, NAO, NSO
     Integer,           Intent(In)    :: NPoints(2), Npg
 	Integer,           Intent(In)    :: ncisp, ncipg, ncik
-	Integer,           Intent(In)    :: TrunODE, pBrdIn, QJ,CC,SP
+	Integer,           Intent(In)    :: TrunODE, pBrdIn, CC, SP
+	Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
     Complex (Kind=pr), Intent(In)    :: HOne(NSO,NSO)
     Complex (Kind=pr), Intent(In)    :: HTwo(NSO,NSO,NSO,NSO)
     Complex (Kind=pr), Intent(In)    :: Ref(NSO,NSO), Xinv(NSO,NSO)
@@ -265,7 +267,8 @@
     Implicit None
     Integer,           Intent(In)    :: NOcc, NAO, NSO
     Integer,           Intent(In)    :: NPoints(2), Npg
-	Integer,           Intent(In)    :: TrunODE, QJ, SP, comm
+	Integer,           Intent(In)    :: TrunODE, SP, comm
+	Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
 	Integer,           Intent(In)    :: ncisp, ncipg, ncik
     Real (Kind=pr),    Intent(In)    :: Roota(:), Rootb(:), Rooty(:)
     Real (Kind=pr),    Intent(In)    :: Weightsp(:,:), Weightpg(:,:,:)

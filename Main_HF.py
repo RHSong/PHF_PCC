@@ -7,8 +7,8 @@ import os
 import pyscf
 from scipy.linalg import block_diag
 	
-## RHF
-RHF = scf.RHF(mol)
+## RHF (ROHF for open shells)
+RHF = scf.RHF(mol) if (Spin2 == 0) else scf.ROHF(mol)
 RHF.get_hcore = lambda *args: h1
 RHF.get_ovlp = lambda *args: Ovlp
 RHF._eri = pyscf.ao2mo.restore(8, eri, NAO)
@@ -17,10 +17,20 @@ if (os.path.exists("RHFdm.p")):
 	dm = pickle.load(open( "RHFdm.p", "rb" ))
 	print("load RHF DM")
 	RHF.kernel(dm)
+elif (Spin2 != 0):
+	# open shell: the FC orbital basis is the ROHF basis of Main_FC, so its ROHF density is the lowest n_alpha (alpha)
+	# and n_beta (beta) orbitals; starting there reproduces the Main_FC ROHF state (a default guess can land elsewhere)
+	dma = np.diag(np.r_[np.ones(NOccA), np.zeros(NAO - NOccA)])
+	dmb = np.diag(np.r_[np.ones(NOccB), np.zeros(NAO - NOccB)])
+	RHF.kernel(np.array([dma, dmb]))
 else:
 	RHF.kernel()
 # check RHF stab
-RHFstab = RHF.stability(external=True)
+if (Spin2 == 0):
+	RHFstab = RHF.stability(external=True)
+else:   # PySCF has no external (ROHF -> UHF) stability analysis; internal only, UHF guess from the ROHF orbitals
+	_mo = RHF.stability(internal=True, external=False)[0]
+	RHFstab = (_mo, (_mo, _mo))
 # save and print results
 print("E(RHF)=",RHF.e_tot + Enuc)
 pickle.dump(RHF.make_rdm1(), open( "RHFdm.p", "wb" ))
@@ -47,10 +57,20 @@ if (os.path.exists("UHFdm.p")):
 	UHF.kernel(dm)
 else:	
 	guessUHF = RHFstab[1]
-	dm1 = np.dot(guessUHF[0][:,:NOccAO],guessUHF[0][:,:NOccAO].T)
-	dm2 = np.dot(guessUHF[1][:,:NOccAO],guessUHF[1][:,:NOccAO].T)
+	if (np.ndim(guessUHF) == 2):   # closed-shell / ROHF reference returned a single set of orbitals
+		guessUHF = (guessUHF, guessUHF)
+	dm1 = np.dot(guessUHF[0][:,:NOccA],guessUHF[0][:,:NOccA].T)
+	dm2 = np.dot(guessUHF[1][:,:NOccB],guessUHF[1][:,:NOccB].T)
 	dm = np.array([dm1,dm2])
 	UHF.kernel(dm)
+	if (Spin2 != 0):
+		# open shell: the UHF reached from the ROHF density can be a saddle point (above ROHF); follow internal
+		# instabilities down to a stable UHF minimum
+		for _it in range(10):
+			_mo, _mo_e, _stable, _ = UHF.stability(internal=True, external=False, return_status=True)
+			if (_stable): break
+			UHF.kernel(UHF.make_rdm1(_mo, UHF.mo_occ))
+			print("UHF instability followed: E =", UHF.e_tot + Enuc)
 # check UHF stab
 UHFstab = UHF.stability(external=True)
 #guessUHF = UHFstab[0]
@@ -93,7 +113,8 @@ A2G = newA2U
 #A2G = MatchOrb(newA2U)
 if (is_RHF):
 	pickle.dump(newA2R, open( "GHFMO.p", "wb" ))
-if (SP == 2):
+if (SP == 2 or Spin2 != 0):   # open shells: start from the UHF determinant (Sz = S); a GHF solution may
+	# have a larger |Sz| and then no component with the target J (zero projected norm)
 	pickle.dump(newA2U, open( "GHFMO.p", "wb" ))
 else:
 	pickle.dump(GHF.mo_coeff, open( "GHFMO.p", "wb" ))

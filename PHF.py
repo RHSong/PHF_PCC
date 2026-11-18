@@ -8,6 +8,11 @@ from FixGauge import *
 from scipy.optimize import minimize, basinhopping
 #from ipopt import minimize_ipopt
 from PHFTools_F import phftools
+
+# SUHF (SP = 2) projects the Sz = +J component only (d^J_{JJ} weight in PHFTools/FockTools), so the UHF-type
+# determinant must have n_alpha - n_beta = 2J.  Stop instead of using a wrong weight.
+if (SP == 2 and abs(J - Spin2 / 2) > 1e-8):
+	raise ValueError("SUHF needs J = (n_alpha - n_beta)/2 = %s, got J = %s" % (Spin2 / 2, J))
 Sx = BuildSx(NAO)
 Sy = BuildSy(NAO)
 Sz = BuildSz(NAO)
@@ -150,7 +155,7 @@ def FrozenProj(Z):
 	Znew = np.zeros([NVrtSO,NOccSO], dtype=complex)
 	Znew[:,:] = Z
 	Znew[:,:NFO] = 0
-	Znew[:,NOccAO:NOccAO+NFO] = 0
+	Znew[:,NOccA:NOccA+NFO] = 0   # beta block starts after the n_alpha alpha columns
 	return Znew
 
 def PseudoDiag(HOne,HTwo,A2G):

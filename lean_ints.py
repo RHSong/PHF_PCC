@@ -50,10 +50,11 @@ def ghf_fock_ao(h1, eri4, MOocc, NAO):
     return F
 
 
-def semicanon_from_fock(F, MO, NOcc, SP):
-    """makeH.SemiCanon with the AO Fock supplied (no NSO^4 tensor needed)."""
-    NOccA = NOcc // 2
-    NVrtA = (len(F) - NOcc) // 2
+def semicanon_from_fock(F, MO, NOcc, SP, NOccA=None):
+    """makeH.SemiCanon with the AO Fock supplied (no NSO^4 tensor needed).
+    SP = 2: alpha and beta blocks (OA OB VA VB) separately; NOccA = n_alpha (default NOcc // 2)."""
+    if NOccA is None: NOccA = NOcc // 2
+    NVrtA = len(F) // 2 - NOccA
     F = MO.T.conj() @ F @ MO
     Foo = F[:NOcc, :NOcc]
     Fvv = F[NOcc:, NOcc:]

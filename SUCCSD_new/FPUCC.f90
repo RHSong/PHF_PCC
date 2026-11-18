@@ -19,7 +19,8 @@
       Implicit None
       Integer,           Intent(In)  :: NOcc, NAO, NSO
       Integer,           Intent(In)  :: NPoints(2), Npg
-      Integer,           Intent(In)  :: TrunODE, QJ, SP
+      Integer,           Intent(In)  :: TrunODE, SP
+      Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
 	  Integer,           Intent(In)  :: ncisp, ncipg, ncik
       Real    (Kind=pr), Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
       Real    (Kind=pr), Intent(In)  :: Weightsp(:,:), Weightpg(Npg,ncipg,ncipg)
@@ -172,17 +173,17 @@
         Call cpu_time(cput2)
         Call system_clock(cnt2,clock_rate,clock_max)
         If(Showtime) Write(*,*) 'Grid real time = ', real(cnt2-cnt1)/real(clock_rate)
-        Do M = -QJ, QJ
-        Do N = -QJ, QJ
+        Do M = 0, ncisp-1
+        Do N = 0, ncisp-1
 		Do P = 1, ncipg
 		Do Q = 1, ncipg
             if (SP == 2) then
-                Call Wigner(QJ,M,N,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
+                Call Wigner(QJ,QJ,QJ,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
             else
-                Call Wigner(QJ,M,N,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
+                Call Wigner(QJ,M-QJ,N-QJ,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
             end if
             WeightTot = Weightsp(IPointA,IPointY) * Weightpg(IPG,P,Q)
-            WeightTot = wig * WeightTot * conjg(fsp(QJ+1+M)) * fsp(QJ+1+N)
+            WeightTot = wig * WeightTot * conjg(fsp(1+M)) * fsp(1+N)
 			WeightTot = WeightTot * conjg(fpg(P)) * fpg(Q)
             iEOlap0= iEOlap0+ WeightTot * eps0
             iOlap0 = iOlap0 + WeightTot * lambda0
@@ -213,17 +214,17 @@
 						eps0, lambda0, eps1, eps2, lambda1, lambda2, &
 						RotMat, NOcc, NAO, NSO, &
 						SP,TrunODE)
-		Do M = -QJ, QJ
-		Do N = -QJ, QJ
+		Do M = 0, ncisp-1
+		Do N = 0, ncisp-1
 		Do P = 1, ncipg
 		Do Q = 1, ncipg
             if (SP == 2) then
-                Call Wigner(QJ,M,N,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
+                Call Wigner(QJ,QJ,QJ,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
             else
-			    Call Wigner(QJ,M,N,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
+			    Call Wigner(QJ,M-QJ,N-QJ,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
             end if
 			WeightTot = Weightsp(IPointA,IPointY) * Weightpg(IPG,P,Q)
-			WeightTot = wig * WeightTot * conjg(fsp(QJ+1+M)) * fsp(QJ+1+N)
+			WeightTot = wig * WeightTot * conjg(fsp(1+M)) * fsp(1+N)
 			WeightTot = WeightTot * conjg(fpg(P)) * fpg(Q)
 			WeightTot = WeightTot * fk(2)
 			iEOlap0= iEOlap0+ WeightTot * eps0
@@ -285,7 +286,8 @@
                          ncisp,ncipg,ncik,R1, R2, Rpg, Rk, &
                          Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,comm)
       Implicit None
-      Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg,QJ,SP
+      Integer,            Intent(in)  :: NOcc, NSO, Ngrid(2), Npg, SP
+      Real(kind=pr),            Intent(in) :: QJ   ! total spin J, integer or half-integer
       Integer,            Intent(in)  :: ncisp,ncipg,ncik
       Real    (Kind=pr),  Intent(In)  :: Weightsp(:,:),Weightpg(Npg,ncipg,ncipg)
       Real    (Kind=pr),  Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
@@ -336,17 +338,17 @@
         s = weightsp(il,iy) * s
         a1 = a1 * s
         a2 = a2 * s
-        Do m = -QJ, QJ
-        Do n = -QJ, QJ
+        Do m = 0, ncisp-1
+        Do n = 0, ncisp-1
             if (SP == 2) then
-                Call Wigner(QJ,M,N,Roota(il),Rootb(iy),Rooty(il),wig)
+                Call Wigner(QJ,QJ,QJ,Roota(il),Rootb(iy),Rooty(il),wig)
             else
-                Call Wigner(QJ,M,N,Roota(il),Rootb(il),Rooty(iy),wig)
+                Call Wigner(QJ,M-QJ,N-QJ,Roota(il),Rootb(il),Rooty(iy),wig)
             end if
             Do p = 1, ncipg
             Do q = 1, ncipg
                 w = weightpg(ipg,p,q) * wig
-                w = w * conjg(fsp(m+1+QJ)) * fsp(n+1+QJ)
+                w = w * conjg(fsp(m+1)) * fsp(n+1)
                 w = w * conjg(fpg(p)) * fpg(q)
                 it1 = it1 + a1 * w
                 it2 = it2 + a2 * w
@@ -442,7 +444,8 @@
       Implicit None
       Integer,           Intent(In)  :: NOcc, NAO, NSO
       Integer,           Intent(In)  :: NPoints(2), Npg
-      Integer,           Intent(In)  :: TrunODE, QJ,SP,comm
+      Integer,           Intent(In)  :: TrunODE, SP, comm
+      Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
 	  Integer,           Intent(In)  :: ncisp, ncipg, ncik
       Real (Kind=pr),    Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
       Real (Kind=pr),    Intent(In)  :: Weightsp(:,:), Weightpg(Npg,ncipg,ncipg)
@@ -751,7 +754,8 @@
 ! the final (T) on Zbar splits its triples over the ranks.            !
 !=====================================================================!
       Implicit None
-      Integer,           Intent(In)  :: NOcc, NAO, NSO, QJ, SP, NPoints(2), Npg, ncisp, ncipg
+      Integer,           Intent(In)  :: NOcc, NAO, NSO, SP, NPoints(2), Npg, ncisp, ncipg
+      Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
       Complex (Kind=pr), Intent(In)  :: HOne(NSO,NSO), HTwo(NSO,NSO,NSO,NSO)
       Complex (Kind=pr), Intent(In)  :: T1(NOcc+1:NSO,NOcc)
       Complex (Kind=pr), Intent(In)  :: T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
@@ -793,17 +797,17 @@
         RotMat = MatMul(RotMat, Rpg(IPG,:,:))
         Call DSTT2(RotMat,T1,T2,U0t,U1t,U2t,NOcc,NSO)
         wsum = Zero
-        Do M = -QJ, QJ
-        Do N = -QJ, QJ
+        Do M = 0, ncisp-1
+        Do N = 0, ncisp-1
         Do P = 1, ncipg
         Do Q = 1, ncipg
           If (SP == 2) Then
-            Call Wigner(QJ,M,N,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
+            Call Wigner(QJ,QJ,QJ,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
           Else
-            Call Wigner(QJ,M,N,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
+            Call Wigner(QJ,M-QJ,N-QJ,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
           End If
           WeightTot = Weightsp(IPointA,IPointY) * Weightpg(IPG,P,Q)
-          WeightTot = wig * WeightTot * conjg(fsp(QJ+1+M)) * fsp(QJ+1+N)
+          WeightTot = wig * WeightTot * conjg(fsp(1+M)) * fsp(1+N)
           WeightTot = WeightTot * conjg(fpg(P)) * fpg(Q)
           wsum = wsum + WeightTot
         End Do

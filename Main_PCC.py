@@ -24,7 +24,7 @@ Xinv = block_diag(Xinv, Xinv)
 # (the final <pq||rs>, Fortran order -> passed to PGCC without an f2py copy).
 eri4 = unpack_eri(eri, NAO)
 SGHFMO = np.array(SGHFMO, dtype=complex)
-SGHFMO = semicanon_from_fock(ghf_fock_ao(h1, eri4, SGHFMO[:,:NOccSO], NAO), SGHFMO, NOccSO, SP)
+SGHFMO = semicanon_from_fock(ghf_fock_ao(h1, eri4, SGHFMO[:,:NOccSO], NAO), SGHFMO, NOccSO, SP, NOccA)
 
 # PCC
 H1 = ao2mo(HOne,SGHFMO,2)

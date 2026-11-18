@@ -83,9 +83,10 @@ def MakeEne(H1,H2,MO_Occ):
 	Ene -= 0.25 * np.einsum('ijkl,kj,li', H2, rho, rho)
 	return Ene
 
-def SemiCanon(H1,H2,MO,NOcc,SP):
-	NOccA = NOcc // 2
-	NVrtA = (len(H1) - NOcc) // 2
+def SemiCanon(H1,H2,MO,NOcc,SP,NOccA=None):
+	# SP = 2: alpha and beta blocks (layout OA OB VA VB) separately; NOccA = n_alpha (default NOcc // 2)
+	if (NOccA is None): NOccA = NOcc // 2
+	NVrtA = len(H1) // 2 - NOccA
 	F = MakeFock(H1,H2,MO[:,:NOcc])
 	F = MO.T.conj() @ F @ MO
 	Foo = F[:NOcc,:NOcc]

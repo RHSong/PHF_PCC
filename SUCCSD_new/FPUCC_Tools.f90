@@ -8,8 +8,22 @@
    Use PCCCI
    Implicit None
    Logical :: SetPUCCTool = .False.
+!  n_alpha (occupied alpha spin orbitals, layout OA OB VA VB) for the Sz-block projections ProjSz* (SP = 2);
+!  < 0: not set, fall back to NOcc/2 (closed shell).  Set by SetSzAlpha at the start of PGCC / PGCC_T.
+   Integer, Save :: NOccAlphaSz = -1
 
    Contains
+
+      Subroutine SetSzAlpha(NAlpha)
+      Integer, Intent(In) :: NAlpha
+      NOccAlphaSz = NAlpha
+      End Subroutine SetSzAlpha
+
+      Integer Function SzAlpha(NOcc)
+      Integer, Intent(In) :: NOcc
+      SzAlpha = NOcc / 2
+      If (NOccAlphaSz >= 0) SzAlpha = NOccAlphaSz
+      End Function SzAlpha
 
 
 !===============================================================!
@@ -154,7 +168,7 @@
       Complex (Kind=pr), Intent(InOut) :: R2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
       Integer :: NOA, NVA
       Complex (Kind=pr) :: R2tmp(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
-      NOA = NOcc / 2
+      NOA = SzAlpha(NOcc)   ! n_alpha (open shells allowed)
       NVA = NAO - NOA
       R1(NOcc+1:NOcc+NVA,NOA+1:NOcc) = Zero
       R1(NOcc+1+NVA:NSO,1:NOA) = Zero
@@ -173,7 +187,7 @@
       Integer,           Intent(In)    :: NOcc, NAO, NSO
       Complex (Kind=pr), Intent(InOut) :: R1(NSO,NSO)
       Integer :: NOA, NVA
-      NOA = NOcc / 2
+      NOA = SzAlpha(NOcc)   ! n_alpha (open shells allowed)
       NVA = NAO - NOA
       R1(NOcc+1:NOcc+NVA,NOA+1:NOcc) = Zero ! ab
       R1(NOcc+1+NVA:NSO,1:NOA) = Zero  ! ba
@@ -185,7 +199,7 @@
       Integer,           Intent(In)    :: NOcc, NAO, NSO
       Complex (Kind=pr), Intent(InOut) :: R1(NSO-NOcc,NOcc)
       Integer :: NOA, NVA
-      NOA = NOcc / 2
+      NOA = SzAlpha(NOcc)   ! n_alpha (open shells allowed)
       NVA = NAO - NOA
       R1(1:NVA,NOA+1:NOcc) = Zero       ! ab
       R1(NVA+1:NSO-NOcc,1:NOA) = Zero   ! ba
@@ -232,7 +246,7 @@
       Complex (Kind=pr), Intent(InOut) :: R2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
       Integer :: NOA, NVA
       Complex (Kind=pr) :: R2tmp(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
-      NOA = NOcc / 2
+      NOA = SzAlpha(NOcc)   ! n_alpha (open shells allowed)
       NVA = NAO - NOA
       R2tmp = Zero
       R2tmp(NOcc+1:NOcc+NVA,NOcc+1:NOcc+NVA,1:NOA,1:NOA) = R2(NOcc+1:NOcc+NVA,NOcc+1:NOcc+NVA,1:NOA,1:NOA)!aaaa

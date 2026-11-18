@@ -767,25 +767,26 @@
       End Subroutine IDMat
 
       Subroutine Wigner(J,N,M,alpha,beta,gama,wig)
+! Wigner D^J_{NM}(alpha,beta,gama), J, N, M integer or half-integer (real arguments)
       Use Constants
       Use Precision
       Implicit None
-      Integer         , Intent(In)  :: J,N,M
+      Real(kind=pr)   , Intent(In)  :: J,N,M
       Real(kind=pr)   , Intent(In)  :: alpha,beta,gama
       Complex(kind=pr), Intent(Out) :: wig
       Real(kind=pr) :: Djnm, numer, denom, fac
       Integer :: s, smin, smax, p1, p2, p3
-      smax = min(j+m,j-n)
-      smin = max(0,m-n)
+      smax = nint(min(j+m,j-n))
+      smin = nint(max(Zero,m-n))
       fac = One
       fac = fac * gamma(j+n+One) * gamma(j-n+One)
       fac = fac * gamma(j+m+One) * gamma(j-m+One)
       fac = sqrt(fac)
       Djnm = 0
       Do s = smin, smax
-        p1 = n - m + s
-        p2 = 2*j + m - n -2*s
-        p3 = n - m + 2*s
+        p1 = nint(n - m + s)
+        p2 = nint(2*j + m - n - 2*s)
+        p3 = nint(n - m + 2*s)
         numer = (-1)**p1 * (cos(beta/2))**p2 * (sin(beta/2))**p3
         denom = One
         denom = denom * gamma(j+m-s+One) * gamma(s+One)

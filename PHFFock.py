@@ -35,6 +35,11 @@ from makeH import Mulliken2Dirac
 from Spin import calcS, calcS2
 from FockTools_F import focktools
 
+# SUHF (SP = 2) projects the Sz = +J component only (d^J_{JJ} weight in PHFTools/FockTools), so the UHF-type
+# determinant must have n_alpha - n_beta = 2J.  Stop instead of using a wrong weight.
+if (SP == 2 and abs(J - Spin2 / 2) > 1e-8):
+    raise ValueError("SUHF needs J = (n_alpha - n_beta)/2 = %s, got J = %s" % (Spin2 / 2, J))
+
 NOccB = NOccSO - NOccA
 NVrtB = NAO - NOccB
 

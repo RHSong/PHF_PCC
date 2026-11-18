@@ -44,7 +44,8 @@
 						Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,TrunODE,comm)
       Implicit None
       Integer,           Intent(In)    :: NOcc, NAO, NSO
-      Integer,           Intent(In)    :: NPoints(2), TrunODE, QJ,SP, Npg,comm
+      Integer,           Intent(In)    :: NPoints(2), TrunODE, SP, Npg, comm
+      Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
 	  Integer,           Intent(In)    :: ncisp, ncipg, ncik
       Real    (Kind=pr), Intent(In)    :: Roota(:), Rootb(:), Rooty(:)
       Real    (Kind=pr), Intent(In)    :: Weightsp(:,:), Weightpg(Npg,ncipg,ncipg)

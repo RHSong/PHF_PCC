@@ -37,8 +37,8 @@ def EvalOvlp(r1,r2,rpg,rk,fsp,fpg,fk):
 					s0 = weightsp[il,iy] * s0
 					for ni in range(ncisp):
 						for nj in range(ncisp):
-							if (SP == 2):
-								wig = WignerMat(J,ni-J,nj-J,roota[il],rootb[iy],rooty[il])
+							if (SP == 2):   # SUHF: Sz = +J determinant, d^J_{JJ} (as in PHFTools.f90 / FockTools.f90)
+								wig = WignerMat(J,J,J,roota[il],rootb[iy],rooty[il])
 							else:
 								wig = WignerMat(J,ni-J,nj-J,roota[il],rootb[il],rooty[iy])
 							for p in range(ncipg):
@@ -232,20 +232,21 @@ def SortOrb(MO,NAO,NOccAO,Type):
 # rearrange orbitals from OA VA  0  0 to OA  0 VA  0
 #                          0  0 OB VB     0 OB  0 VB
 # if type = 0, do the inverse
+# n_alpha = NOccA and n_beta = NOccB from parameter_fc (open shells allowed); the NOccAO argument is kept
+# for compatibility with existing calls.
+	na, nb = NOccA, NOccB
+	newMO = np.zeros([NSO,NSO], dtype=np.result_type(MO.dtype, float))
 	if (Type == 1):
-		NVrtAO = NAO-NOccAO
-		newMO = np.zeros([NSO,NSO])
-		newMO[:,:NOccAO] = MO[:,:NOccAO]
-		newMO[:,NOccAO:NOccSO] = MO[:,NAO:NAO+NOccAO]
-		newMO[:,NOccSO:NOccSO+NVrtAO] = MO[:,NOccAO:NOccAO+NVrtAO]
-		newMO[:,NAO+NOccAO:NSO] = MO[:,NAO+NOccAO:NSO]
+		newMO[:,:na] = MO[:,:na]
+		newMO[:,na:na+nb] = MO[:,NAO:NAO+nb]
+		newMO[:,NOccSO:NOccSO+NAO-na] = MO[:,na:NAO]
+		newMO[:,NOccSO+NAO-na:NSO] = MO[:,NAO+nb:NSO]
 		return newMO
 	elif (Type == 0):
-		newMO = np.zeros([NSO,NSO])
-		newMO[:,:NOccAO] = MO[:,:NOccAO]
-		newMO[:,NOccAO:NAO] = MO[:,NOccSO:NOccSO+NVrtA]
-		newMO[:,NAO:NAO+NOccAO] = MO[:,NOccAO:NOccSO]
-		newMO[:,NAO+NOccAO:NSO] = MO[:,NAO+NOccAO:NSO]
+		newMO[:,:na] = MO[:,:na]
+		newMO[:,NAO:NAO+nb] = MO[:,na:na+nb]
+		newMO[:,na:NAO] = MO[:,NOccSO:NOccSO+NAO-na]
+		newMO[:,NAO+nb:NSO] = MO[:,NOccSO+NAO-na:NSO]
 		return newMO
 
 def makeUHF(Z):

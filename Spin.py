@@ -66,8 +66,8 @@ def SpinDen(MO):
 	mo = orth @ MO
 	mo1 = mo[:NAO,:NAO]
 	mo2 = mo[NAO:,NAO:]
-	Sa = mo1[:,:NOccAO] @ mo1[:,:NOccAO].T.conj()
-	Sb = mo2[:,:NOccAO] @ mo2[:,:NOccAO].T.conj()
+	Sa = mo1[:,:NOccA] @ mo1[:,:NOccA].T.conj()
+	Sb = mo2[:,:NOccB] @ mo2[:,:NOccB].T.conj()
 	return np.diag(Sa-Sb)
 
 def SSHG(MO,NAO,NOccSO):

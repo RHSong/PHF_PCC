@@ -15,7 +15,8 @@
 ! Dimensioning variables
       Integer, Intent(In) :: NOcc, NAO, NSO
       Integer, Intent(In) :: NPoints(2),pBrdIn, Npg
-      Integer, Intent(In) :: QJ, CC,SP,comm
+      Integer, Intent(In) :: CC, SP, comm
+      Real(kind=pr), Intent(In) :: QJ   ! total spin J, integer or half-integer
       Integer :: TrunODE = 1, NPtsPUCC(2)
       Character(len=32) :: EnvStr
 	  Integer, Intent(In) :: ncisp, ncipg, ncik
@@ -62,6 +63,12 @@
 !==========================================!
 !  basic information for the calculation.  !
 !==========================================!
+! n_alpha for the SUHF Sz-block projections: SUHF needs J = Sz = (n_alpha - n_beta)/2
+       If (SP == 2) Then
+         Call SetSzAlpha((NOcc + nint(2*QJ)) / 2)
+       Else
+         Call SetSzAlpha(NOcc / 2)
+       End If
       Allocate(Fock(NSO,NSO), &
 !               T1(NOcc+1:NSO,NOcc),            &
 !               T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc),                &

@@ -12,7 +12,8 @@
                             Hmat,Smat,Gradmat,Rdmmat,comm)
         Implicit None
 ! PHF 
-        Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg,QJ,SP
+        Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg,SP
+        Real(kind=pr),      Intent(in)  :: QJ   ! total spin J, integer or half-integer
         Integer,            Intent(in)  :: nci,CmplxConj,ncisp,ncipg
         Complex(kind=pr),   Intent(in)  :: HOne(NSO,NSO), HTwo(NSO,NSO,NSO,NSO)
         Complex(kind=pr),   Intent(in)  :: Ref(NSO,NSO),Z(NSO-NOcc,NOcc)
@@ -134,18 +135,19 @@
             g1 = g1 * weightsp(il,iy)
             g0c = g0c * weightsp(il,iy)
             g1c = g1c * weightsp(il,iy)
-            Do ni = -QJ, QJ
-            Do nj = -QJ, QJ
+            Do ni = 0, ncisp-1
+            Do nj = 0, ncisp-1
                 if (SP == 2) then
-                    Call Wignerfac(QJ,ni,nj,roota(il),rootb(iy),rooty(il),wig)
+                    ! SUHF: one component, the Sz = +J (high-spin) determinant -> d^J_{JJ}(beta)
+                    Call Wignerfac(QJ,QJ,QJ,roota(il),rootb(iy),rooty(il),wig)
                 else
-                    Call Wignerfac(QJ,ni,nj,roota(il),rootb(il),rooty(iy),wig)
+                    Call Wignerfac(QJ,ni-QJ,nj-QJ,roota(il),rootb(il),rooty(iy),wig)
                 end if
                 Do p = 1, ncipg
                 Do q = 1, ncipg
                     w = weightpg(ipg,p,q) * wig
-                    m = ni + 1 + QJ + (p-1) * ncisp
-                    n = nj + 1 + QJ + (q-1) * ncisp
+                    m = ni + 1 + (p-1) * ncisp
+                    n = nj + 1 + (q-1) * ncisp
                     iHmat(m,n) = iHmat(m,n) + h0 * w
                     iSmat(m,n) = iSmat(m,n) + s0 * w
                     iGradmat(m,n,:,:) = iGradmat(m,n,:,:) + g0 * w
@@ -348,23 +350,24 @@
         End Subroutine Makeh
 
         Subroutine Wignerfac(J,N,M,alpha,beta,gama,wig)
+! Wigner D^J_{NM}(alpha,beta,gama) for integer or half-integer J, N, M (real arguments; template: PHF_MO)
         Implicit None
-        Integer         , Intent(In)  :: J,N,M
+        Real(kind=pr)   , Intent(In)  :: J,N,M
         Real(kind=pr)   , Intent(In)  :: alpha,beta,gama
         Complex(kind=pr), Intent(Out) :: wig
         Real(kind=pr) :: Djnm, numer, denom, fac
         Integer :: s, smin, smax, p1, p2, p3
-        smax = min(j+m,j-n)
-        smin = max(0,m-n)
+        smax = nint(min(j+m,j-n))
+        smin = nint(max(Zero,m-n))
         fac = One
         fac = fac * gamma(j+n+One) * gamma(j-n+One)
         fac = fac * gamma(j+m+One) * gamma(j-m+One)
         fac = sqrt(fac)
         Djnm = Zero
         Do s = smin, smax
-            p1 = n - m + s
-            p2 = 2*j + m - n -2*s
-            p3 = n - m + 2*s
+            p1 = nint(n - m + s)
+            p2 = nint(2*j + m - n - 2*s)
+            p3 = nint(n - m + 2*s)
             numer = (-1)**p1 * (cos(beta/2))**p2 * (sin(beta/2))**p3
             denom = One
             denom = denom * gamma(j+m-s+One) * gamma(s+One)
@@ -465,7 +468,8 @@
                             ncisp,ncipg,ncik,R1, R2, Rpg, Rk, &
                             Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk)
         Implicit None
-        Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg,QJ
+        Integer,            Intent(in)  :: NOcc,NSO,Ngrid(2),Npg
+        Real(kind=pr),      Intent(in)  :: QJ   ! total spin J, integer or half-integer
         Integer,            Intent(in)  :: ncisp,ncipg,ncik
         Real    (Kind=pr),  Intent(In)  :: Weightsp(:,:),Weightpg(Npg,ncipg,ncipg)
         Real    (Kind=pr),  Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
@@ -509,14 +513,14 @@
             a0 = a0 * s 
             a1 = a1 * s 
             a2 = a2 * s
-            Do m = -QJ, QJ
-            Do n = -QJ, QJ
-                Call Wignerfac(QJ,m,n,roota(il),rootb(il),rooty(iy),wig)
+            Do m = 0, ncisp-1
+            Do n = 0, ncisp-1
+                Call Wignerfac(QJ,m-QJ,n-QJ,roota(il),rootb(il),rooty(iy),wig)
 				wig = One
                 Do p = 1, ncipg
                 Do q = 1, ncipg
                     w = weightpg(ipg,p,q) * wig
-                    w = w * conjg(fsp(m+1+QJ)) * fsp(n+1+QJ)
+                    w = w * conjg(fsp(m+1)) * fsp(n+1)
                     w = w * conjg(fpg(p)) * fpg(q)
                     t0 = t0 + a0 * w
                     t1 = t1 + a1 * w

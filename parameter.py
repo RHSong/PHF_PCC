@@ -43,11 +43,15 @@ OrthAO = getTrans(ovlp)
 Xinv = np.linalg.inv(OrthAO)
 NSO = 2*NAO
 NVrtSO = NSO - NOccSO
-NOccAO = NOccSO // 2
+# open shells: Spin2 = 2S = n_alpha - n_beta (mol.spin); n_alpha >= n_beta
+Spin2 = mol.spin if (HamType == 'Mol') else 0
 OV = NOccSO * NVrtSO
-NOccA = NOccAO
-NVrtA = NAO-NOccA
-is_RHF = True
+NOccA = (NOccSO + Spin2) // 2
+NOccB = (NOccSO - Spin2) // 2
+NVrtA = NAO - NOccA
+NVrtB = NAO - NOccB
+NOccAO = NOccA   # occupied spatial orbitals of the (RO)HF reference (doubly + singly occupied)
+is_RHF = (Spin2 == 0)
 ''' 
 Spin Projection, SP = 0, No projection
 				 SP = 1, SGHF
@@ -57,7 +61,7 @@ for SUHF & SzPHF, set grid pts as [1,n]
 '''
 SP = 1
 ngrid = [6,6]
-J, M = [0, 0]
+J, M = [Spin2 / 2, Spin2 / 2]   # total spin J (integer or half-integer); default S = Spin2/2
 ncisp, roota, rootb, rooty, weightsp, R1, R2 = Spin_Proj(SP, ngrid, NAO, NSO, J)
 '''
 Point Group Projection

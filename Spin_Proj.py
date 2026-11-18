@@ -9,7 +9,7 @@ def Spin_Proj(SP, ngrid, NAO, NSO, J):
 		R2[0,:,:] = np.eye(NSO)
 		roota = rootb = rooty = np.zeros([1])
 	if (SP == 1):
-		nci = 2*J + 1
+		nci = int(round(2*J + 1))
 		roota, rootb, rooty, weights = RootWeight(ngrid)
 		R1 = np.zeros([ngrid[0], NSO, NSO], dtype=complex)
 		R2 = np.zeros([ngrid[1], NSO, NSO], dtype=complex)
