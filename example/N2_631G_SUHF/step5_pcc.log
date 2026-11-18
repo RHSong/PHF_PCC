@@ -1,0 +1,4682 @@
+module PUCC_X2  NSO 32 NOcc 10  SP 2 grid [1, 8]  ncisp 1  npg 1
+ ESCF from MkFock              (-27.614973117918126,0.0000000000000000)
+ Test Foo   1.7044501096492873E-002
+ Test Fvv   1.3908021001811016E-002
+ Enter Broyden
+ Entered PbarHbar Feedback
+ Entered PbarHbarRes
+ max|T1|   0.0000000000000000     
+ max|T2|   0.0000000000000000     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    3.70000005E-02
+ CC time =    4.99999989E-03
+ Grid real time =    4.19999994E-02
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.0000000000000289,0.0000000000000000)              (-108.79928148384793,0.0000000000000000)
+ Max Res1 =   1.0204892848974783E-005
+ Max Res2 =   7.1570636397093365E-002
+ BuildSRes time =    7.00000022E-03
+ damping=   1.3144952163232035     
+ E(start)=              (-108.79928148384793,0.0000000000000000)
+ preconditioner: orbital energies from /home/song/PHF_PCC/example/N2_631G_SUHF/moe.txt
+ preconditioner: max |moe - diag(bare Fock)| =   2.0464036771663863E-002
+ Entered PbarHbarRes
+ max|T1|   5.5616193363156900E-003
+ max|T2|   2.6869531209509166E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.0151704295394741,0.0000000000000000)              (-108.86303836562830,0.0000000000000000)
+ Max Res1 =   4.1795015852758757E-002
+ Max Res2 =   7.0757310582641897E-002
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   4.6921284410894305E-002
+ max|T2|   3.7247174046230860E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.0512766674503127,0.0000000000000000)              (-108.87403388689141,0.0000000000000000)
+ Max Res1 =   8.0159003523543361E-003
+ Max Res2 =   6.0386638990085777E-002
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   8.2111116482677535E-002
+ max|T2|   7.2919368974830118E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.1039188936819040,0.0000000000000000)              (-108.92258075983527,0.0000000000000000)
+ Max Res1 =   7.5892105926504971E-003
+ Max Res2 =   1.5919345693342763E-002
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|  0.10355292852486533     
+ max|T2|   8.6979376232118807E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    7.00000022E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.49999997E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.1516046598942045,0.0000000000000000)              (-108.93514322011841,0.0000000000000000)
+ Max Res1 =   3.3391679754792652E-003
+ Max Res2 =   9.4331643561509047E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10780600225524788     
+ max|T2|   8.9833491119555811E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.1844103694347445,0.0000000000000000)              (-108.93835157190381,0.0000000000000000)
+ Max Res1 =   2.3006607283297129E-003
+ Max Res2 =   6.5570662785390550E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10891641195946793     
+ max|T2|   9.1518507818983005E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2138863926161345,0.0000000000000000)              (-108.93833472919924,0.0000000000000000)
+ Max Res1 =   1.8622952067470010E-003
+ Max Res2 =   6.2480828589439735E-003
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10818796618076960     
+ max|T2|  0.10032023597823601     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2365668434613959,0.0000000000000000)              (-108.93885846504030,0.0000000000000000)
+ Max Res1 =   1.1465034973591184E-003
+ Max Res2 =   4.3672797537202745E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10776833209072767     
+ max|T2|  0.10642316464932203     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2546344951285560,0.0000000000000000)              (-108.93853016830886,0.0000000000000000)
+ Max Res1 =   1.5291902152465798E-003
+ Max Res2 =   2.6574392107788186E-003
+ BuildSRes time =    8.99999961E-03
+ Entered PbarHbarRes
+ max|T1|  0.10908952637468804     
+ max|T2|  0.10791535572415875     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2620756709080923,0.0000000000000000)              (-108.93880563323798,0.0000000000000000)
+ Max Res1 =   1.1686948482652886E-003
+ Max Res2 =   2.1436722988054518E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11093924872282039     
+ max|T2|  0.10899917283782826     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2694599331845191,0.0000000000000000)              (-108.93909895793631,0.0000000000000000)
+ Max Res1 =   8.7203302927455688E-004
+ Max Res2 =   1.7919184911274577E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11267392423021767     
+ max|T2|  0.11015363682520772     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2767081172282424,0.0000000000000000)              (-108.93919733437636,0.0000000000000000)
+ Max Res1 =   7.2125617393986358E-004
+ Max Res2 =   1.7064667739129700E-003
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|  0.11408090981956798     
+ max|T2|  0.11091425374481219     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2819724450766947,0.0000000000000000)              (-108.93936398837590,0.0000000000000000)
+ Max Res1 =   6.6851081235853860E-004
+ Max Res2 =   1.4881906331135179E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11435834013796224     
+ max|T2|  0.11156391329128981     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2848518233167336,0.0000000000000000)              (-108.93928623910523,0.0000000000000000)
+ Max Res1 =   7.1115999401990214E-004
+ Max Res2 =   1.4123185597376686E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11447323316619143     
+ max|T2|  0.11192148035550241     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2866201547320022,0.0000000000000000)              (-108.93924358776918,0.0000000000000000)
+ Max Res1 =   6.9118850175609579E-004
+ Max Res2 =   1.3386722966642853E-003
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11462183261587074     
+ max|T2|  0.11216022972376277     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2885287810675987,0.0000000000000000)              (-108.93925413668995,0.0000000000000000)
+ Max Res1 =   6.3020984815408793E-004
+ Max Res2 =   1.2236656857316885E-003
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.11439273686201723     
+ max|T2|  0.11217451683383226     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.00000019E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2892097838375463,0.0000000000000000)              (-108.93925238585216,0.0000000000000000)
+ Max Res1 =   6.3301506392061263E-004
+ Max Res2 =   1.1574204974431946E-003
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|  0.11393911740906025     
+ max|T2|  0.11180670540729584     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.00000019E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2892146529151673,0.0000000000000000)              (-108.93924401453135,0.0000000000000000)
+ Max Res1 =   5.9021449254420500E-004
+ Max Res2 =   9.6762049790323360E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11319242219750669     
+ max|T2|  0.11095945888777985     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2888067870328963,0.0000000000000000)              (-108.93929618578908,0.0000000000000000)
+ Max Res1 =   5.5176991247578050E-004
+ Max Res2 =   7.4164763424199216E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11243879019880994     
+ max|T2|  0.11038706431804625     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2885016975378449,0.0000000000000000)              (-108.93930126415809,0.0000000000000000)
+ Max Res1 =   5.6029114011447751E-004
+ Max Res2 =   7.1584935574470882E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11213080124058436     
+ max|T2|  0.10999184397287512     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2886989546729184,0.0000000000000000)              (-108.93930843866814,0.0000000000000000)
+ Max Res1 =   5.5004323914786509E-004
+ Max Res2 =   6.8979781898270915E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.11161585072500819     
+ max|T2|  0.10963349151298311     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2889444882975711,0.0000000000000000)              (-108.93928850283729,0.0000000000000000)
+ Max Res1 =   5.5803424483396626E-004
+ Max Res2 =   6.2413512406205268E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11119392768061022     
+ max|T2|  0.10924522056957664     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2893321652828553,0.0000000000000000)              (-108.93927052155870,0.0000000000000000)
+ Max Res1 =   5.2149578706326609E-004
+ Max Res2 =   5.6060914412319764E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11054767773940941     
+ max|T2|  0.10855285934629157     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2897820713079697,0.0000000000000000)              (-108.93924795188605,0.0000000000000000)
+ Max Res1 =   4.7782252895040700E-004
+ Max Res2 =   4.6179492554134058E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.11006355579591591     
+ max|T2|  0.10811383751585468     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2898423555739726,0.0000000000000000)              (-108.93923204325263,0.0000000000000000)
+ Max Res1 =   4.5782835123059075E-004
+ Max Res2 =   4.1276654059070871E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10904467327108928     
+ max|T2|  0.10700506060770265     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    7.00000022E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2899590619046031,0.0000000000000000)              (-108.93919942709971,0.0000000000000000)
+ Max Res1 =   4.1343538407466918E-004
+ Max Res2 =   3.2931702380105735E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10828041399282720     
+ max|T2|  0.10610342301521769     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2894500612749753,0.0000000000000000)              (-108.93919885094769,0.0000000000000000)
+ Max Res1 =   3.9124723667780231E-004
+ Max Res2 =   3.4160847890507112E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10765290329575093     
+ max|T2|  0.10548110164246867     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2893269262463494,0.0000000000000000)              (-108.93917444601766,0.0000000000000000)
+ Max Res1 =   3.6666508035524976E-004
+ Max Res2 =   3.5056000360971076E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10666090031750212     
+ max|T2|  0.10443214464309659     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2885420357820645,0.0000000000000000)              (-108.93916111157534,0.0000000000000000)
+ Max Res1 =   3.3505670134873611E-004
+ Max Res2 =   3.4354552375159874E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10549350015047411     
+ max|T2|  0.10309973251780183     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Ovlp, Ene =               (1.2875322603251027,0.0000000000000000)              (-108.93916031655482,0.0000000000000000)
+ Max Res1 =   3.0434470193077285E-004
+ Max Res2 =   3.0947729972751500E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10433824735930135     
+ max|T2|  0.10196731536680065     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2870488661146957,0.0000000000000000)              (-108.93911185433132,0.0000000000000000)
+ Max Res1 =   2.8322568760137770E-004
+ Max Res2 =   2.6457084072165001E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10311191523152248     
+ max|T2|  0.10070158456929791     
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2861058207756775,0.0000000000000000)              (-108.93909936666618,0.0000000000000000)
+ Max Res1 =   2.5991783164980406E-004
+ Max Res2 =   2.3019879950083593E-004
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|  0.10232234000768275     
+ max|T2|   9.9958029107495683E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2859694292585728,0.0000000000000000)              (-108.93906515071814,0.0000000000000000)
+ Max Res1 =   2.6012735729620881E-004
+ Max Res2 =   2.0094648644131623E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10154261760027455     
+ max|T2|   9.9141246074501491E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2860458449826222,0.0000000000000000)              (-108.93903160772338,0.0000000000000000)
+ Max Res1 =   2.0426331003751079E-004
+ Max Res2 =   2.1220593315691782E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10073538681563621     
+ max|T2|   9.8346864434739570E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2860248072340716,0.0000000000000000)              (-108.93901360756917,0.0000000000000000)
+ Max Res1 =   1.8435146788227676E-004
+ Max Res2 =   2.1936733695313070E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10011842173100197     
+ max|T2|   9.7718439532752679E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2863249125243874,0.0000000000000000)              (-108.93898582373338,0.0000000000000000)
+ Max Res1 =   1.6533087340436149E-004
+ Max Res2 =   2.1395084178379140E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9519813511717140E-002
+ max|T2|   9.7141565979811356E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2865884650966555,0.0000000000000000)              (-108.93896806524134,0.0000000000000000)
+ Max Res1 =   1.5248567711332374E-004
+ Max Res2 =   2.1521302649592044E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.8980960637787455E-002
+ max|T2|   9.6627869799111810E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2868654792369529,0.0000000000000000)              (-108.93894963180971,0.0000000000000000)
+ Max Res1 =   1.5233227420318656E-004
+ Max Res2 =   2.1692916551883161E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.8508738577809868E-002
+ max|T2|   9.6185137976855267E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2870163963772965,0.0000000000000000)              (-108.93893001974121,0.0000000000000000)
+ Max Res1 =   1.4964796225402815E-004
+ Max Res2 =   2.1850022351117238E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.8135891974065609E-002
+ max|T2|   9.5861668863333679E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2872973885561074,0.0000000000000000)              (-108.93891229004399,0.0000000000000000)
+ Max Res1 =   1.4614670787602558E-004
+ Max Res2 =   2.0792551805430811E-004
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|   9.7684480427452522E-002
+ max|T2|   9.5475666691081512E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    7.00000022E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2875729434876468,0.0000000000000000)              (-108.93890431740887,0.0000000000000000)
+ Max Res1 =   1.4556262911433708E-004
+ Max Res2 =   1.9610289431886362E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.7089360424549187E-002
+ max|T2|   9.4950231850848568E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2876922287114281,0.0000000000000000)              (-108.93888166374104,0.0000000000000000)
+ Max Res1 =   1.4754813838004237E-004
+ Max Res2 =   1.7904901510831228E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.6768776423951555E-002
+ max|T2|   9.4674786915373843E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2877628908849181,0.0000000000000000)              (-108.93886822876756,0.0000000000000000)
+ Max Res1 =   1.4475997162455284E-004
+ Max Res2 =   1.6754953883399808E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.6485564957297681E-002
+ max|T2|   9.4455673710055366E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2878520012399435,0.0000000000000000)              (-108.93885756741480,0.0000000000000000)
+ Max Res1 =   1.3793687342214756E-004
+ Max Res2 =   1.6196821552446787E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.5979794900666965E-002
+ max|T2|   9.4029723851360894E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2880383892344482,0.0000000000000000)              (-108.93884733098093,0.0000000000000000)
+ Max Res1 =   1.2675742166953042E-004
+ Max Res2 =   1.6337446433880239E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.6536665636403035E-002
+ max|T2|   9.3740888512424278E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2882245739537650,0.0000000000000000)              (-108.93883720328587,0.0000000000000000)
+ Max Res1 =   1.1869778578554466E-004
+ Max Res2 =   1.5891194926229556E-004
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|   9.7843130327366801E-002
+ max|T2|   9.3445907116605609E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2884708826644908,0.0000000000000000)              (-108.93882150838458,0.0000000000000000)
+ Max Res1 =   1.1230792808468269E-004
+ Max Res2 =   1.5947847007650396E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.8407885799291592E-002
+ max|T2|   9.3341857428991912E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2885546453669097,0.0000000000000000)              (-108.93881312722191,0.0000000000000000)
+ Max Res1 =   1.0919420118410220E-004
+ Max Res2 =   1.5305149419021143E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9578001530536753E-002
+ max|T2|   9.3064685105370887E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2886422957466572,0.0000000000000000)              (-108.93880049670020,0.0000000000000000)
+ Max Res1 =   1.0698228600187461E-004
+ Max Res2 =   1.5132353165551746E-004
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|  0.10001068391947418     
+ max|T2|   9.2991051668454255E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    7.00000022E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2887013823162652,0.0000000000000000)              (-108.93879510900381,0.0000000000000000)
+ Max Res1 =   1.0646958330387298E-004
+ Max Res2 =   1.4966435875942804E-004
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|  0.10023017236659251     
+ max|T2|   9.3007349601569894E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2887723816416141,0.0000000000000000)              (-108.93879162402541,0.0000000000000000)
+ Max Res1 =   1.0788910127440921E-004
+ Max Res2 =   1.5632289995107140E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10048023235840700     
+ max|T2|   9.3027391738292345E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2888944771777608,0.0000000000000000)              (-108.93878862958780,0.0000000000000000)
+ Max Res1 =   1.0799009813934748E-004
+ Max Res2 =   1.4940025272530173E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10121287651520533     
+ max|T2|   9.2915961456587648E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2889998157885689,0.0000000000000000)              (-108.93878937258175,0.0000000000000000)
+ Max Res1 =   1.0553919621227034E-004
+ Max Res2 =   1.3790155202968448E-004
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|  0.10138580894270639     
+ max|T2|   9.2917141809413933E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2889945312629014,0.0000000000000000)              (-108.93878526198299,0.0000000000000000)
+ Max Res1 =   1.0450384194456273E-004
+ Max Res2 =   1.3051021020240515E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10148883813622298     
+ max|T2|   9.2926007830701318E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2889972589548333,0.0000000000000000)              (-108.93878194015706,0.0000000000000000)
+ Max Res1 =   1.0433549647713174E-004
+ Max Res2 =   1.3148190654973865E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10145712082219403     
+ max|T2|   9.2966984172166922E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Ovlp, Ene =               (1.2890114481458055,0.0000000000000000)              (-108.93878169910106,0.0000000000000000)
+ Max Res1 =   1.0468699610592823E-004
+ Max Res2 =   1.3270981174624453E-004
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10160451115650618     
+ max|T2|   9.3005750667549111E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2890360417609408,0.0000000000000000)              (-108.93878195705153,0.0000000000000000)
+ Max Res1 =   1.0306204766381270E-004
+ Max Res2 =   1.2318592241710116E-004
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|  0.10187691290429987     
+ max|T2|   9.3103151901616055E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2891065848085037,0.0000000000000000)              (-108.93878600438966,0.0000000000000000)
+ Max Res1 =   1.0187211411929709E-004
+ Max Res2 =   1.1463024171108133E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10186680106120878     
+ max|T2|   9.3227316604273247E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.99999961E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2891394037850368,0.0000000000000000)              (-108.93878447706513,0.0000000000000000)
+ Max Res1 =   1.0285477625509491E-004
+ Max Res2 =   1.0262597085568687E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10190993571941563     
+ max|T2|   9.3311247959992835E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2892011230377263,0.0000000000000000)              (-108.93878382831450,0.0000000000000000)
+ Max Res1 =   1.0182004886476313E-004
+ Max Res2 =   9.9833246813871944E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10190495566505270     
+ max|T2|   9.3350323529590190E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2892327635669694,0.0000000000000000)              (-108.93878364466808,0.0000000000000000)
+ Max Res1 =   1.0135904160449057E-004
+ Max Res2 =   1.0025383083590405E-004
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10225910144257706     
+ max|T2|   9.3497548924181592E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2893309173539489,0.0000000000000000)              (-108.93878757017657,0.0000000000000000)
+ Max Res1 =   9.7452376097583403E-005
+ Max Res2 =   9.8331277502138934E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10196985158671303     
+ max|T2|   9.3662223116306703E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2894487935901253,0.0000000000000000)              (-108.93878561078827,0.0000000000000000)
+ Max Res1 =   9.8071154238104253E-005
+ Max Res2 =   9.8260890602538804E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10191176147706535     
+ max|T2|   9.3775311893865440E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2895301461950683,0.0000000000000000)              (-108.93878541782017,0.0000000000000000)
+ Max Res1 =   9.7508339032079038E-005
+ Max Res2 =   9.6576523389337680E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10219750051164142     
+ max|T2|   9.3918237586992512E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2896820127233950,0.0000000000000000)              (-108.93878967188839,0.0000000000000000)
+ Max Res1 =   9.6566759158053976E-005
+ Max Res2 =   9.7462883805675966E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10199362453188449     
+ max|T2|   9.3947719428214269E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2896762027611961,0.0000000000000000)              (-108.93879026130804,0.0000000000000000)
+ Max Res1 =   9.7008756906301867E-005
+ Max Res2 =   9.3165171493664464E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10187647117162192     
+ max|T2|   9.3991907780668391E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2896798396674374,0.0000000000000000)              (-108.93879098880450,0.0000000000000000)
+ Max Res1 =   9.6809678166360675E-005
+ Max Res2 =   9.1840024777589040E-005
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|  0.10173832342212215     
+ max|T2|   9.4136151476935798E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2896768267052630,0.0000000000000000)              (-108.93879281576122,0.0000000000000000)
+ Max Res1 =   9.5169085533421393E-005
+ Max Res2 =   9.1587422607280661E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10161527696470386     
+ max|T2|   9.4232320574347939E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2896768313487652,0.0000000000000000)              (-108.93879359791865,0.0000000000000000)
+ Max Res1 =   9.5557497779042168E-005
+ Max Res2 =   9.1095909745765450E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10116445995521745     
+ max|T2|   9.4587913499173740E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2896580399312343,0.0000000000000000)              (-108.93879876478248,0.0000000000000000)
+ Max Res1 =   9.8119105834628347E-005
+ Max Res2 =   9.0022204299120806E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10111054828171470     
+ max|T2|   9.4715267544248291E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2897181602018970,0.0000000000000000)              (-108.93880012329311,0.0000000000000000)
+ Max Res1 =   9.8161027960532541E-005
+ Max Res2 =   8.6912952939135937E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10092431756813158     
+ max|T2|   9.4806187775475600E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2897533986149108,0.0000000000000000)              (-108.93880145386811,0.0000000000000000)
+ Max Res1 =   9.8053122847468110E-005
+ Max Res2 =   8.6138070601085112E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10094414552781496     
+ max|T2|   9.4824691491149971E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2897810243985770,0.0000000000000000)              (-108.93880126284398,0.0000000000000000)
+ Max Res1 =   9.7743539975947096E-005
+ Max Res2 =   8.6788131681720158E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10081385309930711     
+ max|T2|   9.4852879242602064E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2897457876879752,0.0000000000000000)              (-108.93880218715259,0.0000000000000000)
+ Max Res1 =   9.7025663440777318E-005
+ Max Res2 =   8.5883023990565913E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10057224056658058     
+ max|T2|   9.4966916346952673E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2896898677399646,0.0000000000000000)              (-108.93880706827831,0.0000000000000000)
+ Max Res1 =   9.4976848234022213E-005
+ Max Res2 =   8.5202767051988958E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10047219944335326     
+ max|T2|   9.5029889619902483E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2896988982203865,0.0000000000000000)              (-108.93880980163169,0.0000000000000000)
+ Max Res1 =   9.4958955967271673E-005
+ Max Res2 =   8.5467815250826726E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10047273849621097     
+ max|T2|   9.5034608722974645E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2896961271061724,0.0000000000000000)              (-108.93880953705228,0.0000000000000000)
+ Max Res1 =   9.5913153197800069E-005
+ Max Res2 =   8.6622190945387565E-005
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|  0.10046196955703407     
+ max|T2|   9.5043964508728929E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2897064561671989,0.0000000000000000)              (-108.93880940067196,0.0000000000000000)
+ Max Res1 =   9.6030961525455936E-005
+ Max Res2 =   8.5457756520525226E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|  0.10040022940197990     
+ max|T2|   9.5103106464388035E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2897669336154707,0.0000000000000000)              (-108.93880878893462,0.0000000000000000)
+ Max Res1 =   9.7701648326839770E-005
+ Max Res2 =   8.2696151997216919E-005
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|  0.10015078551823003     
+ max|T2|   9.5191026087500213E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           7           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2897546717453707,0.0000000000000000)              (-108.93881135225082,0.0000000000000000)
+ Max Res1 =   9.8004999539930322E-005
+ Max Res2 =   8.0174033238838231E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9947279234692876E-002
+ max|T2|   9.5289274929511378E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    4.00000019E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2897585720206051,0.0000000000000000)              (-108.93881455383993,0.0000000000000000)
+ Max Res1 =   9.7986389118872818E-005
+ Max Res2 =   8.0235795958773088E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9965601360303719E-002
+ max|T2|   9.5285558252779512E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2897563824220342,0.0000000000000000)              (-108.93881434464060,0.0000000000000000)
+ Max Res1 =   9.7987264238540346E-005
+ Max Res2 =   8.0451325991492080E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9961529526894952E-002
+ max|T2|   9.5284694668261463E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2897585765514619,0.0000000000000000)              (-108.93881425195430,0.0000000000000000)
+ Max Res1 =   9.7993856934754041E-005
+ Max Res2 =   8.0492552049604097E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9903257989065575E-002
+ max|T2|   9.5289044826170871E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2897447198054455,0.0000000000000000)              (-108.93881456584759,0.0000000000000000)
+ Max Res1 =   9.7860797636497774E-005
+ Max Res2 =   7.9487312881654673E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9873324239451902E-002
+ max|T2|   9.5304539535757599E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Ovlp, Ene =               (1.2897518981227010,0.0000000000000000)              (-108.93881508740486,0.0000000000000000)
+ Max Res1 =   9.7479276810392675E-005
+ Max Res2 =   7.9176546612049408E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9862142795566475E-002
+ max|T2|   9.5313475398937211E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.00000019E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2897596352942411,0.0000000000000000)              (-108.93881524974448,0.0000000000000000)
+ Max Res1 =   9.7446280693290471E-005
+ Max Res2 =   7.9001633935788139E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9892535982625930E-002
+ max|T2|   9.5299658284531380E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2897506462756472,0.0000000000000000)              (-108.93881482121461,0.0000000000000000)
+ Max Res1 =   9.7477301828376734E-005
+ Max Res2 =   7.9265607990120591E-005
+ BuildSRes time =    9.99999978E-03
+ Entered PbarHbarRes
+ max|T1|   9.9898104269199720E-002
+ max|T2|   9.5283681221794175E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2897621654280693,0.0000000000000000)              (-108.93881477025674,0.0000000000000000)
+ Max Res1 =   9.7831755844633511E-005
+ Max Res2 =   7.8787367909413509E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9930629122222614E-002
+ max|T2|   9.5291880307180790E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2897751052788031,0.0000000000000000)              (-108.93881439981827,0.0000000000000000)
+ Max Res1 =   9.7649580817513794E-005
+ Max Res2 =   7.9452925292351322E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9938524412453267E-002
+ max|T2|   9.5282926118159125E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Ovlp, Ene =               (1.2897867060331478,0.0000000000000000)              (-108.93881399506630,0.0000000000000000)
+ Max Res1 =   9.7358493214687880E-005
+ Max Res2 =   7.8981064595117946E-005
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|   9.9952690952051448E-002
+ max|T2|   9.5293182596592571E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2898094162379168,0.0000000000000000)              (-108.93881402385503,0.0000000000000000)
+ Max Res1 =   9.7038342834573544E-005
+ Max Res2 =   7.9140403119504850E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9922394210794421E-002
+ max|T2|   9.5362898331631529E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2898481179270431,0.0000000000000000)              (-108.93881484651935,0.0000000000000000)
+ Max Res1 =   9.6659089134778305E-005
+ Max Res2 =   8.0200539224190619E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9901679370433163E-002
+ max|T2|   9.5336890352604522E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2898284855727025,0.0000000000000000)              (-108.93881484696445,0.0000000000000000)
+ Max Res1 =   9.6969197059801053E-005
+ Max Res2 =   7.9451458608128085E-005
+ BuildSRes time =    4.99999989E-03
+ Entered PbarHbarRes
+ max|T1|   9.9917268624124977E-002
+ max|T2|   9.5336443264886050E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Ovlp, Ene =               (1.2898218126357905,0.0000000000000000)              (-108.93881450369666,0.0000000000000000)
+ Max Res1 =   9.6620023496150534E-005
+ Max Res2 =   7.9522384117112455E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9902660251334208E-002
+ max|T2|   9.5377899870010885E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Ovlp, Ene =               (1.2898785080611750,0.0000000000000000)              (-108.93881536039524,0.0000000000000000)
+ Max Res1 =   9.7229418580539127E-005
+ Max Res2 =   7.9867647960653109E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9875512296273200E-002
+ max|T2|   9.5403309360764535E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2898847797101158,0.0000000000000000)              (-108.93881586210482,0.0000000000000000)
+ Max Res1 =   9.7232456166174163E-005
+ Max Res2 =   8.0549158821099071E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9902647170002842E-002
+ max|T2|   9.5385338651481189E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2898833682029249,0.0000000000000000)              (-108.93881554537084,0.0000000000000000)
+ Max Res1 =   9.7009663359168017E-005
+ Max Res2 =   8.0156753840962157E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9863706486589932E-002
+ max|T2|   9.5386017165353096E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Ovlp, Ene =               (1.2898562248396468,0.0000000000000000)              (-108.93881602012840,0.0000000000000000)
+ Max Res1 =   9.7489948200183777E-005
+ Max Res2 =   8.0277484460704128E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9851218353849136E-002
+ max|T2|   9.5395209798924907E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2898419739757241,0.0000000000000000)              (-108.93881651613860,0.0000000000000000)
+ Max Res1 =   9.7132283478571500E-005
+ Max Res2 =   8.0368539003434754E-005
+ BuildSRes time =    7.00000022E-03
+ Entered PbarHbarRes
+ max|T1|   9.9891608460452794E-002
+ max|T2|   9.5346034963359208E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.00000038E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2898415501249998,0.0000000000000000)              (-108.93881582018496,0.0000000000000000)
+ Max Res1 =   9.7686532861363974E-005
+ Max Res2 =   8.0139514939280980E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|   9.9900472945906232E-002
+ max|T2|   9.5354004353176397E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    7.00000022E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           8           1
+ Trans T2 time =    7.00000022E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.49999997E-02
+ Ovlp, Ene =               (1.2898381946087747,0.0000000000000000)              (-108.93881564335473,0.0000000000000000)
+ Max Res1 =   9.7844748371992476E-005
+ Max Res2 =   8.0029843778989295E-005
+ BuildSRes time =    8.00000038E-03
+ Entered PbarHbarRes
+ max|T1|   9.9973757223994708E-002
+ max|T2|   9.5384015608468334E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2898224503920717,0.0000000000000000)              (-108.93881553429270,0.0000000000000000)
+ Max Res1 =   9.8971913493349674E-005
+ Max Res2 =   7.8491348181384811E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10005484218276033     
+ max|T2|   9.5407459072067533E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           3           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           8           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.09999999E-02
+ Ovlp, Ene =               (1.2898571083036259,0.0000000000000000)              (-108.93881523415936,0.0000000000000000)
+ Max Res1 =   9.8538024354110645E-005
+ Max Res2 =   7.8232085186353284E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10042063009231120     
+ max|T2|   9.5473757208128743E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           2           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2900040184280679,0.0000000000000000)              (-108.93881358681436,0.0000000000000000)
+ Max Res1 =   9.5439903993072597E-005
+ Max Res2 =   7.9271981203987872E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10084119534502987     
+ max|T2|   9.5550731708633110E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    6.00000005E-03
+ Grid real time =    9.99999978E-03
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           4           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           5           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           6           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.99999989E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2901868595392312,0.0000000000000000)              (-108.93881129039018,0.0000000000000000)
+ Max Res1 =   9.3303580078586047E-005
+ Max Res2 =   8.0869345242905947E-005
+ BuildSRes time =    6.00000005E-03
+ Entered PbarHbarRes
+ max|T1|  0.10232493590019429     
+ max|T2|   9.5504851981015548E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+**************************************************
+*                 Start integration              *
+**************************************************
+ Grid info           1           1           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           2           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           3           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    7.00000022E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           4           1
+ Trans T2 time =    6.00000005E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.40000004E-02
+ Grid info           1           5           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    8.00000038E-03
+ Grid real time =    1.30000003E-02
+ Grid info           1           6           1
+ Trans T2 time =    4.99999989E-03
+ CC time =    6.00000005E-03
+ Grid real time =    1.20000001E-02
+ Grid info           1           7           1
+ Trans T2 time =    4.00000019E-03
+ CC time =    4.00000019E-03
+ Grid real time =    8.99999961E-03
+ Grid info           1           8           1
+ Trans T2 time =    3.00000003E-03
+ CC time =    6.00000005E-03
+ Grid real time =    8.99999961E-03
+ Ovlp, Ene =               (1.2904252514193177,0.0000000000000000)              (-108.93879855613017,0.0000000000000000)
+ Max Res1 =   8.8668582244476739E-005
+ Max Res2 =   8.2012763333532600E-005
+ BuildSRes time =    6.00000005E-03
+ max|T1|  0.10232493590019429     
+ max|T2|   9.5504851981015548E-002
+ max|imag(T1)|   0.0000000000000000     
+ max|imag(T2)|   0.0000000000000000     
+ VAP PUCC energy from Broyden:              (-108.93879855613017,0.0000000000000000)
+ VAP SUCCSD cpu time =     45.4459114    
+ VAP SUCCSD real time =    11.4490004    
+RESULT {"mpi_ranks": 1, "module": "PUCC_X2", "E_PCC": -108.93879855613017, "E_imag": 0.0, "wall_s": 11.448858261108398, "iterations": 106, "maxT1": 0.10232493590019429, "maxT2": 0.09550485198101555, "NSO": 32, "NOcc": 10, "grid": [1, 8]}

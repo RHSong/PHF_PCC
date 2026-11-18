@@ -1,0 +1,21 @@
+converged SCF energy = -27.2031968100565
+<class 'pyscf.scf.hf.RHF'> wavefunction has an internal instability
+<class 'pyscf.scf.hf.RHF'> wavefunction has a real -> complex instability
+<class 'pyscf.scf.hf.RHF'> wavefunction has a RHF/RKS -> UHF/UKS instability.
+E(RHF)= -108.32999160677907
+SCF not converged.
+SCF energy = -27.3762093037253 after 50 cycles  <S^2> = 1.0620343  2S+1 = 2.2908813
+<class 'pyscf.scf.uhf.UHF'> wavefunction has an internal instability.
+converged SCF energy = -27.4614630831999  <S^2> = 1.894627  2S+1 = 2.928909
+UHF instability followed: E = -108.58825787992257
+<class 'pyscf.scf.uhf.UHF'> wavefunction has an internal instability.
+converged SCF energy = -27.6247106970481  <S^2> = 1.9798929  2S+1 = 2.9865652
+UHF instability followed: E = -108.75150549377068
+<class 'pyscf.scf.uhf.UHF'> wavefunction is stable in the internal stability analysis
+<class 'pyscf.scf.uhf.UHF'> wavefunction is stable in the internal stability analysis
+<class 'pyscf.scf.uhf.UHF'> wavefunction is stable in the real -> complex stability analysis
+<class 'pyscf.scf.uhf.UHF'> wavefunction is stable in the UHF/UKS -> GHF/GKS stability analysis
+E(UHF)= -108.75150549377068
+converged SCF energy = -27.6247106970619  <S^2> = 1.9798942  2S+1 = 2.986566
+<class 'pyscf.scf.ghf.GHF'> wavefunction is stable in the internal stability analysis
+E(GHF)= -108.75150549378448

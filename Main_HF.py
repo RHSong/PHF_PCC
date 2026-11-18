@@ -63,14 +63,13 @@ else:
 	dm2 = np.dot(guessUHF[1][:,:NOccB],guessUHF[1][:,:NOccB].T)
 	dm = np.array([dm1,dm2])
 	UHF.kernel(dm)
-	if (Spin2 != 0):
-		# open shell: the UHF reached from the ROHF density can be a saddle point (above ROHF); follow internal
-		# instabilities down to a stable UHF minimum
-		for _it in range(10):
-			_mo, _mo_e, _stable, _ = UHF.stability(internal=True, external=False, return_status=True)
-			if (_stable): break
-			UHF.kernel(UHF.make_rdm1(_mo, UHF.mo_occ))
-			print("UHF instability followed: E =", UHF.e_tot + Enuc)
+	# the UHF reached from the RHF -> UHF instability (or from the ROHF density) can be a saddle point;
+	# follow internal instabilities down to a stable UHF minimum
+	for _it in range(10):
+		_mo, _mo_e, _stable, _ = UHF.stability(internal=True, external=False, return_status=True)
+		if (_stable): break
+		UHF.kernel(UHF.make_rdm1(_mo, UHF.mo_occ))
+		print("UHF instability followed: E =", UHF.e_tot + Enuc)
 # check UHF stab
 UHFstab = UHF.stability(external=True)
 #guessUHF = UHFstab[0]

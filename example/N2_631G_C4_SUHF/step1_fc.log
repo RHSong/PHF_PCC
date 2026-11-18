@@ -1,0 +1,8 @@
+converged SCF energy = -108.560379585544
+<class 'pyscf.scf.hf_symm.SymAdaptedRHF'> wavefunction is stable in the internal stability analysis
+<class 'pyscf.scf.hf_symm.SymAdaptedRHF'> wavefunction is stable in the real -> complex stability analysis
+<class 'pyscf.scf.hf_symm.SymAdaptedRHF'> wavefunction is stable in the RHF/RKS -> UHF/UKS stability analysis
+E(RHF)= -108.56037958554428
+FC ENuc= -81.12679479672259
+PG operators: max |R^T H1 R - H1| = 0.0
+C4 projector: characters [1. 1. 1. 1.]

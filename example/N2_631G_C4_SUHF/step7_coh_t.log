@@ -1,0 +1,3 @@
+ CoherentT: S00 =              (0.98544661969045411,0.0000000000000000)  max|Zbar-T| =  0.48186247749065436       ranks =           1
+basis rotation: max deviation from unitarity 7.99e-15 (occupied/virtual spaces must coincide)
+RESULT_T {"mpi_ranks": 1, "ET_coherent": -0.0016249686231672002, "ET_coherent_imag": 0.0, "ET_incoherent": null, "S00": 0.9854466196904541, "S00_imag": 0.0, "max_Zbar_minus_T": 0.48186247749065436, "moe": "eff", "newmo": "SGHFFock.p", "sp": 2, "grid": [1, 8], "pg": 1, "npg": 4, "E_PCCSD": -108.94364950071561, "E_PCCSD_T_coherent": -108.94527446933877}

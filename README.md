@@ -14,6 +14,37 @@ Projected HF & CC
 Spin projection `SP`: 0 none, 1 SGHF (full SU(2) grid, `ngrid = [Lebedev, gamma]`), 2 SUHF (`[1, n]`), 3 Sz.
 Run the scripts from the calculation folder so that its `parameter.py` / `parameter_fc.py` are imported.
 
+
+## Examples: run step by step
+
+`example/` holds three complete calculations for N2 / 6-31G at R = 3.0 bohr with the two N 1s orbitals frozen.
+Each folder contains `parameter.py`, `parameter_fc.py`, a `run.sh` with one function per step, and the logs of every
+step for comparison:
+
+| folder | reference | CC | E(PHF) | E(PCCSD) | coherent (T) | +(T) |
+|---|---|---|---|---|---|---|
+| `N2_631G_SUHF` | SUHF, grid 1 x 8 | SUCCSD | -108.799281 | -108.938799 | -9.96 mEh | -5.71 mEh |
+| `N2_631G_SGHF` | SGHF, grid 14 x 6, gauge fixed with `FixSz` | SGCCSD | -108.819242 | -108.941089 | -9.77 mEh | -4.52 mEh |
+| `N2_631G_C4_SUHF` | C4 x SUHF (irrep A) | C4 x SUCCSD, 2 x 100 cycles | -108.825695 | -108.943650 | -1.62 mEh | -5.72 mEh |
+
+The C4 x SUCCSD residual decreases slowly: after two runs of 100 Broyden cycles (the second restarted from the first,
+`--keep-chk`) it is about 5e-4, not the default 5e-5; its (T) values are therefore indicative only.
+
+**We recommend running the workflow step by step** (`bash run.sh 1`, `bash run.sh 2`, ...) and checking each log
+before starting the next step, rather than chaining all steps in one job:
+* step 2: the UHF must be stable (`Main_HF.py` follows internal instabilities; PySCF then reports no UHF -> GHF
+  instability). An unstable UHF start can make the PHF stop with "Not Hermitian";
+* PHF: the projected norm (`Ovlp` in the log) must not be close to zero (a collapsed projection, possible with a
+  point-group projector; the basin hop is random, so rerun the step). "Not Hermitian" can also mean that the
+  spin-projection grid is too coarse: use a larger grid (e.g. `ngrid = [26, 12]` for SGHF);
+* Fock PHF must converge (one retry from `newmo_best.p`); otherwise the determinant is not a stationary PHF solution
+  and PCC / (T) on it are not meaningful;
+* PCCSD: check the final residual in the log before computing (T).
+
+## Results
+
+`results/scan_data.xlsx`: the data of the Cr2, N2 and C2 scans and of the 3d metal-oxide table (sheets Cr2, N2, C2, MO).
+
 ## Update: open shells, point group, effective-Fock preconditioner, UHF frozen core
 
 ### Open shells and point-group projection
@@ -25,15 +56,19 @@ Run the scripts from the calculation folder so that its `parameter.py` / `parame
 * `PHFFock.py`: for SUHF the target J is checked against (n_alpha - n_beta)/2.
 
 ### Recommended PHF -> PCC procedure
-1. `Main_FC.py`, `Main_HF.py` (UHF in `GHFMO.p`).
+1. `Main_FC.py`, `Main_HF.py` (stable UHF in `GHFMO.p`: internal UHF instabilities are followed).
 2. Gradient PHF with one basin hop from the UHF (`PHF.nhop = 1`; `PHF.fixgauge = False` for SUHF); remove stale
    `SGHF.p` / `hubsghf.p` first (restart files).
 3. Fock-based polish: `python PHFFock.py SGHF.p` (retry once from `newmo_best.p`). Without convergence the determinant
    is not a stationary PHF solution and the CC / (T) steps below are not meaningful on it.
-4. SGHF only: `FixGauge`, rotate `<S>` onto z, then `FixSz`.
+4. SGHF only: gauge fixing as for Cr2. The gradient PHF runs with `PHF.fixgauge = True` (`FixGauge` at the end);
+   after the Fock PHF, `FixGauge.FixSz` (`<S_z>` = 0) and `python PHFFock.py` again from the result
+   (`example/N2_631G_SGHF/run.sh`, step 5).
+   Point group C4 (linear molecules): `PG = 'C4v'` in `parameter.py`, then keep the first four operators of `FC.p`
+   (the rotations E, C4, C2, C4^3, entries 4 and 5 of the pickle), as in `example/N2_631G_C4_SUHF/run.sh`.
 5. PCCSD in the PHF effective-Fock orbitals with the effective-Fock preconditioner:
    ```
-   python -c "import pickle, numpy; numpy.savetxt('moe.txt', pickle.load(open('SGHFFock_moe.p', 'rb')))"
+   python -c "import pickle, numpy; numpy.savetxt('moe.txt', pickle.load(open('SGHFFock.p', 'rb'))[4])"
    PCC_MOE_FILE=$PWD/moe.txt python SUCCSD_new/run_pcc.py --module PUCC_X2 --libdir SUCCSD_new \
        --fc FC.p --mo SGHFFock.p --sp 2 --grid 1 8 --semicanon 0 --work pcc
    ```
@@ -115,3 +150,25 @@ Spin-orbital MO integrals `<pq||rs>` built as one complex Fortran-ordered NSO^4 
 GEMMs, slab-wise antisymmetrisation), semicanonicalisation from the spatial integrals; used by
 `Main_PCC.py` and `run_pcc.py` (`--lean 1`; `Main_PCC.py` also sets the Broyden history to 20). Cr2 NFC = 10 (NSO = 152): about 13 GB instead of
 about 30 GB for the integral step.
+
+## Compiling the code
+
+Requirements: Python 3 with numpy, scipy, pyscf and mpi4py; an MPI Fortran compiler (`mpif90`, gfortran) and f2py.
+The drivers import the compiled modules `PHFTools_F` and `FockTools_F` from the repository root and `PUCC_X2` from
+`SUCCSD_new/`.
+
+```
+cd PHF_fort
+export SETUPTOOLS_USE_DISTUTILS=stdlib     # needed with setuptools >= 65
+sh makefile                                # PHFTools_F (gradient PHF) and FockTools_F (Fock PHF)
+cp PHFTools_F*.so FockTools_F*.so ..       # the drivers import them from the repository root
+cd ../SUCCSD_new
+sh build.sh mkl                            # PCC module PUCC_X2 with Intel MKL; 'sh build.sh': bundled reference BLAS
+```
+
+At run time `LD_LIBRARY_PATH` must contain `SUCCSD_new/` (`pucc_X2.so`, `libAllLinAlg.so`) and, for the MKL build,
+the MKL library folder (`$MKLROOT/lib/intel64`). `build.sh` reads `MKLROOT` (default: a local oneAPI install; set it
+for your machine). The MKL build is about 10 times faster than the bundled BLAS (timing table above).
+
+On the UCI HPC cluster, `build_hpc.sh` builds all three modules with Intel 2021.4 (ifort / Intel MPI), MKL and the
+f2py meson backend; run it from the repository root in a Slurm job.

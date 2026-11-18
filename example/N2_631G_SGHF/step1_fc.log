@@ -1,0 +1,6 @@
+converged SCF energy = -108.560379585544
+<class 'pyscf.scf.hf.RHF'> wavefunction has an internal instability
+<class 'pyscf.scf.hf.RHF'> wavefunction has a real -> complex instability
+<class 'pyscf.scf.hf.RHF'> wavefunction has a RHF/RKS -> UHF/UKS instability.
+E(RHF)= -108.56037958554417
+FC ENuc= -81.12679479672248
