@@ -78,6 +78,9 @@
     Real (Kind=pr),    Parameter     :: TolMax = 5.0E-5_pr
     Integer                          :: CycMax = 300
     Character(len=32)                :: EnvStr
+    Character(len=512)               :: MoeFile
+    Real (Kind=pr),    Allocatable   :: MoePre(:)
+    Integer                          :: IMoe
     Integer                          :: NIter, IAlloc
     Real (Kind=pr)                   :: dT, dTold 
     Real (Kind=pr)                   :: ResNew, ResOld
@@ -149,6 +152,23 @@
     Print *, "E(start)=", EneBrd
 ! Build the mixing vector
     Call MKFock_MO(HOne,HTwo,Fock,ESCF,NOcc,NSO)
+! optional preconditioner orbital energies: PCC_MOE_FILE = text file with NSO energies in the CC orbital order
+! (e.g. the PHF effective-Fock eigenvalues); default: diagonal of the bare Fock matrix in the CC basis
+    Call Get_Environment_Variable("PCC_MOE_FILE",MoeFile)
+    If (Len_Trim(MoeFile) > 0) then
+      Allocate(MoePre(NSO))
+      Open(NewUnit=IMoe,File=Trim(MoeFile),Status="Old",Action="Read")
+      Read(IMoe,*) MoePre
+      Close(IMoe)
+      Print *, "preconditioner: orbital energies from ", Trim(MoeFile)
+      Print *, "preconditioner: max |moe - diag(bare Fock)| =", MaxVal(Abs(MoePre - Real([(Fock(I,I), I=1,NSO)],kind=pr)))
+      Do I = 1, NSO
+        Fock(I,I) = Cmplx(MoePre(I), 0.0_pr, kind=pr)
+      EndDo
+      Deallocate(MoePre)
+    Else
+      Print *, "preconditioner: diagonal of the bare Fock matrix"
+    EndIf
     Do I = 1, NOcc
     Do A = NOcc+1, NSO
       Denom = Fock(I,I) - Fock(A,A)
