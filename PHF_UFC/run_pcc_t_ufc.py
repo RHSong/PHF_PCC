@@ -23,7 +23,7 @@ import numpy as np
 
 from run_pcc_ufc import REPO_ROOT, UfcData
 from run_pcc import load_phf_solution, get_spin_projection, get_pg_projection
-from run_pcc_t import load_effective_fock_energies, rotate_amplitudes, get_orbital_energies
+from run_pcc_t import load_effective_fock_energies, rotate_amplitudes, get_orbital_energies, get_t_solver
 from ao2mo import ao2mo
 from ufc_core import hone_so, ghf_fock_so, dirac_mo_eri_so, spin_rot_list_so
 
@@ -44,6 +44,8 @@ def parse_args():
     parser.add_argument("--inc", action="store_true", help="also the incoherent per-grid (T)")
     parser.add_argument("--epcc", type=float, default=None, help="PCCSD energy")
     parser.add_argument("--tag", default="", help="suffix of the result file")
+    parser.add_argument("--zero-overlap", type=float, default=None, metavar="TAU",
+                        help="zero-overlap-safe coherent (T) (pgcc_t_safe) with threshold TAU")
     args = parser.parse_args()
     args.fc = os.path.abspath(args.fc)
     args.mo = os.path.abspath(args.mo)
@@ -111,7 +113,8 @@ def main():
     comm = MPI.COMM_WORLD
     mpirank = comm.Get_rank()
     mpisize = comm.Get_size()
-    et_coh, et_inc, s00, max_zbar_dev = pcc_module.pgcc_t(h1_mo, h2_mo, nao, nocc, args.J, args.sp, args.grid,
+    t_solver = get_t_solver(pcc_module, args.zero_overlap)
+    et_coh, et_inc, s00, max_zbar_dev = t_solver(h1_mo, h2_mo, nao, nocc, args.J, args.sp, args.grid,
                                                           rot_alpha, rot_beta, rot_pg, roota, rootb, rooty,
                                                           weightsp, weightpg, fsp, fpg, t1, t2, moe,
                                                           int(args.inc), comm.py2f())
@@ -125,7 +128,8 @@ def main():
     result = {"mpi_ranks": mpisize, "ET_coherent": et_coh.real, "ET_coherent_imag": et_coh.imag,
               "ET_incoherent": complex(et_inc).real if args.inc else None, "S00": s00.real, "S00_imag": s00.imag,
               "max_Zbar_minus_T": float(max_zbar_dev), "moe": moe_label,
-              "newmo": os.path.basename(args.newmo) if args.newmo else None, "sp": args.sp, "grid": args.grid}
+              "newmo": os.path.basename(args.newmo) if args.newmo else None, "sp": args.sp, "grid": args.grid,
+              "zero_overlap": args.zero_overlap}
     if args.epcc is not None:
         result["E_PCCSD"] = args.epcc
         result["E_PCCSD_T_coherent"] = args.epcc + result["ET_coherent"]

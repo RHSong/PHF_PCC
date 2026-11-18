@@ -9,6 +9,9 @@
    Use MPI
    Implicit None
    Logical  :: TrunT1 = .true.
+! zero-overlap treatment (deformed Thouless determinant, see EvalKernelSafe): singular-value threshold, from PCC_ZO_TAU
+   Real (Kind=pr), Save :: TauZO = 1.0e-5_pr
+   Logical, Save        :: TauZOInit = .False.
 
    Contains
 
@@ -651,10 +654,8 @@
       !$omp end parallel do
       ESCF = sum(V1 * transpose(C1 + F12*(Fvo - C1)))
       C2p = C2
-      if (SP == 2) then
-        Call ProjSz1VO(Fvo,NOcc,NAO,NSO)
-        Call ProjSz2VO(C2p,NOcc,NAO,NSO)
-      end if
+      ! Sz filtering only on the final kernels (below): filtering the intermediates Fvo/C2p breaks the polynomial
+      ! structure in t used by the zero-overlap interpolation (and is a separate convention from EvalKernel's)
 ! VR = R (1 - V1) and its inverse; sub-blocks acting on the vo / vvoo blocks
       Call IDMat(VR, NSO)
       VR(:NOcc,NOcc+1:NSO) = -V1
@@ -844,5 +845,852 @@
       Call ShutDownERIBlocks
       Deallocate(Fock, RotMat, U1t, U2t, Zb1, Zb2)
       End Subroutine CoherentT
+
+          Subroutine CoherentTSafe(HOne,HTwo,T1,T2,MOE,NOcc,NAO,NSO,QJ,SP,NPoints,Npg,ncisp,ncipg, &
+                           R1,R2,Rpg,Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,DoInc, &
+                           ETcoh,ETinc,S00,DevZ,comm)
+!=====================================================================!
+! Coherent (T) correction for PCC (non-iterative, from converged T):   !
+!   S00    = sum_g W_g e^{z0(g)}                 (projected norm)       !
+!   Zbar_n = sum_g W_g e^{z0(g)} Z_n(g) / S00    (grid-averaged DST     !
+!            amplitudes, the same U1t/U2t that CCRes12 sees per point)  !
+!   ETcoh  = standard (T) formula on (Zbar1,Zbar2), denominators MOE    !
+! ETinc = sum_g W_g e^{z0} E_T(Z(g)) / S00 is the old per-grid form.   !
+! W_g is exactly the weight used for the kernels in PbarHbarOlap.      !
+! MPI: the beta grid (NPoints(2)) is split over the ranks of comm as  !
+! in PbarHbarOlap; S00, Zbar and the per-grid sum are Allreduced, and  !
+! the final (T) on Zbar splits its triples over the ranks.            !
+!=====================================================================!
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NAO, NSO, SP, NPoints(2), Npg, ncisp, ncipg
+      Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
+      Complex (Kind=pr), Intent(In)  :: HOne(NSO,NSO), HTwo(NSO,NSO,NSO,NSO)
+      Character(len=32) :: TauEnv
+      Complex (Kind=pr), Intent(In)  :: T1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr), Intent(In)  :: T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Real (Kind=pr),    Intent(In)  :: MOE(NSO)
+      Complex (Kind=pr), Intent(In)  :: R1(:,:,:), R2(:,:,:), Rpg(Npg,NSO,NSO)
+      Real (Kind=pr),    Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
+      Real (Kind=pr),    Intent(In)  :: Weightsp(:,:), Weightpg(Npg,ncipg,ncipg)
+      Complex (Kind=pr), Intent(In)  :: fsp(ncisp), fpg(ncipg)
+      Logical,           Intent(In)  :: DoInc
+      Complex (Kind=pr), Intent(Out) :: ETcoh, ETinc, S00
+      Real (Kind=pr),    Intent(Out) :: DevZ
+      Integer,           Intent(In)  :: comm
+      Complex (Kind=pr), Allocatable :: Fock(:,:), RotMat(:,:), U1t(:,:), U2t(:,:,:,:)
+      Complex (Kind=pr) :: buf(2)
+      Integer :: rank, ntask, ierr, mpi_dp, istart, iend, n1, n2
+      Integer, Allocatable :: workload(:)
+      Complex (Kind=pr), Allocatable :: Zb1(:,:), Zb2(:,:,:,:)
+      Complex (Kind=pr) :: ESCF, U0t, wsum, WeightTot, wig, ET
+      Integer :: IPointA, IPointY, IPG, M, N, P, Q, IAlloc
+      Allocate(Fock(NSO,NSO), RotMat(NSO,NSO), U1t(NOcc+1:NSO,NOcc),            &
+               U2t(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc), Zb1(NOcc+1:NSO,NOcc),       &
+               Zb2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc), Stat=IAlloc)
+      If (IAlloc /= 0) Stop "Could not allocate in CoherentT"
+      Call MKFock_MO(HOne,HTwo,Fock,ESCF,NOcc,NSO)
+      Call SetUpERIBlocks(HTwo,NOcc,NSO,WithT=.True.,Conj=.False.)
+      If (.not. TauZOInit) Then
+        Call Get_Environment_Variable('PCC_ZO_TAU', TauEnv)
+        If (Len_Trim(TauEnv) > 0) Read(TauEnv,*) TauZO
+        TauZOInit = .True.
+        Write(*,*) 'CoherentTSafe: zero-overlap threshold tau =', TauZO
+      EndIf
+      Call MPI_Comm_size(comm, ntask, ierr)
+      Call MPI_Comm_rank(comm, rank, ierr)
+      Call MPI_TYPE_CREATE_F90_COMPLEX(15, 307, mpi_dp, ierr)
+      Allocate(workload(ntask))
+      workload = NPoints(2) / ntask
+      workload(1:mod(NPoints(2),ntask)) = workload(1:mod(NPoints(2),ntask)) + 1
+      istart = sum(workload(1:rank))
+      iend = istart + workload(rank+1)
+      Zb1 = Zero; Zb2 = Zero; S00 = Zero; ETinc = Zero
+      Do IPointA = 1, NPoints(1)
+      Do IPointY = istart+1, iend
+      Do IPG = 1, Npg
+        RotMat = MatMul(R1(IPointA,:,:), R2(IPointY,:,:))
+        RotMat = MatMul(RotMat, Rpg(IPG,:,:))
+        Call DSTT2Safe(RotMat,T1,T2,U0t,U1t,U2t,NOcc,NSO,TauZO)   ! overlap-weighted: U0t, U0t*U1, U0t*U2 (zero-overlap safe)
+        wsum = Zero
+        Do M = 0, ncisp-1
+        Do N = 0, ncisp-1
+        Do P = 1, ncipg
+        Do Q = 1, ncipg
+          If (SP == 2) Then
+            Call Wigner(QJ,QJ,QJ,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
+          Else
+            Call Wigner(QJ,M-QJ,N-QJ,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
+          End If
+          WeightTot = Weightsp(IPointA,IPointY) * Weightpg(IPG,P,Q)
+          WeightTot = wig * WeightTot * conjg(fsp(1+M)) * fsp(1+N)
+          WeightTot = WeightTot * conjg(fpg(P)) * fpg(Q)
+          wsum = wsum + WeightTot
+        End Do
+        End Do
+        End Do
+        End Do
+        S00 = S00 + wsum * U0t
+        Zb1 = Zb1 + wsum * U1t
+        Zb2 = Zb2 + wsum * U2t
+        ! per-grid (incoherent) (T) needs the normalized amplitudes, undefined at zero overlap: not evaluated here
+      End Do
+      End Do
+      End Do
+      If (ntask > 1) Then
+        n1 = NOcc*(NSO-NOcc); n2 = n1*n1
+        buf(1) = S00; buf(2) = ETinc
+        Call MPI_Allreduce(MPI_IN_PLACE, buf, 2, mpi_dp, MPI_Sum, comm, ierr)
+        S00 = buf(1); ETinc = buf(2)
+        Call MPI_Allreduce(MPI_IN_PLACE, Zb1, n1, mpi_dp, MPI_Sum, comm, ierr)
+        Call MPI_Allreduce(MPI_IN_PLACE, Zb2, n2, mpi_dp, MPI_Sum, comm, ierr)
+      End If
+      Deallocate(workload)
+      If (SP == 2) Call ProjSz(Zb1,Zb2,NOcc,NAO,NSO)
+      Zb1 = Zb1 / S00
+      Zb2 = Zb2 / S00
+      ETinc = ETinc / S00
+      DevZ = Max(MaxVal(Abs(Zb1-T1)), MaxVal(Abs(Zb2-T2)))
+      If (rank == 0) Write(*,*) "CoherentT: S00 =", S00, " max|Zbar-T| =", DevZ, " ranks =", ntask
+      Call CCSD_T_Ene(Fock, MOE, Zb1, Zb2, NOcc, NSO-NOcc, NSO, ETcoh, comm)
+      Call ShutDownERIBlocks
+      Deallocate(Fock, RotMat, U1t, U2t, Zb1, Zb2)
+      End Subroutine CoherentTSafe
+
+      Subroutine DSTT2Safe(RotMat,T1,T2,S0,S1,S2,NOcc,NSO,Tau)
+!  Zero-overlap-safe, OVERLAP-WEIGHTED version of DSTT2 for the coherent (T):
+!  S0 = U0, S1 = U0*U1, S2 = U0*U2 of R e^{T1} e^{T2}|0> (as accumulated by CoherentT).  At grid points with P singular values
+!  of R_oo below Tau the ket determinant is deformed, R Q(t)|0>, and the overlap-weighted quantities are reconstructed from
+!  2P+1 nodes with Dirichlet weights (same planes, nodes and weights as EvalKernelSafe / DSTT2Q).
+      Implicit None
+      Integer,          Intent(In)  :: NOcc, NSO
+      Real (Kind=pr),   Intent(In)  :: Tau
+      Complex(kind=pr), Intent(In)  :: RotMat(NSO,NSO)
+      Complex(kind=pr), Intent(In)  :: T1(NOcc+1:NSO,NOcc), T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex(kind=pr), Intent(Out) :: S0, S1(NOcc+1:NSO,NOcc), S2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex(kind=pr), Allocatable :: Vk(:,:), Ek(:,:), Qt(:,:), u1(:,:), u2(:,:,:,:)
+      Real (Kind=pr),   Allocatable :: Sval(:)
+      Complex(kind=pr) :: u0
+      Real (Kind=pr) :: t, w, x
+      Integer :: P, m, j
+      Call ZeroOverlapPlanes(RotMat,NOcc,NSO,Tau,P,Vk,Ek,Sval)
+      If (P == 0) Then
+        Call DSTT2(RotMat,T1,T2,S0,S1,S2,NOcc,NSO)
+        S1 = S0 * S1; S2 = S0 * S2
+        Return
+      EndIf
+      Allocate(Qt(NSO,NSO), u1(NOcc+1:NSO,NOcc), u2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc))
+      S0 = Zero; S1 = Zero; S2 = Zero
+      m = 2*P + 1
+      Do j = 0, 2*P
+        t = Pi / (2.0_pr*m) + 2.0_pr*Pi*j / m
+        x = -t
+        w = Sin(m*x/2.0_pr) / (m * Sin(x/2.0_pr))
+        Call ZeroOverlapQ(Vk,Ek,P,NSO,t,Qt)
+        Call DSTT2Q(RotMat,Qt,T1,T2,u0,u1,u2,NOcc,NSO)
+        S0 = S0 + w*u0; S1 = S1 + w*u0*u1; S2 = S2 + w*u0*u2
+      EndDo
+      Deallocate(Vk, Ek, Sval, Qt, u1, u2)
+      End Subroutine DSTT2Safe
+
+
+
+
+
+! =====================================================================================================================
+!  Zero-overlap grid points.  The kernels of a grid point are built from the reference pair (Phi, R Phi) through
+!  M = C_o^H R C_o (oo block of RotMat); when M has P (near-)zero singular values the Thouless step is 0 x inf although
+!  excited-bra elements such as <Phi_ij^ab|R Phi> are finite.  Remedy (R Q(t)|0> = e^{U(t)}|0>, everything else
+!  unchanged): deform only the Thouless determinant by a unitary rotation Q(t) in the P planes (v_k, e_k),
+!  v_k = C_o V(:,k) (ket occupied orbital invisible to the bra), e_k = orthonormalised virtual part of R^H C_o U(:,k)
+!  (the ket virtual orbital that R maps onto the missing bra orbital); f(T) = R e^T R^-1 keeps the fixed R
+!  (DSTT2Q: BuildThoulessZ on R [1,0;T1,1] Q(t), then the unchanged BuildW(R, U1(t), T2); EvalOvlpQ: BuildV1 on R Q(t)
+!  and the f(C) part with R).  Each kernel is a trigonometric polynomial of degree <= P in t; its t = 0 value is
+!  recovered from 2P+1 equispaced angles with Dirichlet weights.  The same Q(t) serves all kernels of the point, and
+!  overlap-weighted kernels (not ratios) are interpolated.  All existing routines are reused unchanged.
+! =====================================================================================================================
+      Subroutine ZeroOverlapPlanes(RotMat,NOcc,NSO,Tau,P,Vk,Ek,Sval)
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NSO
+      Real (Kind=pr),    Intent(In)  :: Tau
+      Complex (Kind=pr), Intent(In)  :: RotMat(NSO,NSO)
+      Integer,           Intent(Out) :: P
+      Complex (Kind=pr), Allocatable, Intent(Out) :: Vk(:,:), Ek(:,:)
+      Real (Kind=pr),    Allocatable, Intent(Out) :: Sval(:)
+      Complex (Kind=pr), Allocatable :: M(:,:), U(:,:), VT(:,:), Work(:), Bk(:)
+      Real (Kind=pr),    Allocatable :: RWork(:)
+      Integer :: LWork, Info, k, p1, p2
+      Complex (Kind=pr) :: ov
+      Real (Kind=pr) :: nrm
+      Allocate(M(NOcc,NOcc), U(NOcc,NOcc), VT(NOcc,NOcc), Sval(NOcc), RWork(5*NOcc), Work(1))
+      M = RotMat(1:NOcc,1:NOcc)
+      LWork = -1
+      Call zgesvd('A','A',NOcc,NOcc,M,NOcc,Sval,U,NOcc,VT,NOcc,Work,LWork,RWork,Info)
+      LWork = Int(Real(Work(1), Kind=pr)); Deallocate(Work); Allocate(Work(LWork))
+      Call zgesvd('A','A',NOcc,NOcc,M,NOcc,Sval,U,NOcc,VT,NOcc,Work,LWork,RWork,Info)
+      If (Info /= 0) Stop "ZeroOverlapPlanes: zgesvd failed"
+      P = Count(Sval < Tau)
+      Allocate(Vk(NSO,Max(P,1)), Ek(NSO,Max(P,1)), Bk(NSO))
+      Vk = Zero; Ek = Zero
+      If (P == 0) Return
+      p1 = 0
+      Do k = 1, NOcc
+        If (Sval(k) >= Tau) Cycle
+        p1 = p1 + 1
+        Vk(1:NOcc,p1) = Conjg(VT(k,1:NOcc))              ! v_k = C_o V(:,k)   (C_o = identity columns in the MO basis)
+        Bk = Zero; Bk(1:NOcc) = U(1:NOcc,k)              ! b_k = C_o U(:,k)
+        Ek(:,p1) = MatMul(Conjg(Transpose(RotMat)), Bk)  ! R^H b_k
+        Ek(1:NOcc,p1) = Zero                             ! remove the (small) occupied part
+      EndDo
+      Do p1 = 1, P                                       ! modified Gram-Schmidt over the P virtual vectors
+        Do p2 = 1, p1-1
+          ov = Dot_Product(Ek(:,p2), Ek(:,p1)); Ek(:,p1) = Ek(:,p1) - ov * Ek(:,p2)
+        EndDo
+        nrm = Sqrt(Real(Dot_Product(Ek(:,p1), Ek(:,p1)), Kind=pr))
+        If (nrm < 1.0e-8_pr) Stop "ZeroOverlapPlanes: e_k has no virtual component"
+        Ek(:,p1) = Ek(:,p1) / nrm
+      EndDo
+      Deallocate(M, U, VT, Work, RWork, Bk)
+      End Subroutine ZeroOverlapPlanes
+
+      Subroutine ZeroOverlapQ(Vk,Ek,P,NSO,t,Q)
+      ! Q(t) = 1 + (cos t - 1) (V V^H + E E^H) + sin t (E V^H - V E^H)
+      Implicit None
+      Integer,           Intent(In)  :: P, NSO
+      Real (Kind=pr),    Intent(In)  :: t
+      Complex (Kind=pr), Intent(In)  :: Vk(:,:), Ek(:,:)
+      Complex (Kind=pr), Intent(Out) :: Q(NSO,NSO)
+      Integer :: i, k
+      Q = Zero
+      Do i = 1, NSO
+        Q(i,i) = One
+      EndDo
+      Do k = 1, P
+        Q = Q + (Cos(t) - One) * (MatMul(Vk(:,k:k), Conjg(Transpose(Vk(:,k:k)))) + MatMul(Ek(:,k:k), Conjg(Transpose(Ek(:,k:k))))) &
+              + Sin(t) * (MatMul(Ek(:,k:k), Conjg(Transpose(Vk(:,k:k)))) - MatMul(Vk(:,k:k), Conjg(Transpose(Ek(:,k:k)))))
+      EndDo
+      End Subroutine ZeroOverlapQ
+
+      Subroutine DSTT2Q(R,Qdef,T1,T2,W0,W1,W2,NOcc,NSO)
+      ! DSTT2 with the Thouless determinant deformed: R Q(t) e^{T1}|0> = U0 e^{U1}|0> (BuildThoulessZ on R [1,0;T1,1] Q),
+      ! then the unchanged BuildW(R, U1, T2) with the fixed R (f(T2) = R e^{T2} R^-1 is not deformed)
+      Implicit None
+      Integer         ,    Intent(In)  :: NOcc,NSO
+      Complex(kind=pr),    Intent(In)  :: R(NSO,NSO), Qdef(NSO,NSO)
+      Complex(kind=pr),    Intent(In)  :: T1(NOcc+1:NSO,NOcc)
+      Complex(kind=pr),    Intent(In)  :: T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex(kind=pr),    Intent(Out) :: W0, W1(NOcc+1:NSO,NOcc)
+      Complex(kind=pr),    Intent(Out) :: W2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex(kind=pr) :: U0, U1(NOcc+1:NSO,NOcc)
+      Complex(kind=pr) :: MO1(NSO,NSO), MO2(NSO,NSO)
+      Integer :: i
+      MO1 = Zero; MO2 = Zero
+      Do i = 1, NSO
+        MO1(i,i) = One; MO2(i,i) = One
+      End Do
+      MO2(NOcc+1:NSO,1:NOcc) = T1
+      MO2 = MatMul(MatMul(R, MO2), Qdef)
+      Call BuildThoulessZ(NOcc,NSO,MO1,MO2,U0,U1)
+      Call BuildW(R,U1,T2,W0,W1,W2,NOcc,NSO)
+      W0 = W0 * U0
+      W1 = W1 + U1
+      End Subroutine DSTT2Q
+
+      Subroutine EvalKernelSafe(HOne, HTwo, ConjH, Fock, ESCF, T1, T2, &
+                            eps0, lambda0, eps1, eps2, lambda1, lambda2, &
+                            RotMat, NOcc, NAO, NSO, SP, TrunODE, Tau)
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NAO, NSO
+      Integer,           Intent(In)  :: TrunODE,SP
+      Logical,           Intent(In)  :: ConjH
+      Real (Kind=pr),    Intent(In)  :: Tau
+      Complex (Kind=pr), Intent(In)  :: RotMat(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: T1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr), Intent(In)  :: T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (Kind=pr), Intent(In)  :: HOne(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: HTwo(NSO,NSO,NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: Fock(NSO,NSO), ESCF
+      Complex (Kind=pr), Intent(Out) :: eps0, lambda0
+      Complex (Kind=pr), Intent(Out) :: eps1(NSO-NOcc,NOcc), eps2(NSO-NOcc,NSO-NOcc,NOcc,NOcc)
+      Complex (Kind=pr), Intent(Out) :: lambda1(NSO-NOcc,NOcc), lambda2(NSO-NOcc,NSO-NOcc,NOcc,NOcc)
+      Complex (Kind=pr), Allocatable :: Vk(:,:), Ek(:,:), Qt(:,:)
+      Complex (Kind=pr), Allocatable :: e1(:,:), l1(:,:), e2(:,:,:,:), l2(:,:,:,:)
+      Complex (Kind=pr) :: e0, l0
+      Real (Kind=pr),    Allocatable :: Sval(:)
+      Real (Kind=pr) :: t, w, x
+      Integer :: P, m, j
+      Call ZeroOverlapPlanes(RotMat,NOcc,NSO,Tau,P,Vk,Ek,Sval)
+      If (P == 0) Then
+        Call EvalKernel(HOne, HTwo, ConjH, Fock, ESCF, T1, T2, eps0, lambda0, eps1, eps2, lambda1, lambda2, &
+                        RotMat, NOcc, NAO, NSO, SP, TrunODE)
+        Return
+      EndIf
+      Allocate(Qt(NSO,NSO), e1(NSO-NOcc,NOcc), l1(NSO-NOcc,NOcc), &
+               e2(NSO-NOcc,NSO-NOcc,NOcc,NOcc), l2(NSO-NOcc,NSO-NOcc,NOcc,NOcc))
+      eps0 = Zero; lambda0 = Zero; eps1 = Zero; lambda1 = Zero; eps2 = Zero; lambda2 = Zero
+      m = 2*P + 1
+      Write(*,'(A,I3,A,8ES10.2)') ' ZeroOverlap: P =', P, '  singular values in Z:', Pack(Sval, Sval < Tau)
+      Do j = 0, 2*P
+        t = Pi / (2.0_pr*m) + 2.0_pr*Pi*j / m
+        x = -t
+        w = Sin(m*x/2.0_pr) / (m * Sin(x/2.0_pr))
+        Call ZeroOverlapQ(Vk,Ek,P,NSO,t,Qt)
+        Call EvalKernelQ(HOne, HTwo, ConjH, Fock, ESCF, T1, T2, e0, l0, e1, e2, l1, l2, RotMat, Qt, NOcc, NAO, NSO, SP, TrunODE)
+        Write(*,'(A,I3,A,F8.4,A,ES12.4,A,ES12.4)') ' ZeroOverlap node', j, ' t =', t, '  |lambda0(t)| =', Abs(l0), '  w =', w
+        eps0 = eps0 + w*e0; lambda0 = lambda0 + w*l0
+        eps1 = eps1 + w*e1; lambda1 = lambda1 + w*l1
+        eps2 = eps2 + w*e2; lambda2 = lambda2 + w*l2
+      EndDo
+      Deallocate(Vk, Ek, Sval, Qt, e1, l1, e2, l2)
+      End Subroutine EvalKernelSafe
+
+      Subroutine EvalOvlpSafe(C1,C2,Ovlp0,Ovlp1,Ovlp2,RotMat,NOcc,NSO,SP,Tau)
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NSO,SP
+      Real (Kind=pr),    Intent(In)  :: Tau
+      Complex (Kind=pr), Intent(In)  :: RotMat(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: C1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr), Intent(In)  :: C2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (Kind=pr), Intent(Out) :: Ovlp0, Ovlp1(NSO-NOcc,NOcc)
+      Complex (Kind=pr), Intent(Out) :: Ovlp2(NSO-NOcc,NSO-NOcc,NOcc,NOcc)
+      Complex (Kind=pr), Allocatable :: Vk(:,:), Ek(:,:), Qt(:,:), o1(:,:), o2(:,:,:,:)
+      Complex (Kind=pr) :: o0
+      Real (Kind=pr),    Allocatable :: Sval(:)
+      Real (Kind=pr) :: t, w, x
+      Integer :: P, m, j
+      ! metric kernels are evaluated bra-side (BuildV1: Thouless of R^H|0>), so the deformed pair is (|0>, R^H|0>):
+      ! planes from the SVD of (R^H)_oo, ket null directions U(:,k), e_k = R C_o V(:,k)
+      Call ZeroOverlapPlanes(Conjg(Transpose(RotMat)),NOcc,NSO,Tau,P,Vk,Ek,Sval)
+      ! NOTE: EvalOvlp returns Ovlp1/Ovlp2 normalised by the overlap (BuildSC_test multiplies them by s afterwards).
+      ! Here the OVERLAP-WEIGHTED kernels sum_j w_j o0_j o1_j are returned (ratios are not polynomials in t and are
+      ! undefined at exact zeros); BuildSC_safe therefore does not multiply them by the overlap again.
+      If (P == 0) Then
+        Call EvalOvlp(C1,C2,Ovlp0,Ovlp1,Ovlp2,RotMat,NOcc,NSO,SP)
+        Ovlp1 = Ovlp1 * Ovlp0; Ovlp2 = Ovlp2 * Ovlp0
+        Return
+      EndIf
+      Allocate(Qt(NSO,NSO), o1(NSO-NOcc,NOcc), o2(NSO-NOcc,NSO-NOcc,NOcc,NOcc))
+      Ovlp0 = Zero; Ovlp1 = Zero; Ovlp2 = Zero
+      m = 2*P + 1
+      Do j = 0, 2*P
+        t = Pi / (2.0_pr*m) + 2.0_pr*Pi*j / m
+        x = -t
+        w = Sin(m*x/2.0_pr) / (m * Sin(x/2.0_pr))
+        Call ZeroOverlapQ(Vk,Ek,P,NSO,t,Qt)
+        Call EvalOvlpQ(C1,C2,o0,o1,o2,RotMat,Qt,NOcc,NSO,SP)
+        Ovlp0 = Ovlp0 + w*o0; Ovlp1 = Ovlp1 + w*o0*o1; Ovlp2 = Ovlp2 + w*o0*o2
+      EndDo
+      Deallocate(Vk, Ek, Sval, Qt, o1, o2)
+      End Subroutine EvalOvlpSafe
+
+      Subroutine EvalKernelQ(HOne, HTwo, ConjH, Fock, ESCF, T1, T2, &
+                            eps0, lambda0, eps1, eps2, lambda1, lambda2, &
+                            RotMat, Qdef, NOcc, NAO, NSO, &
+                            SP,TrunODE)
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NAO, NSO
+      Integer,           Intent(In)  :: TrunODE,SP
+      Logical,           Intent(In)  :: ConjH
+      Complex (Kind=pr), Intent(In)  :: RotMat(NSO,NSO), Qdef(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: T1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr), Intent(In)  :: T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (Kind=pr), Intent(In)  :: HOne(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: HTwo(NSO,NSO,NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: Fock(NSO,NSO), ESCF
+      Complex (Kind=pr), Intent(Out) :: eps0, lambda0
+      Complex (Kind=pr), Intent(Out) :: eps1(NSO-NOcc,NOcc), eps2(NSO-NOcc,NSO-NOcc,NOcc,NOcc)
+      Complex (Kind=pr), Intent(Out) :: lambda1(NSO-NOcc,NOcc), lambda2(NSO-NOcc,NSO-NOcc,NOcc,NOcc)
+      Complex (Kind=pr), Allocatable :: U1t(:,:), U2t(:,:,:,:)
+      Complex (Kind=pr)              :: U0t, STot
+      Complex (Kind=pr), Allocatable :: eps1t(:,:), lambda1t(:,:)
+      Complex (Kind=pr)              :: ET
+      Real (Kind=pr)                 :: FDiag(NSO)
+      Integer                        :: IAlloc, ip
+      Integer         :: cnt1, cnt2, clock_rate, clock_max
+      Allocate(U1t(NOcc+1:NSO,NOcc), U2t(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc),  &
+               eps1t(NSO,NSO), lambda1t(NSO,NSO), Stat=IAlloc)
+      If(IAlloc /= 0) Stop "Could not allocate in EvalKernel"
+      Call system_clock(cnt1,clock_rate,clock_max)
+      Call DSTT2Q(RotMat,Qdef,T1,T2,U0t,U1t,U2t,NOcc,NSO)
+      Call system_clock(cnt2,clock_rate,clock_max)
+      Write(*,*) 'Trans T2 time = ', real(cnt2-cnt1)/real(clock_rate)
+      STot = U0t
+      Call system_clock(cnt1,clock_rate,clock_max)
+      If ((Abs(TrunODE).ge.1).and.(Abs(TrunODE).le.3)) then
+        Call BuildKernSD(lambda1t,lambda2,eps0,eps1t,eps2,   &
+            Fock,HTwo,ESCF,U1t,U2t,T1,T2,NOcc,NSO,SP,Abs(TrunODE),ConjH)
+      EndIf
+	  If (TrunODE .eq. 3) then
+	  	  Do ip = 1, NSO
+	  	    FDiag(ip) = Real(Fock(ip,ip),Kind=pr)
+	  	  End Do
+	  	  Call CCSD_T_Ene(Fock, FDiag, U1t, U2t, NOcc, NSO-NOcc, NSO, ET)
+		  eps0 = eps0 + ET
+		  Write(*,*) "(T) Ene =", ET
+	  End If
+      Deallocate(U1t, U2t)
+      Call system_clock(cnt2,clock_rate,clock_max)
+      Write(*,*) 'CC time = ', real(cnt2-cnt1)/real(clock_rate)
+      if (SP == 2) then
+        Call ProjSz1(lambda1t,NOcc,NAO,NSO)
+        Call ProjSz1(eps1t,NOcc,NAO,NSO)
+        Call ProjSz2VO(lambda2,NOcc,NAO,NSO)
+        Call ProjSz2VO(eps2,NOcc,NAO,NSO)
+      end if
+      lambda0 = STot
+      eps0    = eps0*lambda0
+      lambda1 = lambda1t(NOcc+1:NSO,:NOcc)*lambda0
+      eps1    = eps1t(NOcc+1:NSO,:NOcc)*lambda0
+      lambda2 = lambda2*lambda0
+      eps2    = eps2*lambda0
+      Deallocate(eps1t,lambda1t)
+      End Subroutine EvalKernelQ
+
+      Subroutine EvalOvlpQ(C1,C2,Ovlp0,Ovlp1,Ovlp2,RotMat,Qdef,NOcc,NSO,SP)
+!=====================================================================!
+!  <R phi| (singles/doubles) e^{Z} ... >:  same quantities as the old   !
+!  routine, which embedded C1/C2 in NSO^2/NSO^4 arrays and ran two      !
+!  full 4-index transforms (3-4 NSO^4 scratch arrays per grid point).  !
+!  Here everything is done on the (v,o)/(v,v,o,o) blocks:              !
+!    Deex transform (1+Z) X (1-Z) of a vvoo-only tensor leaves the     !
+!    vvoo block unchanged and gives  Fvo = C1 + C2(a,b,i,l) Z(l,b),    !
+!    ESCF = Z(i,a) C1(a,i) + 1/2 Z(i,a) Z(j,b) C2(a,b,i,j);            !
+!    the final similarity transform with VR = R (1 - V1) is applied to  !
+!    the connected vvoo block (TransBlockT2) and to the disconnected    !
+!    ESCF / Fvo pieces analytically.                                    !
+!  Only the vo block of Ovlp1 and the vvoo block of Ovlp2 are returned !
+!  (the only parts BuildSC_test ever used).                            !
+!=====================================================================!
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NSO,SP
+      Complex (Kind=pr), Intent(In)  :: RotMat(NSO,NSO), Qdef(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: C1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr), Intent(In)  :: C2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (Kind=pr), Intent(Out) :: Ovlp0, Ovlp1(NSO-NOcc,NOcc)
+      Complex (Kind=pr), Intent(Out) :: Ovlp2(NSO-NOcc,NSO-NOcc,NOcc,NOcc)
+      Complex (Kind=pr), Allocatable :: V1(:,:), VR(:,:), VRi(:,:)
+      Complex (Kind=pr), Allocatable :: Fvo(:,:), C2p(:,:,:,:), Lvv(:,:), Lvo(:,:), Moo(:,:)
+      Complex (Kind=pr), Allocatable :: Avo(:,:), Fp(:,:)
+      Complex (Kind=pr) :: ESCF
+      Integer        :: o, v, i, j, a, b, l, NAO
+      Integer        :: IAlloc
+      o = NOcc
+      v = NSO - NOcc
+      NAO = NSO / 2
+      Allocate(V1(o,v), VR(NSO,NSO), VRi(NSO,NSO), Fvo(v,o), C2p(v,v,o,o), &
+               Lvv(v,v), Lvo(v,o), Moo(o,o), Avo(v,o), Fp(v,o), Stat=IAlloc)
+      If(IAlloc /= 0) Stop "Could not allocate in EvalOvlp"
+      Call BuildV1(V1,Ovlp0,MatMul(Conjg(Transpose(Qdef)),RotMat),NOcc,NSO)   ! Thouless of the deformed R^H Q(t)|0> (BuildV1 takes X with X^H = R^H Q); VR below keeps R
+! Deex-transformed one-body kernel and its ESCF
+!   Fvo(a,i) = C1(a,i) + sum_{b,l} C2(a,b,i,l) V1(l,b)   (one ZGEMV per (i,l): C2(:,:,i,l) . V1(l,:))
+!   ESCF     = sum V1(i,a) C1(a,i) + 1/2 sum V1(i,a) V1(j,b) C2(a,b,i,j)
+!            = sum V1(i,a) [C1(a,i) + 1/2 (Fvo - C1)(a,i)]     (reuses the contraction above)
+      Fvo = C1
+      !$omp parallel do private(i,l)
+      Do i = 1, o
+        Do l = 1, o
+          Call ZGEMV('N', v, v, ZOne, C2(o+1,o+1,i,l), v, V1(l,1), o, ZOne, Fvo(1,i), 1)
+        End Do
+      End Do
+      !$omp end parallel do
+      ESCF = sum(V1 * transpose(C1 + F12*(Fvo - C1)))
+      C2p = C2
+      ! Sz filtering only on the final kernels (below): filtering the intermediates Fvo/C2p breaks the polynomial
+      ! structure in t used by the zero-overlap interpolation (and is a separate convention from EvalKernel's)
+! VR = R (1 - V1) and its inverse; sub-blocks acting on the vo / vvoo blocks
+      Call IDMat(VR, NSO)
+      VR(:NOcc,NOcc+1:NSO) = -V1
+      VR = MatMul(RotMat,VR)
+      Call InvertC(VR,VRi,NSO)
+      Lvv = VR(o+1:NSO,o+1:NSO)
+      Lvo = VR(o+1:NSO,1:o)
+      Moo = VRi(1:o,1:o)
+      Avo = matmul(Lvo,Moo)                     ! A(a,i)  = sum_k VR(a,k) VRi(k,i)
+      Fp = matmul(Lvv,matmul(Fvo,Moo))         ! Fp(a,i) = sum_bj VR(a,b) Fvo(b,j) VRi(j,i)
+      Ovlp1 = Fp + ESCF*Avo
+      Call TransBlockT2(C2p,o,v,Lvv,v,Lvv,v,Moo,o,Moo,o,Ovlp2)
+      !$omp parallel do private(a,b,i,j)
+      Do j = 1, o
+      Do i = 1, o
+      Do b = 1, v
+      Do a = 1, v
+        Ovlp2(a,b,i,j) = Ovlp2(a,b,i,j) + ESCF*(Avo(a,i)*Avo(b,j) - Avo(a,j)*Avo(b,i)) &
+                       + Fp(a,i)*Avo(b,j) + Avo(a,i)*Fp(b,j) - Avo(a,j)*Fp(b,i) - Fp(a,j)*Avo(b,i)
+      End Do
+      End Do
+      End Do
+      End Do
+      !$omp end parallel do
+      if (SP == 2) then
+        Call ProjSz1VO(Ovlp1,NOcc,NAO,NSO)
+        Call ProjSz2VO(Ovlp2,NOcc,NAO,NSO)
+      end if
+      Deallocate(V1,VR,VRi,Fvo,C2p,Lvv,Lvo,Moo,Avo,Fp)
+      End Subroutine EvalOvlpQ
+
+      Subroutine PbarHbarOlapSafe(Olap0,OlapEx1,OlapEx2,EOlap0,EOlapEx1, &
+                              EOlapEx2,HOne,HTwo,Ref,T1,T2,NOcc,NAO,NSO,ENuc,QJ, SP, &
+                              NPoints, Npg, ncisp, ncipg, ncik, R1, R2, Rpg, Rk, &
+							  Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,TrunODE,comm)
+      Implicit None
+      Integer,           Intent(In)  :: NOcc, NAO, NSO
+      Integer,           Intent(In)  :: NPoints(2), Npg
+      Integer,           Intent(In)  :: TrunODE, SP
+      Real(kind=pr),           Intent(In) :: QJ   ! total spin J, integer or half-integer
+	  Integer,           Intent(In)  :: ncisp, ncipg, ncik
+      Real    (Kind=pr), Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
+      Real    (Kind=pr), Intent(In)  :: Weightsp(:,:), Weightpg(Npg,ncipg,ncipg)
+      Complex (Kind=pr), Intent(In)  :: fsp(ncisp),fpg(ncipg),fk(ncik)
+	  Complex (Kind=pr), Intent(In)  :: R1(:,:,:), R2(:,:,:)
+	  Complex (Kind=pr), Intent(In)  :: Rpg(npg,NSO,NSO), Rk(ncik,NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: T1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr), Intent(In)  :: T2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (Kind=pr), Intent(In)  :: HOne(NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: HTwo(NSO,NSO,NSO,NSO)
+      Complex (Kind=pr), Intent(In)  :: Ref(NSO,NSO)
+      Real (Kind=pr),    Intent(In)  :: ENuc 
+      Complex (Kind=pr), Intent(Out) :: Olap0, EOlap0 
+      Complex (Kind=pr), Intent(Out) :: OlapEx1(NOcc+1:NSO,NOcc) 
+      Complex (Kind=pr), Intent(Out) :: OlapEx2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc) 
+      Complex (Kind=pr), Intent(Out) :: EOlapEx1(NOcc+1:NSO,NOcc) 
+      Complex (Kind=pr), Intent(Out) :: EOlapEx2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc) 
+! Transformed Hamiltonian
+      Complex (Kind=pr), Allocatable :: Fock(:,:)
+      Complex (Kind=pr), Allocatable :: T1Loc(:,:) 
+! Thouless
+      Complex (Kind=pr), Allocatable :: RotMat(:,:), V1Del(:,:), V1Old(:,:)
+      Complex (Kind=pr)              :: OvlTh
+! Utildes
+      Complex (Kind=pr), Allocatable :: U1t(:,:), U2t(:,:,:,:)
+      Complex (Kind=pr), Allocatable :: U3t(:,:,:,:,:,:)
+      Complex (Kind=pr), Allocatable :: U4t(:)
+      Complex (Kind=pr)              :: STot 
+      Complex (Kind=pr)              :: U0t, STotChk 
+      Integer                        :: O, V, nq 
+      Real (Kind=pr)                 :: MaxImag
+! Spin integration stuff
+      Integer                        :: I, J, K, M, N, P, Q
+      Integer                        :: IPointA, IPointB, IPointY, IPG, IK
+      Integer                        :: IAlloc
+      Real (Kind=pr)                 :: Beta, Beta0
+      Real (Kind=pr)                 :: BetaH
+      Real (Kind=pr)                 :: Alpha, Gama
+      Complex (Kind=pr)              :: Euler(3), wig 
+      Complex (Kind=pr), Allocatable :: iSyBK(:,:), iSzBK(:,:)
+! For excited Kernels
+      Complex (Kind=pr)              :: ESCF 
+      Complex (Kind=pr)              :: eps0, lambda0
+      Complex (Kind=pr)              :: WeightTot 
+!     Complex (Kind=pr), Allocatable :: tmp1(:,:), tmp2(:,:,:,:)
+      Complex (Kind=pr), Allocatable :: eps1(:,:), eps2(:,:,:,:)
+      Complex (Kind=pr), Allocatable :: lambda1(:,:), lambda2(:,:,:,:)
+! RK variables
+      Real (Kind=pr)                 :: hin, TolRK
+      Logical                        :: ODESuccess
+! Restart stuff
+      Logical                        :: Exists
+! Timers
+      Integer         :: cnt1, cnt2, clock_rate, clock_max
+      Real (Kind=pr)  :: cput1, cput2
+      Logical         :: ShowTime = .True.
+      Character(len=32) :: TauEnv
+      INTEGER, EXTERNAL :: OMP_GET_THREAD_NUM, OMP_GET_NUM_THREADS
+! mpi
+      integer, intent(in) :: comm
+      integer :: rank, ntask, ierr, stat, n1, n2, mpi_dp
+      integer, allocatable :: workload(:)
+      integer :: istart, iend, pt1, pt2
+      Complex (Kind=pr) :: iOlap0, iEOlap0
+      Complex (Kind=pr) :: iOlapEx1(NOcc+1:NSO,NOcc), iEOlapEx1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr) :: iOlapEx2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (Kind=pr) :: iEOlapEx2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      If (.not. TauZOInit) Then
+        Call Get_Environment_Variable('PCC_ZO_TAU', TauEnv)
+        If (Len_Trim(TauEnv) > 0) Read(TauEnv,*) TauZO
+        TauZOInit = .True.
+        Write(*,*) 'PbarHbarOlapSafe: zero-overlap threshold tau =', TauZO
+      EndIf
+      Call MPI_Comm_size(comm, ntask, ierr)
+      Call MPI_Comm_rank(comm, rank, ierr)
+      Call MPI_TYPE_CREATE_F90_COMPLEX(15, 307, mpi_dp, ierr)
+      Allocate(workload(ntask))
+!      workload = Npg / ntask
+!      workload(1:mod(Npg,ntask)) = workload(1:mod(Npg,ntask)) + 1
+      workload = NPoints(2) / ntask
+      workload(1:mod(NPoints(2),ntask)) = workload(1:mod(NPoints(2),ntask)) + 1
+      istart = sum(workload(1:rank))
+      iend = istart + workload(rank+1)
+      n1 = NOcc * (NSO-NOcc)
+      n2 = NOcc * (NSO-NOcc) * NOcc * (NSO-NOcc)
+
+!====================================================================!
+! This is the driver for SGCCSD Residual                             !
+!====================================================================!
+      Write(*,*) "Entered PbarHbarRes"
+      Allocate(RotMat(NSO,NSO), T1Loc(NOcc+1:NSO,NOcc),         &
+               V1Del(NOcc,NOcc+1:NSO), V1Old(NOcc,NOcc+1:NSO),  &
+               Fock(NSO,NSO),     &
+!              tmp1(NSO,NSO), tmp2(NSO,NSO,NSO,NSO),                        &
+               eps1(NSO-NOcc,NOcc), eps2(NSO-NOcc,NSO-NOcc,NOcc,NOcc),            &
+               lambda1(NSO-NOcc,NOcc), lambda2(NSO-NOcc,NSO-NOcc,NOcc,NOcc),      &
+               Stat=IAlloc)
+      If(IAlloc /= 0) Stop "Could not allocate in PbarHbarRes"
+! The Fock matrix and the integral blocks are constant: build them once here,
+! not at every grid point (the old code called MKFock_MO and re-sliced H2 per point).
+      Call MKFock_MO(HOne,HTwo,Fock,ESCF,NOcc,NSO)
+      ESCF = ESCF + ENuc
+      Call SetUpERIBlocks(HTwo,NOcc,NSO,WithT=(TrunODE==3),Conj=.False.)
+! The coding of TrunODE is 
+! 1: SD; SD
+! 2: SDt; SD
+! 3: SDt; SDtq
+! 4: SDT; SDT
+! 5: SDTq; SDT
+! 6: SDTq; SDTq
+! 7: SDTQ; SDTQ
+      Write(*,*) "max|T1|", maxval(abs(T1))
+      Write(*,*) "max|T2|", maxval(abs(T2))
+      Write(*,*) "max|imag(T1)|", maxval(abs(aimag(T1)))
+      Write(*,*) "max|imag(T2)|", maxval(abs(aimag(T2)))
+! Initialize the overlap matrices 
+      EOlap0= Zero
+      EOlapEx1= Zero
+      EOlapEx2= Zero
+      Olap0 = Zero
+      OlapEx1 = Zero
+      OlapEx2 = Zero
+      V1Old = Zero
+      iEOlap0= Zero
+      iEOlapEx1= Zero
+      iEOlapEx2= Zero
+      iOlap0 = Zero
+      iOlapEx1 = Zero
+      iOlapEx2 = Zero
+! Initial condition for Utildes
+      STot= One 
+      Beta0 = Zero
+      Write(6,50)
+      Write(6,51)
+      Write(6,50)
+50  Format('**************************************************')
+51  Format('*                 Start integration              *')
+      betaH = 0.00_pr
+      Euler = Zero
+      Open(2048,File='Kern.log')
+2049  Format(I5,1x,F12.8,1x,F12.8,1x,F12.8)
+      Do IPointA = 1, NPoints(1)
+!      Do IPointY = 1, NPoints(2)
+!      Do IPG = istart+1, iend
+      Do IPointY = istart+1, iend
+	  Do IPG = 1, NPG
+	  	Write(*,*) 'Grid info', IPointA, IPointY, IPG
+	  	RotMat = MatMul(R1(IPointA,:,:), R2(IPointY,:,:))
+		RotMat = MatMul(RotMat, Rpg(IPG,:,:))
+        Call cpu_time(cput1)
+        Call system_clock(cnt1,clock_rate,clock_max)
+        Call EvalKernelSafe(HOne, HTwo, .False., Fock, ESCF, T1, T2, &
+                        eps0, lambda0, eps1, eps2, lambda1, lambda2, &
+                        RotMat, NOcc, NAO, NSO, &
+                        SP,TrunODE,TauZO)
+
+        Call cpu_time(cput2)
+        Call system_clock(cnt2,clock_rate,clock_max)
+        If(Showtime) Write(*,*) 'Grid real time = ', real(cnt2-cnt1)/real(clock_rate)
+        Do M = 0, ncisp-1
+        Do N = 0, ncisp-1
+		Do P = 1, ncipg
+		Do Q = 1, ncipg
+            if (SP == 2) then
+                Call Wigner(QJ,QJ,QJ,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
+            else
+                Call Wigner(QJ,M-QJ,N-QJ,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
+            end if
+            WeightTot = Weightsp(IPointA,IPointY) * Weightpg(IPG,P,Q)
+            WeightTot = wig * WeightTot * conjg(fsp(1+M)) * fsp(1+N)
+			WeightTot = WeightTot * conjg(fpg(P)) * fpg(Q)
+            iEOlap0= iEOlap0+ WeightTot * eps0
+            iOlap0 = iOlap0 + WeightTot * lambda0
+            iEOlapEx1= iEOlapEx1+ WeightTot * eps1
+            iOlapEx1 = iOlapEx1 + WeightTot * lambda1
+            iEOlapEx2= iEOlapEx2+ WeightTot * eps2
+            iOlapEx2 = iOlapEx2 + WeightTot * lambda2
+         End Do
+         End Do
+         End Do
+         End Do
+         flush(6)
+      EndDo
+      EndDo
+	  EndDo
+
+	  If (ncik == 2) then
+! conjugated Hamiltonian: conjugated integral blocks, conjugated Fock; the vvvv
+! ladder uses conjg(<ab||ef>) = <ef||ab> (Hermitian H2). No NSO^4 conjg() temporary.
+	  Call SetUpERIBlocks(HTwo,NOcc,NSO,WithT=(TrunODE==3),Conj=.True.)
+	  Do IPointA = 1, NPoints(1)
+	  Do IPointY = istart+1, iend
+	  Do IPG = 1, NPG
+	  	RotMat = MatMul(R1(IPointA,:,:), R2(IPointY,:,:))
+		RotMat = MatMul(RotMat, Rpg(IPG,:,:))
+		RotMat = MatMul(RotMat, Rk(2,:,:))
+		Call EvalKernelSafe(Conjg(HOne), HTwo, .True., Conjg(Fock), Conjg(ESCF), Conjg(T1), Conjg(T2), &
+						eps0, lambda0, eps1, eps2, lambda1, lambda2, &
+						RotMat, NOcc, NAO, NSO, &
+						SP,TrunODE,TauZO)
+		Do M = 0, ncisp-1
+		Do N = 0, ncisp-1
+		Do P = 1, ncipg
+		Do Q = 1, ncipg
+            if (SP == 2) then
+                Call Wigner(QJ,QJ,QJ,Roota(IPointA),Rootb(IPointY),Rooty(IPointA),wig)
+            else
+			    Call Wigner(QJ,M-QJ,N-QJ,Roota(IPointA),Rootb(IPointA),Rooty(IPointY),wig)
+            end if
+			WeightTot = Weightsp(IPointA,IPointY) * Weightpg(IPG,P,Q)
+			WeightTot = wig * WeightTot * conjg(fsp(1+M)) * fsp(1+N)
+			WeightTot = WeightTot * conjg(fpg(P)) * fpg(Q)
+			WeightTot = WeightTot * fk(2)
+			iEOlap0= iEOlap0+ WeightTot * eps0
+			iOlap0 = iOlap0 + WeightTot * lambda0
+			iEOlapEx1= iEOlapEx1+ WeightTot * eps1
+			iOlapEx1 = iOlapEx1 + WeightTot * lambda1
+			iEOlapEx2= iEOlapEx2+ WeightTot * eps2
+			iOlapEx2 = iOlapEx2 + WeightTot * lambda2
+		End Do
+		End Do
+		End Do
+		End Do
+	  End Do
+	  End Do
+	  End Do
+	  Call SetUpERIBlocks(HTwo,NOcc,NSO,WithT=(TrunODE==3),Conj=.False.)
+	  End If
+      Close(2048)
+70    Format('Finished grid points(beta):',1(I5))
+71    Format('Required grid points(beta):',1(I5))
+      if (SP == 2) then
+        Call ProjSz(iOlapEx1,iOlapEx2,NOcc,NAO,NSO)
+        Call ProjSz(iEOlapEx1,iEOlapEx2,NOcc,NAO,NSO)
+      end if
+! test real	  
+!	  iEOlap0 = cmplx(real(iEOlap0, kind=pr), zero, kind=pr)
+!	  iOlap0 = cmplx(real(iOlap0, kind=pr), zero, kind=pr)
+!	  iEOlapEx1 = cmplx(real(iEOlapEx1, kind=pr), zero, kind=pr)
+!	  iOlapEx1 = cmplx(real(iOlapEx1, kind=pr), zero, kind=pr)
+!	  iEOlapEx2 = cmplx(real(iEOlapEx2, kind=pr), zero, kind=pr)
+!	  iOlapEx2 = cmplx(real(iOlapEx2, kind=pr), zero, kind=pr)
+      Call MPI_reduce(iEOlap0,EOlap0,1,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(iOlap0,Olap0,1,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(iEOlapEx1,EOlapEx1,n1,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(iOlapEx1,OlapEx1,n1,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(iEOlapEx2,EOlapEx2,n2,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(iOlapEx2,OlapEx2,n2,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_Bcast(EOlap0,1,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(Olap0,1,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(EOlapEx1,n1,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(OlapEx1,n1,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(EOlapEx2,n2,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(OlapEx2,n2,mpi_dp,0,comm,ierr)
+! Restore iSy, iSz
+! Deallocate
+      DeAllocate(Rotmat, T1Loc, V1Del, V1Old, Fock,    &
+                 eps1, eps2, lambda1, lambda2,  &
+!                HOneT1, HTwoT1,      &
+!                EOlap1, EOlap2, Olap1, Olap2, &
+!                tmp1, tmp2, &
+                 Stat=IAlloc)
+      If(IAlloc /= 0) Stop "Could not deallocate in PbarHbarRes"
+!      Call ShutDownGridY
+!      Call ShutDownGridZ
+      Return
+      End Subroutine PbarHbarOlapSafe
+
+      Subroutine BuildSC_safe(t1,t2,c1,c2,NOcc,NSO,Ngrid,Npg,QJ,SP, &
+                         ncisp,ncipg,ncik,R1, R2, Rpg, Rk, &
+                         Roota,Rootb,Rooty,Weightsp,Weightpg,fsp,fpg,fk,comm)
+      Implicit None
+      Integer,            Intent(in)  :: NOcc, NSO, Ngrid(2), Npg, SP
+      Real(kind=pr),            Intent(in) :: QJ   ! total spin J, integer or half-integer
+      Integer,            Intent(in)  :: ncisp,ncipg,ncik
+      Real    (Kind=pr),  Intent(In)  :: Weightsp(:,:),Weightpg(Npg,ncipg,ncipg)
+      Real    (Kind=pr),  Intent(In)  :: Roota(:), Rootb(:), Rooty(:)
+      Complex (kind=pr),  Intent(in)  :: R1(:,:,:), R2(:,:,:)
+      Complex (Kind=pr),  Intent(in)  :: Rpg(npg,NSO,NSO), Rk(ncik,NSO,NSO)
+      Complex (kind=pr),  Intent(in)  :: fsp(ncisp),fpg(ncipg),fk(ncik)
+      Complex (Kind=pr),  Intent(in)  :: c1(NSO,NSO)
+      Complex (Kind=pr),  Intent(in)  :: c2(NSO,NSO,NSO,NSO)
+      Complex (Kind=pr),  Intent(out) :: t1(NOcc+1:NSO,NOcc)
+      Complex (Kind=pr),  Intent(out) :: t2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex (kind=pr),  allocatable :: R(:,:), a1(:,:)
+      Complex (kind=pr),  allocatable :: a2(:,:,:,:)   ! (v,o) and (v,v,o,o) blocks
+      Integer :: I, J, ni, nj, p ,q, m, n, d, il, iy, ipg, ik
+      integer, Intent(in) :: comm
+      integer :: rank, ntask, ierr, stat, n1, n2, mpi_dp
+      integer, allocatable :: workload(:)
+      integer :: istart, iend
+      Complex(kind=pr) :: s, ovlp, iovlp, it1(NOcc+1:NSO,NOcc)
+      Complex(kind=pr) :: it2(NOcc+1:NSO,NOcc+1:NSO,NOcc,NOcc)
+      Complex(kind=pr) :: w, wig
+      Allocate(a1(NSO-NOcc,NOcc),a2(NSO-NOcc,NSO-NOcc,NOcc,NOcc),R(NSO,NSO))
+      Call MPI_Comm_size(comm, ntask, ierr)
+      Call MPI_Comm_rank(comm, rank, ierr)
+      Call MPI_TYPE_CREATE_F90_COMPLEX(15, 307, mpi_dp, ierr)
+      n1 = (NSO-NOcc) * NOcc
+      n2 = n1 * n1
+      Allocate(workload(ntask))
+!      workload = Npg / ntask
+!      workload(1:mod(Npg,ntask)) = workload(1:mod(Npg,ntask)) + 1
+      workload = Ngrid(2) / ntask
+      workload(1:mod(Ngrid(2),ntask)) = workload(1:mod(Ngrid(2),ntask)) + 1
+      istart = sum(workload(1:rank))
+      iend = istart + workload(rank+1)
+      it1 = Zero
+      it2 = Zero
+      iovlp = Zero
+      t1 = Zero
+      t2 = Zero
+      ovlp = Zero
+      Do il = 1, Ngrid(1)
+!      Do iy = 1, Ngrid(2)
+!      Do ipg = 1+istart, iend
+      Do iy = 1+istart, iend
+      Do ipg = 1, Npg
+        R = MatMul(R1(il,:,:), R2(iy,:,:))
+        R = MatMul(R, Rpg(ipg,:,:))
+        Call EvalOvlpSafe(C1,C2,s,a1,a2,R, NOcc,NSO, SP, TauZO)
+        s = weightsp(il,iy) * s
+        a1 = a1 * weightsp(il,iy)   ! EvalOvlpSafe returns overlap-weighted kernels (see there)
+        a2 = a2 * weightsp(il,iy)
+        Do m = 0, ncisp-1
+        Do n = 0, ncisp-1
+            if (SP == 2) then
+                Call Wigner(QJ,QJ,QJ,Roota(il),Rootb(iy),Rooty(il),wig)
+            else
+                Call Wigner(QJ,M-QJ,N-QJ,Roota(il),Rootb(il),Rooty(iy),wig)
+            end if
+            Do p = 1, ncipg
+            Do q = 1, ncipg
+                w = weightpg(ipg,p,q) * wig
+                w = w * conjg(fsp(m+1)) * fsp(n+1)
+                w = w * conjg(fpg(p)) * fpg(q)
+                it1 = it1 + a1 * w
+                it2 = it2 + a2 * w
+                iovlp = iovlp + s * w
+            End Do
+            End Do
+        End Do
+        End Do
+      End Do
+      End Do
+      End Do
+      Deallocate(a1,a2,R)
+      Call MPI_reduce(iovlp,ovlp,1,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(it1,t1,n1,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_reduce(it2,t2,n2,mpi_dp,MPI_Sum,0,comm,ierr)
+      Call MPI_Bcast(ovlp,1,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(t1,n1,mpi_dp,0,comm,ierr)
+      Call MPI_Bcast(t2,n2,mpi_dp,0,comm,ierr)
+      t1 = t1 / ovlp
+      t2 = t2 / ovlp
+      End Subroutine BuildSC_safe
 
    End Module FPUCC

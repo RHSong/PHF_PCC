@@ -18,12 +18,17 @@ Inputs
 --guess-from  work folder of a converged run at a neighbouring geometry; its amplitudes, rotated into the
               present orbitals, start the solver
 --keep-chk    keep the Fortran restart files Chk_PUCC_* of an earlier run in --work (restart from them)
+--zero-overlap TAU
+              zero-overlap-safe kernels (pgcc_safe): on grid points where the overlap matrix has singular values
+              below TAU the Thouless step uses the deformed determinant (FPUCC::EvalKernelSafe)
 
 Environment (read by the Fortran code)
 --------------------------------------
 PCC_MOE_FILE  text file with NSO orbital energies in the CC orbital order (e.g. the PHF effective-Fock
               eigenvalues) used in the Broyden preconditioner instead of the bare-Fock diagonal
 PCC_CYCMAX    maximum number of Broyden cycles
+PCC_MIX       Broyden mixing parameter (default 0.5)
+PCC_ZO_TAU    zero-overlap threshold (set by --zero-overlap)
 
 Outputs (in --work)
 -------------------
@@ -71,6 +76,8 @@ def parse_args():
     parser.add_argument("--lean", type=int, default=1, help="1: lean_ints integral path, 0: dense path")
     parser.add_argument("--keep-chk", action="store_true", help="restart from Chk_PUCC_* in --work")
     parser.add_argument("--guess-from", default=None, help="work folder of a neighbouring geometry")
+    parser.add_argument("--zero-overlap", type=float, default=None, metavar="TAU",
+                        help="zero-overlap-safe kernels (pgcc_safe) with singular-value threshold TAU")
     args = parser.parse_args()
     args.fc = os.path.abspath(args.fc)
     args.mo = os.path.abspath(args.mo)
@@ -267,6 +274,18 @@ def write_guess_from_neighbour(guess_dir, mo_new, nocc):
                                                          np.linalg.norm(t2_old), np.linalg.norm(t2_new)), flush=True)
 
 
+def get_cc_solver(pcc_module, tau):
+    """PCCSD entry of the Fortran module: pgcc, or pgcc_safe (zero-overlap-safe kernels) when tau is given.
+
+    The Fortran code reads tau from the environment variable PCC_ZO_TAU.
+    """
+    if tau is None:
+        return pcc_module.pgcc
+    os.environ["PCC_ZO_TAU"] = repr(tau)
+    print("zero-overlap-safe kernels (pgcc_safe), tau =", tau, flush=True)
+    return pcc_module.pgcc_safe
+
+
 def count_iterations(output_path):
     """Number of Broyden iterations in the Fortran Output file (lines '* <iter> <energy> ...'); -1 if absent."""
     if not os.path.exists(output_path):
@@ -331,7 +350,8 @@ def main():
     print("module %s  NSO %d NOcc %d  SP %d grid %s  ncisp %d  npg %d"
           % (args.module, nso, nocc, args.sp, args.grid, ncisp, npg), flush=True)
     time_start = time.time()
-    pcc_out = pcc_module.pgcc(mo, h1_mo, h2_mo, nao, nocc, args.J, args.cmplx, args.sp, args.grid,
+    cc_solver = get_cc_solver(pcc_module, args.zero_overlap)
+    pcc_out = cc_solver(mo, h1_mo, h2_mo, nao, nocc, args.J, args.cmplx, args.sp, args.grid,
                               rot_alpha, rot_beta, rot_pg, rot_k, roota, rootb, rooty, weightsp, weightpg,
                               fsp, fpg, fk, args.nbroy, x_orth, x_orth_inv, fc.enuc, comm.py2f(),
                               nso, npg, ncisp, ncipg, ncik)
@@ -343,7 +363,7 @@ def main():
     result = {"mpi_ranks": mpisize, "module": args.module, "E_PCC": e_pcc.real, "E_imag": e_pcc.imag,
               "wall_s": wall_time, "iterations": count_iterations("Output"),
               "maxT1": float(np.max(np.abs(t1))), "maxT2": float(np.max(np.abs(t2))),
-              "NSO": nso, "NOcc": nocc, "grid": args.grid}
+              "NSO": nso, "NOcc": nocc, "grid": args.grid, "zero_overlap": args.zero_overlap}
     if mpirank == 0:
         json.dump(result, open("result.json", "w"), indent=1)
         pickle.dump([t1, t2], open("T1T2.p", "wb"), protocol=4)

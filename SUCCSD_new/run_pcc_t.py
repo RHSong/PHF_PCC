@@ -21,6 +21,8 @@ Inputs
 --pg 1    also apply the point-group projector stored in FC.p
 --inc     also evaluate the old per-grid (incoherent) (T) sum
 --epcc    PCCSD energy, to add the total energies to the result
+--zero-overlap TAU
+          zero-overlap-safe coherent (T) (pgcc_t_safe), deformed Thouless step below TAU
 
 Output
 ------
@@ -58,6 +60,8 @@ def parse_args():
     parser.add_argument("--inc", action="store_true", help="also the incoherent per-grid (T)")
     parser.add_argument("--epcc", type=float, default=None, help="PCCSD energy")
     parser.add_argument("--tag", default="", help="suffix of the result file")
+    parser.add_argument("--zero-overlap", type=float, default=None, metavar="TAU",
+                        help="zero-overlap-safe coherent (T) (pgcc_t_safe) with threshold TAU")
     args = parser.parse_args()
     args.fc = os.path.abspath(args.fc)
     args.mo = os.path.abspath(args.mo)
@@ -126,6 +130,15 @@ def get_orbital_energies(moe_option, fock_mo, nocc, moe_eff):
     return moe
 
 
+def get_t_solver(pcc_module, tau):
+    """(T) entry of the Fortran module: pgcc_t, or pgcc_t_safe (zero-overlap-safe) when tau is given (PCC_ZO_TAU)."""
+    if tau is None:
+        return pcc_module.pgcc_t
+    os.environ["PCC_ZO_TAU"] = repr(tau)
+    print("zero-overlap-safe coherent (T) (pgcc_t_safe), tau =", tau, flush=True)
+    return pcc_module.pgcc_t_safe
+
+
 def main():
     args = parse_args()
     sys.path.insert(0, args.libdir)
@@ -180,7 +193,8 @@ def main():
     comm = MPI.COMM_WORLD
     mpirank = comm.Get_rank()
     mpisize = comm.Get_size()
-    et_coh, et_inc, s00, max_zbar_dev = pcc_module.pgcc_t(h1_mo, h2_mo, nao, nocc, args.J, args.sp, args.grid,
+    t_solver = get_t_solver(pcc_module, args.zero_overlap)
+    et_coh, et_inc, s00, max_zbar_dev = t_solver(h1_mo, h2_mo, nao, nocc, args.J, args.sp, args.grid,
                                                           rot_alpha, rot_beta, rot_pg, roota, rootb, rooty,
                                                           weightsp, weightpg, fsp, fpg, t1, t2, moe,
                                                           int(args.inc), comm.py2f())
@@ -195,7 +209,7 @@ def main():
               "ET_incoherent": complex(et_inc).real if args.inc else None, "S00": s00.real, "S00_imag": s00.imag,
               "max_Zbar_minus_T": float(max_zbar_dev), "moe": moe_label,
               "newmo": os.path.basename(args.newmo) if args.newmo else None,
-              "sp": args.sp, "grid": args.grid, "pg": args.pg, "npg": len(rot_pg)}
+              "sp": args.sp, "grid": args.grid, "pg": args.pg, "npg": len(rot_pg), "zero_overlap": args.zero_overlap}
     if args.epcc is not None:
         result["E_PCCSD"] = args.epcc
         result["E_PCCSD_T_coherent"] = args.epcc + result["ET_coherent"]

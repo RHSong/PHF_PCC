@@ -37,7 +37,7 @@ REPO_ROOT = find_repo_root()
 sys.path.insert(0, os.path.join(REPO_ROOT, "SUCCSD_new"))
 sys.path.insert(0, os.path.join(REPO_ROOT, "PHF_UFC"))
 from run_pcc import (load_phf_solution, get_spin_projection, get_pg_projection, prepare_work_dir,
-                     write_guess_from_neighbour, count_iterations)
+                     write_guess_from_neighbour, get_cc_solver, count_iterations)
 from ao2mo import ao2mo
 from lean_ints import semicanon_from_fock
 from ufc_core import load_fc, hone_so, ghf_fock_so, dirac_mo_eri_so, spin_rot_list_so
@@ -60,6 +60,8 @@ def parse_args():
     parser.add_argument("--semicanon", type=int, default=1, help="1: semicanonicalize the bare Fock first")
     parser.add_argument("--keep-chk", action="store_true", help="restart from Chk_PUCC_* in --work")
     parser.add_argument("--guess-from", default=None, help="work folder of a neighbouring geometry")
+    parser.add_argument("--zero-overlap", type=float, default=None, metavar="TAU",
+                        help="zero-overlap-safe kernels (pgcc_safe) with singular-value threshold TAU")
     args = parser.parse_args()
     args.fc = os.path.abspath(args.fc)
     args.mo = os.path.abspath(args.mo)
@@ -173,7 +175,8 @@ def main():
     print("module %s  NSO %d NOcc %d  SP %d grid %s  ncisp %d  npg %d"
           % (args.module, nso, nocc, args.sp, args.grid, ncisp, npg), flush=True)
     time_start = time.time()
-    pcc_out = pcc_module.pgcc(mo, h1_mo, h2_mo, nao, nocc, args.J, args.cmplx, args.sp, args.grid,
+    cc_solver = get_cc_solver(pcc_module, args.zero_overlap)
+    pcc_out = cc_solver(mo, h1_mo, h2_mo, nao, nocc, args.J, args.cmplx, args.sp, args.grid,
                               rot_alpha, rot_beta, rot_pg, rot_k, roota, rootb, rooty, weightsp, weightpg,
                               fsp, fpg, fk, args.nbroy, x_orth, x_orth_inv, fc.enuc, comm.py2f(),
                               nso, npg, ncisp, ncipg, ncik)
@@ -185,7 +188,7 @@ def main():
     result = {"mpi_ranks": mpisize, "module": args.module, "E_PCC": e_pcc.real, "E_imag": e_pcc.imag,
               "wall_s": wall_time, "iterations": count_iterations("Output"),
               "maxT1": float(np.max(np.abs(t1))), "maxT2": float(np.max(np.abs(t2))),
-              "NSO": nso, "NOcc": nocc, "grid": args.grid}
+              "NSO": nso, "NOcc": nocc, "grid": args.grid, "zero_overlap": args.zero_overlap}
     if mpirank == 0:
         json.dump(result, open("result.json", "w"), indent=1)
         pickle.dump([t1, t2], open("T1T2.p", "wb"), protocol=4)
