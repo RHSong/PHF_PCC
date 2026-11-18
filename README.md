@@ -44,6 +44,14 @@ before starting the next step, rather than chaining all steps in one job:
 ## Results
 
 `results/scan_data.xlsx`: the data of the Cr2, N2 and C2 scans and of the 3d metal-oxide table (sheets Cr2, N2, C2, MO).
+Plot scripts (yeplot style; run inside `results/`, the PDFs are written there). Each reads one sheet of
+`scan_data.xlsx`, exported as CSV:
+
+| script | input | figures |
+|---|---|---|
+| `plot_n2.py` | `N2.csv` | `N2_DZ_T_PHF.pdf`, `N2_DZ_plusT_PHF.pdf` |
+| `plot_c2.py` | `C2.csv` | `C2_ccpvdz_T_PHF.pdf`, `C2_ccpvdz_plusT_PHF.pdf` |
+| `plot_cr2.py` | `Cr2.csv` | `Cr2_DZ_SG_T.pdf`, `Cr2_DZ_SG_plusT.pdf` |
 
 ## Update: open shells, point group, effective-Fock preconditioner, UHF frozen core
 
