@@ -1,115 +1,197 @@
-"""[PHF_UFC copy] Drive a PCC module on a saved PHF solution with FC.p or FC_SO.p (spin-orbital frozen core).
-python run_pcc.py --module PUCC_base --libdir ../../SUCCSD_base --fc FC.p --mo SGHF.p --sp 2 --grid 1 8 --work run_dir
-Writes run_dir/result.json with energy, wall time, iterations, max residual; Fortran output files land in run_dir."""
-import sys, os, time, json, argparse, pickle
+"""PCCSD on a saved PHF solution with the UHF frozen core (FC_SO.p of ufc_core.py) or a standard FC.p.
+
+Same options and outputs as SUCCSD_new/run_pcc.py, which provides the shared steps (PHF solution, projectors,
+work folder, restart guess, iteration count). Only the integrals differ: with FC_SO.p the one-electron operator is
+spin dependent (h_alpha, h_beta), the two-electron integrals are kept per spin block, and the spin rotations are
+transformed to the alpha / beta active orbital sets (ufc_core.py). A standard FC.p gives the same result as
+run_pcc.py.
+
+Usage
+-----
+    PCC_MOE_FILE=$PWD/moe.txt python PHF_UFC/run_pcc_ufc.py --module PUCC_X2 --libdir SUCCSD_new \
+        --fc FC_SO.p --mo SGHFFock.p --sp 2 --grid 1 8 --semicanon 0 --work pcc
+
+Run it from the repository (PHF_UFC/run_pcc_ufc.py) or from a case folder that holds a copy of the repository
+layout; it needs SUCCSD_new/run_pcc.py and PHF_UFC/ufc_core.py.
+"""
+import argparse
+import json
+import os
+import pickle
+import sys
+import time
+
 import numpy as np
-ap = argparse.ArgumentParser()
-ap.add_argument("--module", required=True); ap.add_argument("--libdir", required=True)
-ap.add_argument("--fc", required=True); ap.add_argument("--mo", required=True)
-ap.add_argument("--sp", type=int, default=2); ap.add_argument("--grid", type=int, nargs=2, default=[1, 8])
-ap.add_argument("--J", type=float, default=None); ap.add_argument("--cmplx", type=int, default=0)   # J: total spin, default S from FC.p
-ap.add_argument("--work", required=True); ap.add_argument("--nbroy", type=int, default=30)
-ap.add_argument("--semicanon", type=int, default=1)
-ap.add_argument("--pg", type=int, default=0)
-ap.add_argument("--nullvec", default=None)   # nullvec.txt (nullvec.py): run the null-space-projected solver (pgcc_null) with these directions
-ap.add_argument("--lean", type=int, default=1)   # 1: lean_ints integral path (needed for Cr2), 0: old dense path
-ap.add_argument("--keep-chk", action="store_true")   # keep Chk_PUCC_* in the work dir: the Fortran code restarts from them
-ap.add_argument("--guess-from", default=None)   # work dir of a converged run at a neighbouring geometry (MO_used.p, T1T2.p,
-                                                # result.json): its amplitudes, mapped to this run's orbitals, start the solver
-args = ap.parse_args()
-if args.guess_from: args.guess_from = os.path.abspath(args.guess_from)
-if args.nullvec: args.nullvec = os.path.abspath(args.nullvec)
-for k in ("fc", "mo", "libdir", "work"): setattr(args, k, os.path.abspath(getattr(args, k)))
-here = os.path.dirname(os.path.abspath(__file__))
-# repo root (lebedev_*.txt for the SP = 1 grids live there): this file may run from PHF_UFC/ or from a copy in a case folder
-root = next((d for d in (os.path.dirname(here), here, os.getcwd(), os.path.expanduser('~/PHF_PCC')) if os.path.exists(os.path.join(d, 'lebedev_003.txt'))), os.path.dirname(here))
-sys.path.insert(0, root); sys.path.insert(0, here); sys.path.insert(0, os.path.abspath(args.libdir))
+
+
+def find_repo_root():
+    """Repository root: the folder with SUCCSD_new/run_pcc.py, searched next to and above this file and in the cwd."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    for candidate in (os.path.dirname(here), here, os.getcwd()):
+        if os.path.exists(os.path.join(candidate, "SUCCSD_new", "run_pcc.py")):
+            return candidate
+    sys.exit("run_pcc_ufc.py: cannot find the repository (SUCCSD_new/run_pcc.py); run it from PHF_UFC/")
+
+
+REPO_ROOT = find_repo_root()
+sys.path.insert(0, os.path.join(REPO_ROOT, "SUCCSD_new"))
+sys.path.insert(0, os.path.join(REPO_ROOT, "PHF_UFC"))
+from run_pcc import (load_phf_solution, get_spin_projection, get_pg_projection, prepare_work_dir,
+                     write_guess_from_neighbour, count_iterations)
 from ao2mo import ao2mo
-from makeH import Mulliken2Dirac, SemiCanon
-from Spin_Proj import Spin_Proj
-mod = __import__(args.module)
-from ufc_core import load_fc, hone_so, ghf_fock_so, dirac_mo_eri_so, spin_rot_list_so
-_fc = load_fc(args.fc)          # FC.p (standard, spatial) or FC_SO.p (spin-orbital frozen core): uniform view
-Enuc, ncipg, weightpg, Rpg, NAO, NOccSO, Spin2 = _fc['Enuc'], _fc['ncipg'], _fc['weightpg'], _fc['Rpg'], _fc['NAO'], _fc['NOccSO'], _fc['Spin2']
-print("integrals:", "spin-orbital frozen core (FC_SO)" if _fc['so'] else "spatial (FC.p)", flush=True)
-NOccA = (NOccSO + Spin2) // 2
-if args.J is None: args.J = Spin2 / 2
-if args.sp == 2 and abs(args.J - Spin2 / 2) > 1e-8: sys.exit("SUHF-based PCC needs J = (n_alpha - n_beta)/2")
-d = pickle.load(open(args.mo, "rb"))
-if isinstance(d, (list, tuple)) and len(d) >= 4: MO, fsp, fpg, fk = d[:4]
-else: MO = d[0] if isinstance(d, (list, tuple)) else d; fsp = fpg = fk = None
-NSO = int(2 * NAO)
-cwd0 = os.getcwd(); os.chdir(root)   # SpinSymm reads lebedev_*.txt relative to the repo root
-ncisp, roota, rootb, rooty, weightsp, R1, R2 = Spin_Proj(args.sp, args.grid, NAO, NSO, args.J)
-os.chdir(cwd0)
-R1 = spin_rot_list_so(R1, _fc['O_ab'], NAO); R2 = spin_rot_list_so(R2, _fc['O_ab'], NAO)   # identity O_ab for FC.p
-if args.pg:
-    Rpg = np.array(Rpg, dtype=complex); weightpg = np.array(weightpg); npg = len(weightpg)
-    fpg = np.ones(ncipg, dtype=complex) if fpg is None else np.array(fpg, dtype=complex).reshape(ncipg)
-else:
-    ncipg = 1; weightpg = np.ones([1, 1, 1]); Rpg = np.zeros([1, NSO, NSO], dtype=complex); Rpg[0] = np.eye(NSO)
-    npg = 1; fpg = np.ones(1, dtype=complex)
-ncik = 1
-if fsp is None: fsp = np.ones(ncisp, dtype=complex)
-fk = np.ones(1, dtype=complex)
-HOne = hone_so(_fc['h_a'], _fc['h_b'])
-MO = np.array(MO, dtype=complex)
-# one complex NSO^4 array only (the final <pq||rs>, Fortran order): ufc_core.dirac_mo_eri_so (= lean_ints for FC.p)
 from lean_ints import semicanon_from_fock
-ea, eab, eb = _fc['eri_aa'], _fc['eri_ab'], _fc['eri_bb']
-if args.semicanon: MO = semicanon_from_fock(ghf_fock_so(_fc['h_a'], _fc['h_b'], ea, eab, eb, MO[:, :NOccSO], NAO), MO, NOccSO, args.sp, NOccA)
-H1 = ao2mo(HOne, MO, 2); H2 = dirac_mo_eri_so(ea, eab, eb, MO, NAO); del ea, eab, eb
-for i in range(args.grid[0]): R1[i] = ao2mo(R1[i], MO, 2)
-for i in range(args.grid[1]): R2[i] = ao2mo(R2[i], MO, 2)
-for i in range(npg): Rpg[i] = ao2mo(Rpg[i], MO, 2)
-Rk = np.zeros([1, NSO, NSO], dtype=complex); Rk[0] = np.eye(NSO)
-X = np.eye(NSO, dtype=complex); Xinv = np.eye(NSO, dtype=complex)
-from mpi4py import MPI
-fcomm = MPI.COMM_WORLD.py2f()
-comm = MPI.COMM_WORLD; mpirank = comm.Get_rank(); mpisize = comm.Get_size()
-# each rank runs the Fortran driver in its own folder (it writes Output/Chk files on every rank);
-# rank 0 keeps the top-level work folder, which holds result.json, T1T2.p and MO_used.p
-wd = args.work if mpirank == 0 else os.path.join(args.work, "rank%d" % mpirank)
-os.makedirs(wd, exist_ok=True); os.chdir(wd)
-for f in (["Output", "RKstat", "Kern.log"] if (args.keep_chk or args.guess_from) else ["Chk_PUCC_Ene", "Chk_PUCC_T1", "Chk_PUCC_T2", "Output", "RKstat", "Kern.log"]):
-    if os.path.exists(f): os.remove(f)
-if args.guess_from:
-    # Amplitudes of a neighbouring geometry in its own (semicanonical) orbitals C_old; this run uses C_new, both expanded
-    # in the frozen-core orbital basis, which orbital following keeps aligned between geometries.  With
-    # S = C_new^H C_old (old orbital q = sum_p new p S_pq) the excitation operator becomes
-    #   t'(b,j) = sum_ai S_vv(b,a) t(a,i) conj(S_oo(j,i)),  t'(cd,kl) = sum S_vv S_vv t(ab,ij) conj(S_oo) conj(S_oo);
-    # the occupied-virtual blocks of S are dropped.  Written as the Fortran restart files Chk_PUCC_*.
-    from scipy.io import FortranFile
-    Cold = np.array(pickle.load(open(os.path.join(args.guess_from, "MO_used.p"), "rb"))[0], dtype=complex)
-    T1o, T2o = [np.array(x, dtype=complex) for x in pickle.load(open(os.path.join(args.guess_from, "T1T2.p"), "rb"))]
-    Eold = json.load(open(os.path.join(args.guess_from, "result.json")))["E_PCC"]
-    no = NOccSO; S = MO.conj().T @ Cold; Soo = S[:no, :no]; Svv = S[no:, no:]
-    T1g = Svv @ T1o @ Soo.conj().T
-    T2g = np.tensordot(Svv, T2o, axes=(1, 0)); T2g = np.tensordot(Svv, T2g, axes=(1, 1)).transpose(1, 0, 2, 3)
-    T2g = np.tensordot(T2g, Soo.conj(), axes=(2, 1)); T2g = np.tensordot(T2g, Soo.conj(), axes=(2, 1))
-    for name, arr in (("Chk_PUCC_Ene", np.array([Eold + 0j])), ("Chk_PUCC_T1", T1g), ("Chk_PUCC_T2", T2g)):
-        f = FortranFile(name, "w"); f.write_record(np.asfortranarray(arr).ravel(order="F")); f.close()
-    sv = lambda A: np.linalg.svd(A, compute_uv=False)
-    print("guess from %s: E_old %.8f  occ overlap sv %.5f..%.5f  vir overlap sv %.5f..%.5f  max|T1| %.4f -> %.4f  |T2| %.5f -> %.5f"
-          % (args.guess_from, Eold, sv(Soo).min(), sv(Soo).max(), sv(Svv).min(), sv(Svv).max(), np.abs(T1o).max(),
-             np.abs(T1g).max(), np.linalg.norm(T2o), np.linalg.norm(T2g)), flush=True)
-    del T2o, T2g
-print("module %s  NSO %d NOcc %d  SP %d grid %s  ncisp %d  npg %d" % (args.module, NSO, NOccSO, args.sp, args.grid, ncisp, npg), flush=True)
-t0 = time.time()
-if os.path.exists("nullvec.txt"): os.remove("nullvec.txt")
-if args.nullvec:
-    import shutil; shutil.copy(args.nullvec, "nullvec.txt"); driver = mod.pgcc_null
-    print("null-space-projected solver (pgcc_null) with", args.nullvec, flush=True)
-else:
-    driver = mod.pgcc
-out = driver(MO, H1, H2, NAO, NOccSO, args.J, args.cmplx, args.sp, args.grid, R1, R2, Rpg, Rk, roota, rootb, rooty,
-             weightsp, weightpg, fsp, fpg, fk, args.nbroy, X, Xinv, Enuc, fcomm, NSO, npg, ncisp, ncipg, ncik)
-dt = time.time() - t0
-E = complex(out[0]); T1 = out[2]; T2 = out[3]
-niter = sum(1 for l in open("Output") if l.strip().startswith("*") and "." in l and l.split()[1].replace("-", "").replace(".", "").isdigit()) if os.path.exists("Output") else -1
-res = {"mpi_ranks": mpisize, "module": args.module, "E_PCC": E.real, "E_imag": E.imag, "wall_s": dt, "iterations": niter,
-       "maxT1": float(np.max(np.abs(T1))), "maxT2": float(np.max(np.abs(T2))), "NSO": int(NSO), "NOcc": int(NOccSO), "grid": args.grid}
-if mpirank == 0: json.dump(res, open("result.json", "w"), indent=1)
-if mpirank == 0: pickle.dump([T1, T2], open("T1T2.p", "wb"), protocol=4)
-if mpirank == 0: pickle.dump([MO, fsp, fpg, fk], open("MO_used.p", "wb"))   # exact basis of T1/T2 (after SemiCanon)
-print("RESULT", json.dumps(res), flush=True)
+from ufc_core import load_fc, hone_so, ghf_fock_so, dirac_mo_eri_so, spin_rot_list_so
+
+
+def parse_args():
+    """Command-line options (as run_pcc.py, without --lean); file and folder paths are made absolute."""
+    parser = argparse.ArgumentParser(description="PCCSD on a saved PHF solution, UHF frozen core")
+    parser.add_argument("--module", required=True, help="f2py module name, e.g. PUCC_X2")
+    parser.add_argument("--libdir", required=True, help="folder that holds the module")
+    parser.add_argument("--fc", required=True, help="FC_SO.p (or FC.p)")
+    parser.add_argument("--mo", required=True, help="PHF solution (SGHF.p, SGHFFock.p)")
+    parser.add_argument("--sp", type=int, default=2, help="spin projection: 0 none, 1 SGHF, 2 SUHF, 3 Sz")
+    parser.add_argument("--grid", type=int, nargs=2, default=[1, 8], help="spin-projection grid")
+    parser.add_argument("--J", type=float, default=None, help="total spin (default from the FC file)")
+    parser.add_argument("--cmplx", type=int, default=0, help="complex-conjugation projection (CmplxConj)")
+    parser.add_argument("--pg", type=int, default=0, help="1: point-group projection from the FC file")
+    parser.add_argument("--work", required=True, help="work folder")
+    parser.add_argument("--nbroy", type=int, default=30, help="Broyden history length")
+    parser.add_argument("--semicanon", type=int, default=1, help="1: semicanonicalize the bare Fock first")
+    parser.add_argument("--keep-chk", action="store_true", help="restart from Chk_PUCC_* in --work")
+    parser.add_argument("--guess-from", default=None, help="work folder of a neighbouring geometry")
+    args = parser.parse_args()
+    args.fc = os.path.abspath(args.fc)
+    args.mo = os.path.abspath(args.mo)
+    args.libdir = os.path.abspath(args.libdir)
+    args.work = os.path.abspath(args.work)
+    if args.guess_from:
+        args.guess_from = os.path.abspath(args.guess_from)
+    return args
+
+
+class UfcData:
+    """Frozen-core Hamiltonian from FC_SO.p (or FC.p) via ufc_core.load_fc.
+
+    Attributes:
+        enuc: nuclear repulsion plus frozen-core energy
+        h_a, h_b: active one-electron integrals of the alpha and beta orbital sets
+        eri_aa, eri_ab, eri_bb: Mulliken spin-block integrals (pq|rs)
+        ovlp_ab: spatial overlap <p^alpha|q^beta> of the two active sets (identity for FC.p)
+        ncipg, weightpg, rot_pg: point-group projector
+        nao, nocc, spin2: active orbitals per spin, occupied spin orbitals, 2S
+        is_so: True for FC_SO.p
+    """
+
+    def __init__(self, path):
+        fc = load_fc(path)
+        self.enuc = fc["Enuc"]
+        self.h_a = fc["h_a"]
+        self.h_b = fc["h_b"]
+        self.eri_aa = fc["eri_aa"]
+        self.eri_ab = fc["eri_ab"]
+        self.eri_bb = fc["eri_bb"]
+        self.ovlp_ab = fc["O_ab"]
+        self.ncipg = fc["ncipg"]
+        self.weightpg = fc["weightpg"]
+        self.rot_pg = fc["Rpg"]
+        self.nao = int(fc["NAO"])
+        self.nocc = int(fc["NOccSO"])
+        self.spin2 = int(fc["Spin2"])
+        self.is_so = fc["so"]
+
+
+def make_mo_integrals_so(fc, mo, nocc_alpha, sp, semicanon):
+    """One- and two-electron integrals in the CC orbital basis from the spin-block integrals.
+
+    Returns:
+        mo: the CC orbitals (semicanonical in the bare Fock if semicanon), h1_mo, h2_mo (<pq||rs>, Fortran order)
+    """
+    nao = fc.nao
+    nocc = fc.nocc
+    if semicanon:
+        fock_so = ghf_fock_so(fc.h_a, fc.h_b, fc.eri_aa, fc.eri_ab, fc.eri_bb, mo[:, :nocc], nao)
+        mo = semicanon_from_fock(fock_so, mo, nocc, sp, nocc_alpha)
+    h1_mo = ao2mo(hone_so(fc.h_a, fc.h_b), mo, 2)
+    h2_mo = dirac_mo_eri_so(fc.eri_aa, fc.eri_ab, fc.eri_bb, mo, nao)
+    return mo, h1_mo, h2_mo
+
+
+def main():
+    args = parse_args()
+    sys.path.insert(0, args.libdir)
+    pcc_module = __import__(args.module)
+
+    # frozen-core integrals and the PHF reference
+    fc = UfcData(args.fc)
+    if fc.is_so:
+        print("integrals: spin-orbital frozen core (FC_SO)", flush=True)
+    else:
+        print("integrals: spatial (FC.p)", flush=True)
+    nao = fc.nao
+    nso = 2 * nao
+    nocc = fc.nocc
+    nocc_alpha = (nocc + fc.spin2) // 2
+    if args.J is None:
+        args.J = fc.spin2 / 2
+    if args.sp == 2 and abs(args.J - fc.spin2 / 2) > 1e-8:
+        sys.exit("SUHF-based PCC needs J = (n_alpha - n_beta)/2")
+    mo, fsp, fpg_phf, fk = load_phf_solution(args.mo)
+
+    # projectors: spin rotations transformed to the alpha / beta orbital sets, point group, Rk = 1
+    ncisp, roota, rootb, rooty, weightsp, rot_alpha, rot_beta = get_spin_projection(args.sp, args.grid, nao, args.J)
+    rot_alpha = spin_rot_list_so(rot_alpha, fc.ovlp_ab, nao)
+    rot_beta = spin_rot_list_so(rot_beta, fc.ovlp_ab, nao)
+    if fsp is None:
+        fsp = np.ones(ncisp, dtype=complex)
+    ncipg, weightpg, rot_pg, fpg = get_pg_projection(fc, args.pg, fpg_phf, nso)
+    npg = len(weightpg)
+    ncik = 1
+    fk = np.ones(1, dtype=complex)
+    rot_k = np.zeros([1, nso, nso], dtype=complex)
+    rot_k[0] = np.eye(nso)
+
+    # integrals and projection operators in the CC orbital basis
+    mo, h1_mo, h2_mo = make_mo_integrals_so(fc, mo, nocc_alpha, args.sp, args.semicanon)
+    for i in range(args.grid[0]):
+        rot_alpha[i] = ao2mo(rot_alpha[i], mo, 2)
+    for i in range(args.grid[1]):
+        rot_beta[i] = ao2mo(rot_beta[i], mo, 2)
+    for i in range(npg):
+        rot_pg[i] = ao2mo(rot_pg[i], mo, 2)
+    x_orth = np.eye(nso, dtype=complex)
+    x_orth_inv = np.eye(nso, dtype=complex)
+
+    from mpi4py import MPI
+    comm = MPI.COMM_WORLD
+    mpirank = comm.Get_rank()
+    mpisize = comm.Get_size()
+    prepare_work_dir(args.work, mpirank, args.keep_chk or args.guess_from)
+    if args.guess_from:
+        write_guess_from_neighbour(args.guess_from, mo, nocc)
+
+    print("module %s  NSO %d NOcc %d  SP %d grid %s  ncisp %d  npg %d"
+          % (args.module, nso, nocc, args.sp, args.grid, ncisp, npg), flush=True)
+    time_start = time.time()
+    pcc_out = pcc_module.pgcc(mo, h1_mo, h2_mo, nao, nocc, args.J, args.cmplx, args.sp, args.grid,
+                              rot_alpha, rot_beta, rot_pg, rot_k, roota, rootb, rooty, weightsp, weightpg,
+                              fsp, fpg, fk, args.nbroy, x_orth, x_orth_inv, fc.enuc, comm.py2f(),
+                              nso, npg, ncisp, ncipg, ncik)
+    wall_time = time.time() - time_start
+    e_pcc = complex(pcc_out[0])
+    t1 = pcc_out[2]
+    t2 = pcc_out[3]
+
+    result = {"mpi_ranks": mpisize, "module": args.module, "E_PCC": e_pcc.real, "E_imag": e_pcc.imag,
+              "wall_s": wall_time, "iterations": count_iterations("Output"),
+              "maxT1": float(np.max(np.abs(t1))), "maxT2": float(np.max(np.abs(t2))),
+              "NSO": nso, "NOcc": nocc, "grid": args.grid}
+    if mpirank == 0:
+        json.dump(result, open("result.json", "w"), indent=1)
+        pickle.dump([t1, t2], open("T1T2.p", "wb"), protocol=4)
+        pickle.dump([mo, fsp, fpg, fk], open("MO_used.p", "wb"))
+    print("RESULT", json.dumps(result), flush=True)
+
+
+if __name__ == "__main__":
+    main()
